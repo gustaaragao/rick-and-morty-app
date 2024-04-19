@@ -1,5 +1,5 @@
 <template>
-  Hello
+  Hello, Tests View
 </template>
 
 <script setup>
