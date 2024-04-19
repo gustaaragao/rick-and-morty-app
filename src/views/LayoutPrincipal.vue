@@ -15,8 +15,7 @@
     <!--begin: Section Characters-->
     <section class="grid grid-cols-3 gap-4 px-10">
       <div v-for="character in characters" :key="character?.id">
-        <VisualizerCharacter class="" :character="character">
-        </VisualizerCharacter>
+        <VisualizerCharacter class="" :character="character"> </VisualizerCharacter>
       </div>
     </section>
     <!--end: Section Characters-->
@@ -24,24 +23,24 @@
 </template>
 
 <script setup>
-import axios from "axios";
-import { onUpdated, ref } from "vue";
+import axios from 'axios'
+import { onUpdated, ref } from 'vue'
 
-import SearchInput from "@/components/inputs/SearchInput.vue";
-import VisualizerCharacter from "@/components/visualizer/VisualizerCharacter.vue";
-import TopBar from "@/components/TopBar.vue";
+import SearchInput from '@/components/inputs/SearchInput.vue'
+import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
+import TopBar from '@/components/TopBar.vue'
 
-const characters = ref([]);
+const characters = ref([])
 
-const searchedCharacter = ref("");
+const searchedCharacter = ref('')
 
 axios.get(`character?name=${searchedCharacter.value}`).then((response) => {
-  characters.value = response.data.results;
-});
+  characters.value = response.data.results
+})
 
 onUpdated(() => {
   axios.get(`character?name=${searchedCharacter.value}`).then((response) => {
-    characters.value = response.data.results;
-  });
-});
+    characters.value = response.data.results
+  })
+})
 </script>
