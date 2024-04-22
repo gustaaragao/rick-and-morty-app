@@ -3,7 +3,7 @@
     <label v-if="props.label" :style="{ color: defaultColorHex }" class="text-lg">
       {{ props.label }}
     </label>
-    <!--begin: Text Input-->
+    <!--begin: Base Input -->
     <div
       class="border-2 rounded-xl w-fit flex shadow-md mt-1"
       :style="{ 'border-color': defaultColorHex, color: defaultColorHex }"
@@ -28,7 +28,7 @@
         @input="checkInput()"
       />
     </div>
-    <!--end: Text Input-->
+    <!--end: Base Input -->
   </div>
 </template>
 
