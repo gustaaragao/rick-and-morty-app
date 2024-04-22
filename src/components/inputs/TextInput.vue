@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label v-if="label" :style="{ color: defaultColorHex }" class="text-lg">
-      {{ label }}
+    <label v-if="props.label" :style="{ color: defaultColorHex }" class="text-lg">
+      {{ props.label }}
     </label>
     <!--begin: Text Input-->
     <div
@@ -15,7 +15,18 @@
         </i>
       </div>
       <!--end: Icon-->
-      <input type="text" id="input" class="rounded-xl focus:outline-none pl-2 py-1" />
+      <!-- begin: Placeholder -->
+      <div v-if="props.placeholder" class="absolute opacity-65 pl-9 pt-1">
+        <span v-show="showPlaceholder">{{ props.placeholder }}</span>
+      </div>
+      <!-- end: Placeholder -->
+      <input
+        :type="props.type"
+        id="input"
+        class="rounded-xl focus:outline-none pl-2 py-1 bg-transparent"
+        v-model="inputValue"
+        @input="checkInput()"
+      />
     </div>
     <!--end: Text Input-->
   </div>
@@ -26,25 +37,35 @@ import colors from 'tailwindcss/colors'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
+  type: {
+    type: String,
+    default: 'text'
+  },
   label: {
-    type: {
-      type: [String, Boolean],
-      default: false
-    }
+    type: String,
+    default: ''
   },
   defaultColor: {
     type: String,
-    default: 'pink-400'
+    default: 'gray-400'
   },
   focusColor: {
     type: String,
     default: ''
   },
   placeholder: {
-    type: [String, Boolean],
-    default: false
+    type: String,
+    default: ''
   }
 })
+
+const inputValue = ref('')
+
+const showPlaceholder = ref(true)
+
+const checkInput = () => {
+  showPlaceholder.value = inputValue.value.trim() === ''
+}
 
 const transformToHex = (defaultColor) => {
   if (defaultColor[0] === '#') {
@@ -72,8 +93,5 @@ onMounted(() => {
   const inputElement = document.getElementById('input')
 
   inputElement.classList.add(`placeholder-${props.defaultColor}`)
-
-  console.log('Default: ', defaultColorHex.value)
-  console.log('Focus: ', focusColorHex.value)
 })
 </script>
