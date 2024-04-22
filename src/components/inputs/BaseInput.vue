@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="group">
     <label v-if="props.label" :style="{ color: defaultColorHex }" class="text-lg">
       {{ props.label }}
     </label>
     <!--begin: Base Input -->
     <div
       class="border-2 rounded-xl w-fit flex shadow-md mt-1"
-      :style="{ 'border-color': defaultColorHex, color: defaultColorHex }"
+      :style="{ 'border-color': defaultColorHex, 'color': defaultColorHex }"
     >
       <!--begin: Icon-->
       <div class="flex items-center justify-center pl-1">
-        <i class="scale-[0.8]" :style="{ color: defaultColorHex }">
+        <i class="scale-[0.8]">
           <slot name="icon"></slot>
         </i>
       </div>
@@ -22,8 +22,7 @@
       <!-- end: Placeholder -->
       <input
         :type="props.type"
-        id="input"
-        class="rounded-xl focus:outline-none pl-2 py-1 bg-transparent"
+        class="rounded-xl focus:outline-none pl-2 py-1 bg-transparent group-focus:border-violet-400"
         v-model="inputValue"
         @input="checkInput()"
       />
@@ -89,9 +88,5 @@ const focusColorHex = ref('')
 onMounted(() => {
   defaultColorHex.value = transformToHex(props.defaultColor)
   focusColorHex.value = transformToHex(props.focusColor)
-
-  const inputElement = document.getElementById('input')
-
-  inputElement.classList.add(`placeholder-${props.defaultColor}`)
 })
 </script>

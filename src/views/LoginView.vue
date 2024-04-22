@@ -5,7 +5,7 @@
         <UserRound />
       </template>
     </BaseInput>
-    <BaseInput type="password" focusColor="violet-400">
+    <BaseInput type="password" label="Password" placeholder="Password" focusColor="violet-400">
       <template #icon>
         <KeyRound />
       </template>
