@@ -1,11 +1,11 @@
 <template>
   <div class="grid gap-5 pl-4 pt-4">
-    <TextInput placeholder="User" focusColor="violet-400">
+    <TextInput label="User" placeholder="User" focusColor="violet-400">
       <template #icon>
         <UserRound />
       </template>
     </TextInput>
-    <TextInput type="password" placeholder="Password">
+    <TextInput type="password" label="Password" placeholder="Password" focusColor="violet-400">
       <template #icon>
         <KeyRound />
       </template>
