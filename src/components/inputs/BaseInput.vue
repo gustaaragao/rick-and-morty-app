@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <div v-if="props.label" class="text-lg" ref="divLabel">
       <label>
         {{ props.label }}
@@ -24,6 +24,17 @@
         v-model="inputValue" @input="checkInput()" @focus="changeColorBaseInput(focusColorHex)"
         @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
+      <!-- begin: Toggle Password Visibility -->
+      <div v-if="props.type === 'password'" class="absolute cursor-pointer scale-[0.9]"
+        @click="showPassword = !showPassword">
+        <i v-show="!showPassword">
+          <Eye />
+        </i>
+        <i v-show="showPassword">
+          <EyeOff />
+        </i>
+      </div>
+      <!-- end: Toggle Password Visibility -->
     </div>
     <!--end: container Base Input -->
   </div>
@@ -32,6 +43,7 @@
 <script setup>
 import colors from 'tailwindcss/colors'
 import { onMounted, ref } from 'vue'
+import { Eye, EyeOff } from 'lucide-vue-next';
 
 const props = defineProps({
   type: {
@@ -61,6 +73,11 @@ const focusColorHex = ref('')
 
 const containerBaseInput = ref(null)
 const divLabel = ref(null)
+
+const inputValue = ref('')
+
+const showPlaceholder = ref(true)
+const showPassword = ref(false)
 
 onMounted(() => {
   defaultColorHex.value = transformToHex(props.defaultColor)
@@ -95,10 +112,6 @@ const transformToHex = (defaultColor) => {
   }
   return colors[colorName]
 }
-
-const inputValue = ref('')
-
-const showPlaceholder = ref(true)
 
 const checkInput = () => {
   showPlaceholder.value = inputValue.value.trim() === ''
