@@ -49,9 +49,9 @@
 </template>
 
 <script setup>
-import colors from 'tailwindcss/colors'
 import { onMounted, ref } from 'vue'
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
+import { transformToHexColor } from '@/utils/transformToHexColor.js'
 
 const props = defineProps({
   type: {
@@ -95,8 +95,8 @@ const showPlaceholder = ref(true)
 const showPasswordBoolean = ref(false)
 
 onMounted(() => {
-  defaultColorHex.value = transformToHex(props.defaultColor)
-  focusColorHex.value = transformToHex(props.focusColor)
+  defaultColorHex.value = transformToHexColor(props.defaultColor)
+  focusColorHex.value = transformToHexColor(props.focusColor)
 
   containerBaseInput.value.style.borderColor = defaultColorHex.value
   containerBaseInput.value.style.color = defaultColorHex.value
@@ -111,22 +111,7 @@ const changeColorBaseInput = (finalColorHex) => {
   divLabel.value.style.color = finalColorHex
 }
 
-const transformToHex = (defaultColor) => {
-  if (defaultColor[0] === '#') {
-    return
-  }
 
-  const defaultColorArray = defaultColor.split('-')
-
-  const colorName = defaultColorArray[0]
-
-  if (typeof colors[colorName] === 'object') {
-    const colorGradient = defaultColorArray[1]
-
-    return colors[colorName][colorGradient]
-  }
-  return colors[colorName]
-}
 
 const checkInput = () => {
   showPlaceholder.value = inputValue.value.trim() === ''
