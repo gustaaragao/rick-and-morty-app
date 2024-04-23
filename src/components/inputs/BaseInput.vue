@@ -104,14 +104,11 @@ onMounted(() => {
 
 })
 
-
 const changeColorBaseInput = (finalColorHex) => {
   containerBaseInput.value.style.borderColor = finalColorHex
   containerBaseInput.value.style.color = finalColorHex
   divLabel.value.style.color = finalColorHex
 }
-
-
 
 const checkInput = () => {
   showPlaceholder.value = inputValue.value.trim() === ''

@@ -26,11 +26,12 @@
     <!-- end: Buttons -->
     <!-- begin: My own Buttons -->
     <div class="flex justify-center gap-5 select-none">
-      <BaseButton>
+      <BaseButton type="LightButton">
         <template #icon> <Plus /> </template>
         <template #text> Text </template>
       </BaseButton>
       <BaseButton>
+        <template #icon> <Plus /> </template>
         <template #text> Text </template>
       </BaseButton>
     </div>
