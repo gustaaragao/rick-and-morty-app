@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios'
 
-export async function requester(url, method, data = "", headersOption) {
+export async function requester(url, method, data = '', headersOption) {
   try {
     return await axios({
       method: method,
       url: url,
       data: data,
-      headers: headersOption,
-    });
+      headers: headersOption
+    })
   } catch (error) {
-    throw error.response ?? error;
+    throw error.response ?? error
   }
 }

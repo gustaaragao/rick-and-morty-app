@@ -1,6 +1,3 @@
-<template>
-  Hello
-</template>
+<template>Hello, Tests View</template>
 
-<script setup>
-</script>
+<script setup></script>

@@ -3,15 +3,9 @@
   <div class="w-full h-full rounded-xl bg-green-300 shadow-2xl">
     <div class="w-full">
       <!--begin: Favorite Button-->
-      <div 
-          @click="fillIcon = !fillIcon"
-          class="flex justify-end cursor-pointer"
-      >
+      <div @click="fillIcon = !fillIcon" class="flex justify-end cursor-pointer">
         <div class="absolute mt-4 mr-4 z-0">
-          <Star 
-               :class="fillIcon ? 'fill-blue-500' : ''"
-               class="scale-[1.5] stroke-[1.5px]"
-          />
+          <Star :class="fillIcon ? 'fill-blue-500' : ''" class="scale-[1.5] stroke-[1.5px]" />
         </div>
       </div>
       <!--begin: Favorite Button-->
@@ -23,10 +17,7 @@
       <!--end: Character Image-->
 
       <!--begin: Section Character Data-->
-      <section
-              class="grid gap-2 pl-2 pb-1 text-lg 
-                     rounded-b-xl"
-      >
+      <section class="grid gap-2 pl-2 pb-1 text-lg rounded-b-xl">
         <header class="text-xl">{{ character.name }}</header>
         <p><b>Status:</b> {{ character.status }}</p>
         <p><b>Species:</b> {{ character.species }}</p>
@@ -39,15 +30,15 @@
 </template>
 
 <script setup>
-import { Star } from "lucide-vue-next";
-import { ref } from "vue";
+import { Star } from 'lucide-vue-next'
+import { ref } from 'vue'
 
-const fillIcon = ref(false);
+const fillIcon = ref(false)
 
 const props = defineProps({
   character: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>
