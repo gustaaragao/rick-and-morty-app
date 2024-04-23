@@ -1,11 +1,12 @@
 <template>
   <div>
-    <label v-if="props.label" :style="{ color: defaultColorHex }" class="text-lg">
-      {{ props.label }}
-    </label>
-    <!--begin: Base Input -->
-    <div class="border-2 rounded-xl w-fit flex shadow-md mt-1"
-      :style="{ 'border-color': defaultColorHex, 'color': defaultColorHex }">
+    <div v-if="props.label" class="text-lg" ref="divLabel">
+      <label>
+        {{ props.label }}
+      </label>
+    </div>
+    <!--begin: container Base Input -->
+    <div class="border-2 rounded-xl w-fit flex shadow-md mt-1" ref="containerBaseInput">
       <!--begin: Icon-->
       <div class="flex items-center justify-center pl-1">
         <i class="scale-[0.8]">
@@ -18,12 +19,13 @@
         <span v-show="showPlaceholder">{{ props.placeholder }}</span>
       </div>
       <!-- end: Placeholder -->
-      <div class="z-50">
-        <input :type="props.type" class="rounded-xl focus:outline-none pl-2 py-1 bg-transparent focus:border-violet-400"
-          v-model="inputValue" @input="checkInput()" />
-      </div>
+      <!-- begin: Input -->
+      <input :type="props.type" class="rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+        v-model="inputValue" @input="checkInput()" @focus="changeColorBaseInput(focusColorHex)"
+        @blur="changeColorBaseInput(defaultColorHex)" />
+      <!-- end: Input -->
     </div>
-    <!--end: Base Input -->
+    <!--end: container Base Input -->
   </div>
 </template>
 
@@ -54,12 +56,27 @@ const props = defineProps({
   }
 })
 
-const inputValue = ref('')
+const defaultColorHex = ref('')
+const focusColorHex = ref('')
 
-const showPlaceholder = ref(true)
+const containerBaseInput = ref(null)
+const divLabel = ref(null)
 
-const checkInput = () => {
-  showPlaceholder.value = inputValue.value.trim() === ''
+onMounted(() => {
+  defaultColorHex.value = transformToHex(props.defaultColor)
+  focusColorHex.value = transformToHex(props.focusColor)
+
+  containerBaseInput.value.style.borderColor = defaultColorHex.value
+  containerBaseInput.value.style.color = defaultColorHex.value
+  divLabel.value.style.color = defaultColorHex.value
+
+})
+
+
+const changeColorBaseInput = (finalColorHex) => {
+  containerBaseInput.value.style.borderColor = finalColorHex
+  containerBaseInput.value.style.color = finalColorHex
+  divLabel.value.style.color = finalColorHex
 }
 
 const transformToHex = (defaultColor) => {
@@ -78,11 +95,14 @@ const transformToHex = (defaultColor) => {
   }
   return colors[colorName]
 }
-const defaultColorHex = ref('')
-const focusColorHex = ref('')
 
-onMounted(() => {
-  defaultColorHex.value = transformToHex(props.defaultColor)
-  focusColorHex.value = transformToHex(props.focusColor)
-})
+const inputValue = ref('')
+
+const showPlaceholder = ref(true)
+
+const checkInput = () => {
+  showPlaceholder.value = inputValue.value.trim() === ''
+}
+
+
 </script>
