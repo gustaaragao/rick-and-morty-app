@@ -14,7 +14,7 @@
       </template>
     </BaseInput>
     <!-- end: Password Input -->
-    <div class="flex justify-center gap-5">
+    <div class="flex justify-center gap-5 select-none">
       <button class="border-2 rounded-md px-2" @click="errorMessage = 'Error message'">
         Error
       </button>

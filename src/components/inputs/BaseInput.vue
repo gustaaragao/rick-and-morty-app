@@ -20,17 +20,17 @@
       </div>
       <!-- end: Placeholder -->
       <!-- begin: Input -->
-      <input :type="props.type" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+      <input :type="inputType" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
         v-model="inputValue" @input="checkInput()" @focus="changeColorBaseInput(focusColorHex)"
         @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
       <div v-if="props.type === 'password'" class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
-        @click="showPassword = !showPassword;changeColorBaseInput(focusColorHex)">
-        <i v-show="!showPassword">
+        @click="showPasswordBoolean = !showPasswordBoolean; showPassword(); changeColorBaseInput(focusColorHex)">
+        <i v-show="!showPasswordBoolean">
           <Eye />
         </i>
-        <i v-show="showPassword">
+        <i v-show="showPasswordBoolean">
           <EyeOff />
         </i>
       </div>
@@ -76,7 +76,7 @@ const props = defineProps({
   },
   error: {
     type: String,
-    default: 'AAAAAAA',
+    default: '',
   },
 })
 
@@ -87,10 +87,12 @@ const containerBaseInput = ref(null)
 const divLabel = ref(null)
 const iconSlot = ref(null)
 
+
 const inputValue = ref('')
+const inputType = ref(props.type)
 
 const showPlaceholder = ref(true)
-const showPassword = ref(false)
+const showPasswordBoolean = ref(false)
 
 onMounted(() => {
   defaultColorHex.value = transformToHex(props.defaultColor)
@@ -128,6 +130,14 @@ const transformToHex = (defaultColor) => {
 
 const checkInput = () => {
   showPlaceholder.value = inputValue.value.trim() === ''
+}
+
+const showPassword = () => {
+  if (inputType.value === "password") {
+    inputType.value = "text"
+  } else {
+    inputType.value = "password" 
+  }
 }
 
 
