@@ -1,32 +1,32 @@
 <template>
-  <div class="">
+  <div class="w-full">
     <div v-if="props.label" class="text-lg" ref="divLabel">
       <label>
         {{ props.label }}
       </label>
     </div>
     <!--begin: container Base Input -->
-    <div class="border-2 rounded-xl w-fit flex shadow-md mt-1" ref="containerBaseInput">
+    <div class="border-2 rounded-xl flex shadow-md mt-1" ref="containerBaseInput">
       <!--begin: Icon-->
       <div class="flex items-center justify-center pl-1">
         <i class="scale-[0.8]">
-          <slot name="icon"></slot>
+          <slot name="icon" ref="iconSlot"></slot>
         </i>
       </div>
       <!--end: Icon-->
       <!-- begin: Placeholder -->
-      <div v-if="props.placeholder" class="absolute z-0 opacity-65 pl-9 pt-1 select-none">
+      <div v-if="props.placeholder" class="absolute z-0 opacity-65 pt-1 pl-9 select-none">
         <span v-show="showPlaceholder">{{ props.placeholder }}</span>
       </div>
       <!-- end: Placeholder -->
       <!-- begin: Input -->
-      <input :type="props.type" class="rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+      <input :type="props.type" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
         v-model="inputValue" @input="checkInput()" @focus="changeColorBaseInput(focusColorHex)"
         @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
-      <div v-if="props.type === 'password'" class="absolute cursor-pointer scale-[0.9]"
-        @click="showPassword = !showPassword">
+      <div v-if="props.type === 'password'" class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
+        @click="showPassword = !showPassword;changeColorBaseInput(focusColorHex)">
         <i v-show="!showPassword">
           <Eye />
         </i>
@@ -37,35 +37,47 @@
       <!-- end: Toggle Password Visibility -->
     </div>
     <!--end: container Base Input -->
+    <!-- begin: Error Message -->
+    <div>
+      <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
+        <i :class="props.error ? 'visible' : 'invisible'" class="scale-[0.60]"><CircleAlert /></i>
+        {{ props.error }}
+      </div>
+    </div>
+    <!-- end: Error Message -->
   </div>
 </template>
 
 <script setup>
 import colors from 'tailwindcss/colors'
 import { onMounted, ref } from 'vue'
-import { Eye, EyeOff } from 'lucide-vue-next';
+import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
 
 const props = defineProps({
   type: {
     type: String,
-    default: 'text'
+    default: 'text',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   defaultColor: {
     type: String,
-    default: 'gray-400'
+    default: 'gray-400',
   },
   focusColor: {
     type: String,
-    default: ''
+    default: '',
   },
   placeholder: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
+  error: {
+    type: String,
+    default: 'AAAAAAA',
+  },
 })
 
 const defaultColorHex = ref('')
@@ -73,6 +85,7 @@ const focusColorHex = ref('')
 
 const containerBaseInput = ref(null)
 const divLabel = ref(null)
+const iconSlot = ref(null)
 
 const inputValue = ref('')
 
