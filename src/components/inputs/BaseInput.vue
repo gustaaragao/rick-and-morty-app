@@ -21,7 +21,7 @@
       <!-- end: Placeholder -->
       <!-- begin: Input -->
       <input :type="inputType" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
-        v-model="inputValue" @input="checkInput()" @focus="changeColorBaseInput(focusColorHex)"
+        v-model="inputValue" @input="(event) => {emit('update:model-value', event.target.value); checkInput()}" @focus="changeColorBaseInput(focusColorHex)"
         @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
@@ -82,6 +82,8 @@ const props = defineProps({
     default: '',
   },
 })
+
+const emit = defineEmits(['update:model-value'])
 
 const defaultColorHex = ref('')
 const focusColorHex = ref('')
