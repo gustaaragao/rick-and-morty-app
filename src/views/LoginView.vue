@@ -1,5 +1,7 @@
 <template>
-  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]">
+  <!--begin: Login -->
+  <form class="relative grid gap-4 pl-4 pt-2 pr-[450px]">
+    <h1>Login</h1>
     <!-- begin: User Input -->
     <BaseInput label="User" placeholder="User" focusColor="violet-400" :error="errorMessage">
       <template #icon>
@@ -19,12 +21,10 @@
       <BaseButton type="LightButton">
         <template #text> Login </template>
       </BaseButton>
-      <BaseButton>
-        <template #text> Register </template>
-      </BaseButton>
     </div>
     <!-- end: My own Buttons -->
-  </div>
+  </form>
+  <!--end: Login -->
 </template>
 
 <script setup>
