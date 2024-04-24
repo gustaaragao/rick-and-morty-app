@@ -25,7 +25,7 @@
     <!-- end: Password Input -->
     <!-- begin: My own Buttons -->
     <div class="flex justify-center gap-5 select-none">
-      <BaseButton type="LightButton">
+      <BaseButton design="LightButton">
         <template #text> Login </template>
       </BaseButton>
     </div>
@@ -55,7 +55,7 @@ watch(emailValue, () => {
 })
 
 watch(passwordValue, () => {
-  console.log(userValue.value)
+  console.log(passwordValue.value)
 })
 
 watch(errorMessage, () => console.log(errorMessage.value))
