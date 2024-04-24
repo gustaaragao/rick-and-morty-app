@@ -22,6 +22,7 @@
     <!-- end: User Input -->
     <!-- begin: E-mail Input -->
     <BaseInput
+      type="email"
       label="E-mail"
       placeholder="E-mail"
       focusColor="violet-400"
@@ -80,7 +81,6 @@ const emailValue = ref('')
 const passwordValue = ref('')
 
 const validationParametersUser = {
-  pattern: '',
   minLength: 2,
   maxLength: 30
 }

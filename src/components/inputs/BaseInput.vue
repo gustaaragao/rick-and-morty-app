@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div v-if="props.label" class="text-lg" ref="divLabel">
+    <div v-if="props.label" class="text-md" ref="divLabel">
       <label>
         {{ props.label }}
       </label>
@@ -20,33 +20,22 @@
       </div>
       <!-- end: Placeholder -->
       <!-- begin: Input -->
-      <input
-        :type="inputType"
-        class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
-        v-model="inputValue"
-        @input="
-          (event) => {
-            validadeInput(event)
-            emit('update:model-value', event.target.value)
-            hidePlaceholder()
-          }
-        "
-        @focus="changeColorBaseInput(focusColorHex)"
-        @blur="changeColorBaseInput(defaultColorHex)"
-      />
+      <input :type="inputType" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+        v-model="inputValue" @input="(event) => {
+          validateInput(event)
+          emit('update:model-value', event.target.value)
+          hidePlaceholder()
+        }
+          " @focus="changeColorBaseInput(focusColorHex)" @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
-      <div
-        v-if="props.type === 'password'"
-        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
-        @click="
-          () => {
-            showPasswordBoolean = !showPasswordBoolean
-            showPassword()
-            changeColorBaseInput(focusColorHex)
-          }
-        "
-      >
+      <div v-if="props.type === 'password'"
+        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50" @click="() => {
+          showPasswordBoolean = !showPasswordBoolean
+          showPassword()
+          changeColorBaseInput(focusColorHex)
+        }
+          ">
         <i v-show="!showPasswordBoolean">
           <Eye />
         </i>
@@ -59,10 +48,8 @@
     <!--end: container Base Input -->
     <!-- begin: Error Message -->
     <div>
-      <div
-        :class="props.error || localError ? 'visible' : 'invisible'"
-        class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5"
-      >
+      <div :class="props.error || localError ? 'visible' : 'invisible'"
+        class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
         <i class="scale-[0.60]">
           <CircleAlert />
         </i>
@@ -122,7 +109,6 @@ const focusColorHex = ref('')
 
 const containerBaseInput = ref(null)
 const divLabel = ref(null)
-const iconSlot = ref(null)
 
 const inputValue = ref('')
 const inputType = ref(props.type)
@@ -147,16 +133,29 @@ const changeColorBaseInput = (finalColorHex) => {
 
 let localError = ''
 
-const validadeInput = (event) => {
+const validateInput = (event) => {
   const patternRegex = props.validationParameters.pattern
+  const maxLength = props.validationParameters.maxLength
+  const minLength = props.validationParameters.minLength
 
   const isPatternValid = patternRegex ? !!event.target.value.match(patternRegex) : true
-  const isLengthValid =
-    event.target.value.length >= props.validationParameters.minLength &&
-    event.target.value.length <= props.validationParameters.maxLength
 
-  if (!isPatternValid || !isLengthValid) {
-    localError = 'Error'
+  const isMaxLengthValid = maxLength ? event.target.value.length <= maxLength : true
+  const isMinLengthValid = minLength ? event.target.value.length >= minLength : true
+
+  const isLengthValid = isMaxLengthValid && isMinLengthValid
+
+  // TODO: Melhorar esse sistema de mensagens de erro.
+  if (!isPatternValid) {
+    localError = `The input is not valid.`
+  } else if (!isLengthValid) {
+    if (!maxLength) {
+      localError = `The input must be at least ${minLength} character(s) long.`
+    } else if (!minLength) {
+      localError = `The input must have a maximum of ${maxLength} character(s).`
+    } else {
+      localError = `The input must be between ${minLength} and ${maxLength} characters long.`
+    }
   } else {
     localError = ''
   }
