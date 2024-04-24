@@ -14,6 +14,7 @@
       </template>
     </BaseInput>
     <!-- end: Password Input -->
+    <!-- begin: Buttons -->
     <div class="flex justify-center gap-5 select-none">
       <button class="border-2 rounded-md px-2" @click="errorMessage = 'Error message'">
         Error
@@ -22,13 +23,26 @@
         Clear
       </button>
     </div>
+    <!-- end: Buttons -->
+    <!-- begin: My own Buttons -->
+    <div class="flex justify-center gap-5 select-none">
+      <BaseButton type="LightButton">
+        <template #icon> <Plus /> </template>
+        <template #text> Text </template>
+      </BaseButton>
+      <BaseButton>
+        <template #icon> <Plus /> </template>
+        <template #text> Text </template>
+      </BaseButton>
+    </div>
+    <!-- end: My own Buttons -->
   </div>
 </template>
 
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue'
-import { UserRound } from 'lucide-vue-next'
-import { KeyRound } from 'lucide-vue-next'
+import BaseButton from '@/components/buttons/BaseButton.vue'
+import { UserRound, KeyRound, Plus } from 'lucide-vue-next'
 import { ref, watch } from 'vue';
 
 const errorMessage = ref('');
