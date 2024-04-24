@@ -25,7 +25,8 @@
         @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
-      <div v-if="props.type === 'password'" class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
+      <div v-if="props.type === 'password'"
+        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
         @click="showPasswordBoolean = !showPasswordBoolean; showPassword(); changeColorBaseInput(focusColorHex)">
         <i v-show="!showPasswordBoolean">
           <Eye />
@@ -40,7 +41,9 @@
     <!-- begin: Error Message -->
     <div>
       <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
-        <i :class="props.error ? 'visible' : 'invisible'" class="scale-[0.60]"><CircleAlert /></i>
+        <i :class="props.error ? 'visible' : 'invisible'" class="scale-[0.60]">
+          <CircleAlert />
+        </i>
         {{ props.error }}
       </div>
     </div>
@@ -51,7 +54,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
-import { transformToHexColor } from '@/utils/transformToHexColor.js'
+import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex.js'
 
 const props = defineProps({
   type: {
@@ -95,8 +98,8 @@ const showPlaceholder = ref(true)
 const showPasswordBoolean = ref(false)
 
 onMounted(() => {
-  defaultColorHex.value = transformToHexColor(props.defaultColor)
-  focusColorHex.value = transformToHexColor(props.focusColor)
+  defaultColorHex.value = transformTailwindColorToHex(props.defaultColor)
+  focusColorHex.value = transformTailwindColorToHex(props.focusColor)
 
   containerBaseInput.value.style.borderColor = defaultColorHex.value
   containerBaseInput.value.style.color = defaultColorHex.value
@@ -118,7 +121,7 @@ const showPassword = () => {
   if (inputType.value === "password") {
     inputType.value = "text"
   } else {
-    inputType.value = "password" 
+    inputType.value = "password"
   }
 }
 

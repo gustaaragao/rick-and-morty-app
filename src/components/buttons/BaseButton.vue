@@ -1,9 +1,6 @@
 <template>
   <div>
-    <button
-      ref="buttonElement"
-      class="flex flex-row items-center gap-0.5 select-none border-2 rounded-md px-2 py-0.5"
-    >
+    <button ref="buttonElement" class="flex flex-row items-center gap-0.5 select-none border-2 rounded-full px-2 py-1">
       <i class="scale-[0.8]">
         <slot name="icon"></slot>
       </i>
@@ -16,12 +13,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { transformToHexColor } from '@/utils/transformToHexColor.js'
-
-const colorButtonHex = ref('')
-const colorTextHex = ref('')
-
-const buttonElement = ref(null)
+import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex.js'
 
 const props = defineProps({
   type: {
@@ -35,34 +27,45 @@ const props = defineProps({
   colorText: {
     type: String,
     default: 'white'
-  }
+  },
+  colorHoverEffect: {
+    type: String,
+    default: 'green-500',
+  },
 })
+
+const colorButtonHex = ref('')
+const colorTextHex = ref('')
+const colorHoverEffectHex = ref('')
+
+const buttonElement = ref(null)
 
 const addEffectHover = () => {
   if (props.type === 'LightButton') {
     buttonElement.value.addEventListener('mouseover', () => {
-			buttonElement.value.style.borderColor = 'pink'
-			buttonElement.value.style.color = 'pink'
+      buttonElement.value.style.borderColor = colorHoverEffectHex.value
+      buttonElement.value.style.color = colorHoverEffectHex.value
     })
     buttonElement.value.addEventListener('mouseout', () => {
-			buttonElement.value.style.borderColor = colorButtonHex.value
-			buttonElement.value.style.color = colorButtonHex.value
+      buttonElement.value.style.borderColor = colorButtonHex.value
+      buttonElement.value.style.color = colorButtonHex.value
     })
   } else {
     buttonElement.value.addEventListener('mouseover', () => {
-			buttonElement.value.style.borderColor = 'pink'
-			buttonElement.value.style.backgroundColor = 'pink'
+      buttonElement.value.style.borderColor = colorHoverEffectHex.value
+      buttonElement.value.style.backgroundColor = colorHoverEffectHex.value
     })
     buttonElement.value.addEventListener('mouseout', () => {
-			buttonElement.value.style.borderColor = colorButtonHex.value
-			buttonElement.value.style.backgroundColor = colorButtonHex.value
+      buttonElement.value.style.borderColor = colorButtonHex.value
+      buttonElement.value.style.backgroundColor = colorButtonHex.value
     })
   }
 }
 
 onMounted(() => {
-  colorButtonHex.value = transformToHexColor(props.colorButton)
-  colorTextHex.value = transformToHexColor(props.colorText)
+  colorButtonHex.value = transformTailwindColorToHex(props.colorButton)
+  colorTextHex.value = transformTailwindColorToHex(props.colorText)
+  colorHoverEffectHex.value = transformTailwindColorToHex(props.colorHoverEffect)
 
   buttonElement.value.style.borderColor = colorButtonHex.value
   if (props.type === 'LightButton') {
