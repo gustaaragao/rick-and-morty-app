@@ -20,25 +20,6 @@
       </template>
     </BaseInput>
     <!-- end: User Input -->
-    <!-- begin: E-mail Input -->
-    <BaseInput
-      type="email"
-      label="E-mail"
-      placeholder="E-mail"
-      focusColor="violet-400"
-      :error="errorMessage"
-      :validation-parameters="validationParametersEmail"
-      @update:model-value="
-        (value) => {
-          form.email = value
-        }
-      "
-    >
-      <template #icon>
-        <Mail />
-      </template>
-    </BaseInput>
-    <!-- end: User Input -->
     <!-- begin: Password Input -->
     <BaseInput
       type="password"
@@ -87,15 +68,8 @@ const validationParametersUser = {
   maxLength: 30
 }
 
-const validationParametersEmail = {
-  pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
-  minLength: 5,
-  maxLength: 100
-}
-
 const submitForm = () => {
   console.log('SUBMIT:', form.value)  
 }
-
 
 </script>
