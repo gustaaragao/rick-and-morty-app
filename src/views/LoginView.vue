@@ -14,6 +14,11 @@
           form.user = value
         }
       "
+      @validate:input="
+        (value) => {
+          validateForm(value)
+        }
+      "
     >
       <template #icon>
         <UserRound />
@@ -59,7 +64,6 @@ const errorMessage = ref('')
 
 const form = ref({
   user: '',
-  email: '',
   password: ''
 })
 
@@ -68,8 +72,18 @@ const validationParametersUser = {
   maxLength: 30
 }
 
+const isFormValid = ref(true)
+
+const validateForm = (isValid) => {
+  isFormValid.value = isValid
+}
+
 const submitForm = () => {
-  console.log('SUBMIT:', form.value)  
+  if (!isFormValid.value) {
+    alert('INVALID FORM')
+  } else {
+    console.log('SUBMIT:', form.value)
+  }
 }
 
 </script>
