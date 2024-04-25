@@ -1,6 +1,6 @@
 <template>
   <!--begin: Login -->
-  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]">
+  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]" @keyup.enter="() => login()">
     <h1>Login</h1>
     <!-- begin: User Input -->
     <BaseInput
@@ -45,7 +45,7 @@
     <!-- end: Password Input -->
     <!-- begin: Submit Button -->
     <div class="flex justify-center gap-5 select-none">
-      <BaseButton design="LightButton" @click="submitForm()">
+      <BaseButton design="LightButton" @click="submitForm()" :disabled="!isFormValid">
         <template #text> Login </template>
       </BaseButton>
     </div>
@@ -82,8 +82,14 @@ const submitForm = () => {
   if (!isFormValid.value) {
     alert('INVALID FORM')
   } else {
+    login()
     console.log('SUBMIT:', form.value)
   }
+}
+
+async function login(){
+  console.log('Login')
+  return
 }
 
 </script>

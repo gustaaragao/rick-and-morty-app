@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button ref="buttonElement" class="flex flex-row items-center gap-0.5 select-none border-2 rounded-full px-2 py-1">
+    <button ref="buttonElement" 
+            :disabled="props.disabled"
+            class="flex flex-row items-center gap-0.5 select-none border-2 rounded-full px-2 py-1 disabled:cursor-not-allowed">
       <i class="scale-[0.8]">
         <slot name="icon"></slot>
       </i>
@@ -31,6 +33,10 @@ const props = defineProps({
   colorHoverEffect: {
     type: String,
     default: 'green-500',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
 
