@@ -52,7 +52,7 @@
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
+import { UserRound, KeyRound } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 const errorMessage = ref('')
