@@ -16,7 +16,7 @@ import { ref, onMounted } from 'vue'
 import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex.js'
 
 const props = defineProps({
-  type: {
+  design: {
     type: String,
     default: 'SolidButton'
   },
@@ -41,7 +41,7 @@ const colorHoverEffectHex = ref('')
 const buttonElement = ref(null)
 
 const addEffectHover = () => {
-  if (props.type === 'LightButton') {
+  if (props.design === 'LightButton') {
     buttonElement.value.addEventListener('mouseover', () => {
       buttonElement.value.style.borderColor = colorHoverEffectHex.value
       buttonElement.value.style.color = colorHoverEffectHex.value
@@ -68,7 +68,7 @@ onMounted(() => {
   colorHoverEffectHex.value = transformTailwindColorToHex(props.colorHoverEffect)
 
   buttonElement.value.style.borderColor = colorButtonHex.value
-  if (props.type === 'LightButton') {
+  if (props.design === 'LightButton') {
     buttonElement.value.style.color = colorButtonHex.value
   } else {
     buttonElement.value.style.backgroundColor = colorButtonHex.value
