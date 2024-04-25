@@ -1,6 +1,6 @@
 <template>
   <!--begin: Login -->
-  <form class="relative grid gap-4 pl-4 pt-2 pr-[450px]">
+  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]">
     <h1>Login</h1>
     <!-- begin: User Input -->
     <BaseInput
@@ -11,7 +11,7 @@
       :validation-parameters="validationParametersUser"
       @update:model-value="
         (value) => {
-          userValue = value
+          form.user = value
         }
       "
     >
@@ -30,7 +30,7 @@
       :validation-parameters="validationParametersEmail"
       @update:model-value="
         (value) => {
-          emailValue = value
+          form.email = value
         }
       "
     >
@@ -48,7 +48,7 @@
       :error="errorMessage"
       @update:model-value="
         (value) => {
-          passwordValue = value
+          form.password = value
         }
       "
     >
@@ -57,14 +57,14 @@
       </template>
     </BaseInput>
     <!-- end: Password Input -->
-    <!-- begin: My own Buttons -->
+    <!-- begin: Submit Button -->
     <div class="flex justify-center gap-5 select-none">
-      <BaseButton design="LightButton">
+      <BaseButton design="LightButton" @click="submitForm()">
         <template #text> Login </template>
       </BaseButton>
     </div>
-    <!-- end: My own Buttons -->
-  </form>
+    <!-- end: Submit Button -->
+  </div>
   <!--end: Login -->
 </template>
 
@@ -76,9 +76,11 @@ import { ref } from 'vue'
 
 const errorMessage = ref('')
 
-const userValue = ref('')
-const emailValue = ref('')
-const passwordValue = ref('')
+const form = ref({
+  user: '',
+  email: '',
+  password: ''
+})
 
 const validationParametersUser = {
   minLength: 2,
@@ -91,12 +93,9 @@ const validationParametersEmail = {
   maxLength: 100
 }
 
-const validateForm = () => {
-  return
+const submitForm = () => {
+  console.log('SUBMIT:', form.value)  
 }
 
-const submitForm = () => {
-  return
-}
 
 </script>

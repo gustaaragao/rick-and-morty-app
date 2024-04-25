@@ -25,8 +25,7 @@
           validateInput(event)
           emit('update:model-value', event.target.value)
           hidePlaceholder()
-        }
-          " @focus="changeColorBaseInput(focusColorHex)" @blur="changeColorBaseInput(defaultColorHex)" />
+        }" @focus="changeColorBaseInput(focusColorHex)" @blur="changeColorBaseInput(defaultColorHex)" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
       <div v-if="props.type === 'password'"
@@ -102,7 +101,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:model-value', 'form-validate'])
+const emit = defineEmits(['update:model-value'])
 
 const defaultColorHex = ref('')
 const focusColorHex = ref('')
@@ -145,9 +144,8 @@ const validateInput = (event) => {
 
   const isLengthValid = isMaxLengthValid && isMinLengthValid
 
-  // TODO: Melhorar esse sistema de mensagens de erro.
   if (!isPatternValid) {
-    localError = `The input is not valid.`
+    localError = `The ${props.type} is not valid.`
   } else if (!isLengthValid) {
     if (!maxLength) {
       localError = `The input must be at least ${minLength} character(s) long.`
@@ -159,8 +157,6 @@ const validateInput = (event) => {
   } else {
     localError = ''
   }
-
-  emit('form-validate', isPatternValid && isLengthValid)
 }
 
 const hidePlaceholder = () => {
