@@ -3,46 +3,34 @@
   <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]" @keyup.enter="() => submitForm()">
     <h1>Login</h1>
     <!-- begin: User Input -->
-    <BaseInput
-      label="User"
-      placeholder="User"
-      focusColor="violet-400"
-      :error="errorMessage"
-      :validation-parameters="validationParametersUser"
-      @update:model-value="
-        (value) => {
-          form.username = value
-        }
-      "
-      @validate:input="
-        (value) => {
+    <BaseInput label="User" placeholder="User" focusColor="violet-400" :validation-parameters="validationParametersUser"
+      @update:model-value="(value) => {
+        form.username = value
+      }
+        " @validate:input="(value) => {
           validateForm(value)
         }
-      "
-    >
+          ">
       <template #icon>
         <UserRound />
       </template>
     </BaseInput>
     <!-- end: User Input -->
     <!-- begin: Password Input -->
-    <BaseInput
-      type="password"
-      label="Password"
-      placeholder="Password"
-      focusColor="violet-400"
-      :error="errorMessage"
-      @update:model-value="
-        (value) => {
-          form.password = value
-        }
-      "
-    >
+    <BaseInput type="password" label="Password" placeholder="Password" focusColor="violet-400" @update:model-value="(value) => {
+      form.password = value
+    }
+      ">
       <template #icon>
         <KeyRound />
       </template>
     </BaseInput>
     <!-- end: Password Input -->
+    <!-- begin: Error Span -->
+    <div v-show="errorMessage" class="flex justify-center text-red-600 text-xs font-semibold">
+      {{ errorMessage }}
+    </div>
+    <!-- end: Error Span -->
     <!-- begin: Submit Button -->
     <div class="flex justify-center gap-5 select-none">
       <BaseButton design="LightButton" @click="submitForm()" :disabled="!isFormValid">
@@ -89,13 +77,13 @@ const checkFilledForm = () => {
   try {
     valuesForm.forEach((input) => {
       if (!input) {
-        throw new Error("PREENCHA TODOS OS CAMPOS")
+        throw new Error("Please, fill in the required fields.")
       }
       isFormFilled.value = true
     })
-  } catch(err) {
+  } catch (err) {
     isFormFilled.value = false
-    console.log(err.message)
+    errorMessage.value = err.message
   }
 }
 
@@ -112,16 +100,16 @@ const submitForm = () => {
   }
 }
 
-async function tryLogin(){
+async function tryLogin() {
   let response = await dbRouter.login.get(form.value.username, form.value.password)
 
-  if((response.status == 200 || response.status == 201) && response.data.length > 0) {
+  if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
     router.push('/')
 
     return
   }
   // TODO: Error
-  console.log('ERROR')
+  console.log('ERROR TRY LOGIN')
 }
 
 </script>
