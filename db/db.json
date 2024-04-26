@@ -5,7 +5,7 @@
       "lastname": "Silva",
       "username": "gustavo.silva",
       "email": "gustavo.silva@gmail.com",
-      "password": "gustavo@12345",
+      "password": "12345",
       "id": 1
     },
     {
@@ -13,7 +13,7 @@
       "lastname": "Aragão",
       "username": "gustavo.aragao",
       "email": "gustavo.aragao@gmail.com",
-      "password": "gustavo@12345",
+      "password": "12345",
       "id": 2
     }
   ]

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" :class="(props.error || localError) ? 'animate-shake-r' : ''">
     <div v-if="props.label" class="text-md" ref="divLabel">
       <label>
         {{ props.label }}
@@ -22,10 +22,9 @@
       <!-- begin: Input -->
       <input :type="inputType" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
         v-model="inputValue" @input="(event) => {
-          validateInput(event)
           emit('update:model-value', event.target.value)
           hidePlaceholder()
-        }" @focus="changeColorBaseInput(focusColorHex)" @blur="changeColorBaseInput(defaultColorHex)" />
+        }" @focus="changeColorBaseInput(focusColorHex)" @blur="(event) => {changeColorBaseInput(defaultColorHex);validateInput(event)}" />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
       <div v-if="props.type === 'password'"
@@ -46,13 +45,13 @@
     </div>
     <!--end: container Base Input -->
     <!-- begin: Error Message -->
-    <div>
-      <div :class="props.error || localError ? 'visible' : 'invisible'"
-        class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
+    <!--:class="props.error || localError.value ? 'visible' : 'invisible'"-->
+    <div v-show="localError">
+      <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
         <i class="scale-[0.60]">
           <CircleAlert />
         </i>
-        {{ props.error || localError }}
+        <span> {{ localError }} </span>
       </div>
     </div>
     <!-- end: Error Message -->
@@ -86,8 +85,8 @@ const props = defineProps({
     default: ''
   },
   error: {
-    type: String,
-    default: ''
+    type: Boolean,
+    default: false,
   },
   validationParameters: {
     type: Object,
@@ -101,7 +100,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value', 'validate:input'])
 
 const defaultColorHex = ref('')
 const focusColorHex = ref('')
@@ -130,7 +129,7 @@ const changeColorBaseInput = (finalColorHex) => {
   divLabel.value.style.color = finalColorHex
 }
 
-let localError = ''
+let localError = ref('')
 
 const validateInput = (event) => {
   const patternRegex = props.validationParameters.pattern
@@ -138,25 +137,27 @@ const validateInput = (event) => {
   const minLength = props.validationParameters.minLength
 
   const isPatternValid = patternRegex ? !!event.target.value.match(patternRegex) : true
-
+  
   const isMaxLengthValid = maxLength ? event.target.value.length <= maxLength : true
   const isMinLengthValid = minLength ? event.target.value.length >= minLength : true
-
+  
   const isLengthValid = isMaxLengthValid && isMinLengthValid
 
   if (!isPatternValid) {
-    localError = `The ${props.type} is not valid.`
+    localError.value = `The ${props.type} is not valid.`
   } else if (!isLengthValid) {
     if (!maxLength) {
-      localError = `The input must be at least ${minLength} character(s) long.`
+      localError.value = `The input must be at least ${minLength} character(s) long.`
     } else if (!minLength) {
-      localError = `The input must have a maximum of ${maxLength} character(s).`
+      localError.value = `The input must have a maximum of ${maxLength} character(s).`
     } else {
-      localError = `The input must be between ${minLength} and ${maxLength} characters long.`
+      localError.value = `The input must be between ${minLength} and ${maxLength} characters long.`
     }
   } else {
-    localError = ''
+    localError.value = ''
   }
+
+  emit('validate:input', isPatternValid && isLengthValid)
 }
 
 const hidePlaceholder = () => {
