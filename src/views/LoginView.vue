@@ -2,10 +2,10 @@
   <!--begin: Login -->
   <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]" @keyup.enter="() => submitForm()">
     <h1>Login</h1>
-    <!-- begin: User Input -->
+    <!-- begin: Username Input -->
     <BaseInput
-      label="User"
-      placeholder="User"
+      label="Username"
+      placeholder="Username"
       focusColor="violet-400"
       :validation-parameters="validationParametersUser"
       :error="!!errorMessage"
@@ -24,7 +24,7 @@
         <UserRound />
       </template>
     </BaseInput>
-    <!-- end: User Input -->
+    <!-- end: Username Input -->
     <!-- begin: Password Input -->
     <BaseInput
       type="password"
