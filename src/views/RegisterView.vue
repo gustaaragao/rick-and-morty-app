@@ -1,6 +1,9 @@
 <template>
   <!--begin: Register -->
-  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px] pb-[100px]" @keyup.enter="() => submitForm()">
+  <div
+    class="relative grid gap-4 pl-4 pt-2 pr-[450px] pb-[100px]"
+    @keyup.enter="() => submitForm()"
+  >
     <h1>Register</h1>
     <!-- begin: First Name Input -->
     <BaseInput
@@ -93,7 +96,7 @@
       type="password"
       label="Password"
       placeholder="Password"
-			:validation-parameters="validationParametersPassword"
+      :validation-parameters="validationParametersPassword"
       :error="!!errorMessage"
       focusColor="violet-400"
       @update:model-value="
@@ -107,8 +110,8 @@
       </template>
     </BaseInput>
     <!-- end: Password Input -->
-		<!-- begin: Confirm Password Input -->
-		<BaseInput
+    <!-- begin: Confirm Password Input -->
+    <BaseInput
       type="password"
       label="Confirm Password"
       placeholder="Confirm Password"
@@ -124,7 +127,7 @@
         <KeyRound />
       </template>
     </BaseInput>
-		<!-- end: Confirm Password Input -->
+    <!-- end: Confirm Password Input -->
     <!-- begin: Error Span -->
     <div
       v-show="errorMessage"
@@ -157,12 +160,12 @@ import router from '@/router'
 const errorMessage = ref('')
 
 const form = ref({
-	firstname: '',
-	lastname: '',
+  firstname: '',
+  lastname: '',
   username: '',
-	email: '',
+  email: '',
   password: '',
-	confirmPassword: '',
+  confirmPassword: ''
 })
 
 const validationParametersFirstName = {
@@ -181,12 +184,12 @@ const validationParametersUser = {
 }
 
 const validationParametersEmail = {
-	pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
-	maxLength: 100,
+  pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
+  maxLength: 100
 }
 
 const validationParametersPassword = {
-	pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$',
+  pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$'
 }
 
 const isFormValid = ref(true)
@@ -216,12 +219,12 @@ const checkFilledForm = () => {
 }
 
 const checkConfirmPassword = () => {
-	if (form.value.password === form.value.confirmPassword) {
-		isConfirmPasswordValid.value = true
-	} else {
-		isConfirmPasswordValid.value = false
-		errorMessage.value = 'The password confirmation does not match.'
-	}
+  if (form.value.password === form.value.confirmPassword) {
+    isConfirmPasswordValid.value = true
+  } else {
+    isConfirmPasswordValid.value = false
+    errorMessage.value = 'The password confirmation does not match.'
+  }
 }
 
 const submitForm = () => {
@@ -231,26 +234,18 @@ const submitForm = () => {
     checkFilledForm()
 
     if (isFormFilled.value) {
-			checkConfirmPassword()
-			
-			if (isConfirmPasswordValid.value) {
-				console.log('SUBMIT >>>>>>', form.value)
-				errorMessage.value = ''
-				// tryLogin()
-			}
+      checkConfirmPassword()
+
+      if (isConfirmPasswordValid.value) {
+        console.log('SUBMIT >>>>>>', form.value)
+        errorMessage.value = ''
+        tryRegister()
+      }
     }
   }
 }
 
-// async function tryLogin() {
-//   let response = await dbRouter.login.get(form.value.username, form.value.password)
-
-//   if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
-//     router.push('/')
-
-//     return
-//   }
-
-//   errorMessage.value = 'Incorrect Username or Password'
-// }
+async function tryRegister() {
+  return
+}
 </script>
