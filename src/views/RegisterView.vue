@@ -7,11 +7,11 @@
       label="First Name"
       placeholder="First Name"
       focusColor="violet-400"
-      :validation-parameters="validationParametersUser"
+      :validation-parameters="validationParametersFirstName"
       :error="!!errorMessage"
       @update:model-value="
         (value) => {
-          form.firsname = value
+          form.firstname = value
         }
       "
       @validate:input="
@@ -27,7 +27,7 @@
       label="Last Name"
       placeholder="Last Name"
       focusColor="violet-400"
-      :validation-parameters="validationParametersUser"
+      :validation-parameters="validationParametersLastName"
       :error="!!errorMessage"
       @update:model-value="
         (value) => {
@@ -70,7 +70,7 @@
       label="E-mail"
       placeholder="E-mail"
       focusColor="violet-400"
-      :validation-parameters="validationParametersUser"
+      :validation-parameters="validationParametersEmail"
       :error="!!errorMessage"
       @update:model-value="
         (value) => {
@@ -93,6 +93,7 @@
       type="password"
       label="Password"
       placeholder="Password"
+			:validation-parameters="validationParametersPassword"
       :error="!!errorMessage"
       focusColor="violet-400"
       @update:model-value="
@@ -115,7 +116,7 @@
       focusColor="violet-400"
       @update:model-value="
         (value) => {
-          form.password = value
+          form.confirmPassword = value
         }
       "
     >
@@ -161,16 +162,38 @@ const form = ref({
   username: '',
 	email: '',
   password: '',
+	confirmPassword: '',
 })
+
+const validationParametersFirstName = {
+  minLength: 2,
+  maxLength: 30
+}
+
+const validationParametersLastName = {
+  minLength: 2,
+  maxLength: 30
+}
 
 const validationParametersUser = {
   minLength: 2,
   maxLength: 30
 }
 
+const validationParametersEmail = {
+	pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
+	maxLength: 100,
+}
+
+const validationParametersPassword = {
+	pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$',
+}
+
 const isFormValid = ref(true)
 
 const isFormFilled = ref(false)
+
+const isConfirmPasswordValid = ref(false)
 
 const validateForm = (isValid) => {
   isFormValid.value = isValid
@@ -192,6 +215,15 @@ const checkFilledForm = () => {
   }
 }
 
+const checkConfirmPassword = () => {
+	if (form.value.password === form.value.confirmPassword) {
+		isConfirmPasswordValid.value = true
+	} else {
+		isConfirmPasswordValid.value = false
+		errorMessage.value = 'The password confirmation does not match.'
+	}
+}
+
 const submitForm = () => {
   if (!isFormValid.value) {
     alert('INVALID FORM')
@@ -199,22 +231,26 @@ const submitForm = () => {
     checkFilledForm()
 
     if (isFormFilled.value) {
-      console.log('SUBMIT >>>>>>', form.value)
-      errorMessage.value = ''
-      tryLogin()
+			checkConfirmPassword()
+			
+			if (isConfirmPasswordValid.value) {
+				console.log('SUBMIT >>>>>>', form.value)
+				errorMessage.value = ''
+				// tryLogin()
+			}
     }
   }
 }
 
-async function tryLogin() {
-  let response = await dbRouter.login.get(form.value.username, form.value.password)
+// async function tryLogin() {
+//   let response = await dbRouter.login.get(form.value.username, form.value.password)
 
-  if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
-    router.push('/')
+//   if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
+//     router.push('/')
 
-    return
-  }
+//     return
+//   }
 
-  errorMessage.value = 'Incorrect Username or Password'
-}
+//   errorMessage.value = 'Incorrect Username or Password'
+// }
 </script>

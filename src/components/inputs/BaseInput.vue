@@ -18,7 +18,7 @@
       <div
         v-if="props.placeholder"
         class="absolute z-0 opacity-65 pt-1 select-none"
-        :class="paddingPlaceholder ? 'pl-8' : 'pl-3'"
+        :class="paddingPlaceholder ? 'pl-9' : 'pl-3'"
       >
         <span v-show="showPlaceholder">{{ props.placeholder }}</span>
       </div>
@@ -66,7 +66,6 @@
     </div>
     <!--end: container Base Input -->
     <!-- begin: Error Message -->
-    <!--:class="props.error || localError.value ? 'visible' : 'invisible'"-->
     <div v-show="localError">
       <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
         <i class="scale-[0.60]">
