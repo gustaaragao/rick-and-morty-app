@@ -3,31 +3,52 @@
   <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]" @keyup.enter="() => submitForm()">
     <h1>Login</h1>
     <!-- begin: User Input -->
-    <BaseInput label="User" placeholder="User" focusColor="violet-400" :validation-parameters="validationParametersUser"
-      @update:model-value="(value) => {
-        form.username = value
-      }
-        " @validate:input="(value) => {
+    <BaseInput
+      label="User"
+      placeholder="User"
+      focusColor="violet-400"
+      :validation-parameters="validationParametersUser"
+      :error="!!errorMessage"
+      @update:model-value="
+        (value) => {
+          form.username = value
+        }
+      "
+      @validate:input="
+        (value) => {
           validateForm(value)
         }
-          ">
+      "
+    >
       <template #icon>
         <UserRound />
       </template>
     </BaseInput>
     <!-- end: User Input -->
     <!-- begin: Password Input -->
-    <BaseInput type="password" label="Password" placeholder="Password" focusColor="violet-400" @update:model-value="(value) => {
-      form.password = value
-    }
-      ">
+    <BaseInput
+      type="password"
+      label="Password"
+      placeholder="Password"
+      :error="!!errorMessage"
+      focusColor="violet-400"
+      @update:model-value="
+        (value) => {
+          form.password = value
+        }
+      "
+    >
       <template #icon>
         <KeyRound />
       </template>
     </BaseInput>
     <!-- end: Password Input -->
     <!-- begin: Error Span -->
-    <div v-show="errorMessage" class="flex justify-center text-red-600 text-xs font-semibold">
+    <div
+      v-show="errorMessage"
+      class="flex justify-center text-red-600 text-xs font-semibold"
+      :class="errorMessage ? 'animate-shake-l' : ''"
+    >
       {{ errorMessage }}
     </div>
     <!-- end: Error Span -->
@@ -77,7 +98,7 @@ const checkFilledForm = () => {
   try {
     valuesForm.forEach((input) => {
       if (!input) {
-        throw new Error("Please, fill in the required fields.")
+        throw new Error('Please, fill in the required fields.')
       }
       isFormFilled.value = true
     })
@@ -94,7 +115,8 @@ const submitForm = () => {
     checkFilledForm()
 
     if (isFormFilled.value) {
-      console.log('SUBMIT:', form.value)
+      console.log('SUBMIT >>>>>>', form.value)
+      errorMessage.value = ''
       tryLogin()
     }
   }
@@ -108,8 +130,7 @@ async function tryLogin() {
 
     return
   }
-  // TODO: Error
-  console.log('ERROR TRY LOGIN')
-}
 
+  errorMessage.value = 'Incorrect Username or Password'
+}
 </script>

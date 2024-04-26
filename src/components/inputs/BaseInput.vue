@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full" :class="(props.error || localError) ? 'animate-shake-r' : ''">
     <div v-if="props.label" class="text-md" ref="divLabel">
       <label>
         {{ props.label }}
@@ -46,12 +46,12 @@
     <!--end: container Base Input -->
     <!-- begin: Error Message -->
     <!--:class="props.error || localError.value ? 'visible' : 'invisible'"-->
-    <div v-show="props.error || localError">
+    <div v-show="localError">
       <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
         <i class="scale-[0.60]">
           <CircleAlert />
         </i>
-        <span> {{ props.error || localError }} </span>
+        <span> {{ localError }} </span>
       </div>
     </div>
     <!-- end: Error Message -->
@@ -85,8 +85,8 @@ const props = defineProps({
     default: ''
   },
   error: {
-    type: String,
-    default: ''
+    type: Boolean,
+    default: false,
   },
   validationParameters: {
     type: Object,
