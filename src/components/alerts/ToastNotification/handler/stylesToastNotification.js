@@ -1,13 +1,16 @@
 import { Check, Ban, TriangleAlert } from 'lucide'
 
 export const stylesToastNotification = {
-  sucess: {
-    icon: Check
+  success: {
+    icon: Check,
+    color: 'green-600',
   },
   error: {
-    icon: Ban
+    icon: Ban,
+    color: 'red-600',
   },
   warning: {
-    icon: TriangleAlert
+    icon: TriangleAlert,
+    color: 'yellow-500',
   }
 }

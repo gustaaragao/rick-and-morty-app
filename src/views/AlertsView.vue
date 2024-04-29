@@ -2,19 +2,19 @@
   <h1 class="text-lg font-black">Toast Notification</h1>
   <div class="flex gap-2 p-5 font-medium">
     <button
-      @click="toastNotification('Successfully submitted! (Success)')"
+      @click="successToastNotification('Successfully submitted!')"
       class="bg-green-400 p-2 rounded"
     >
       Success
     </button>
     <button
-      @click="toastNotification('Please fix the error! (Error)')"
+      @click="errorToastNotification('Please fix the error!')"
       class="bg-red-400 p-2 rounded"
     >
       Error
     </button>
     <button
-      @click="toastNotification('Invalid input, check again! (Warning)')"
+      @click="warningToastNotification('Invalid input, check again!')"
       class="bg-yellow-400 p-2 rounded"
     >
       Warning
@@ -33,5 +33,5 @@
 
 <script setup>
 import ToastBox from '@/components/alerts/ToastNotification/ToastBox.vue'
-import { toastNotification } from '@/components/alerts/ToastNotification/toastNotification.js'
+import { successToastNotification, errorToastNotification, warningToastNotification } from '@/components/alerts/ToastNotification/toastNotification.js'
 </script>

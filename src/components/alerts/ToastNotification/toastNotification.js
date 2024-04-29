@@ -2,18 +2,27 @@ import { addStylesToToastNotification } from "./handler/addStylesToToastNotifica
 import { addTextToNotification } from "./handler/addTextToToastNotification"
 import { getToastBox } from "./handler/getToastBox"
 
-export const toastNotification = (message) => {
+const toastNotification = (type) => (message) => {
   try {
     const toastBox = getToastBox()
 
     const toastNotification = document.createElement('div')
-    
-    addStylesToToastNotification(toastNotification)
+
+    addStylesToToastNotification(toastNotification, type)
     
     addTextToNotification(toastNotification, message)
 
     toastBox.appendChild(toastNotification)
+
+    setTimeout(() => {
+      toastNotification.remove()
+    }, 6000)
+
   } catch (err) {
     console.log(err)
   }
 }
+
+export const successToastNotification = toastNotification('success')
+export const errorToastNotification = toastNotification('error')
+export const warningToastNotification = toastNotification('warning')
