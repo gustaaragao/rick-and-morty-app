@@ -9,12 +9,12 @@
 <style scoped>
 #toastBox {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   display: flex;
   align-items: flex-end;
   flex-direction: column;
   overflow: hidden;
-  padding: 20px;
+  gap: 10px;
 }
 </style>
