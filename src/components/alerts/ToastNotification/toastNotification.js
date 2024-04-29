@@ -16,7 +16,7 @@ const toastNotification = (type) => (message) => {
 
     setTimeout(() => {
       toastNotification.remove()
-    }, 6000)
+    }, 4000)
 
   } catch (err) {
     console.log(err)
