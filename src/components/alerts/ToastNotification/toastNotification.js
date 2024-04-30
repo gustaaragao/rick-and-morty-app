@@ -1,5 +1,6 @@
 import { addStylesToToastNotification } from "./handler/addStylesToToastNotification"
 import { addTextToNotification } from "./handler/addTextToToastNotification"
+import { addCloseButton } from "./handler/addCloseButton"
 import { getToastBox } from "./handler/getToastBox"
 
 const toastNotification = (type) => (message) => {
@@ -10,13 +11,15 @@ const toastNotification = (type) => (message) => {
 
     addStylesToToastNotification(toastNotification, type)
     
-    addTextToNotification(toastNotification, message)
+    addTextToNotification(toastNotification, message, type)
+
+    addCloseButton(toastNotification)
 
     toastBox.appendChild(toastNotification)
 
-    setTimeout(() => {
-      toastNotification.remove()
-    }, 4000)
+    // setTimeout(() => {
+    //   toastNotification.remove()
+    // }, 6000)
 
   } catch (err) {
     console.log(err)

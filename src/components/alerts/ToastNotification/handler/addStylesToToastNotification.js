@@ -6,29 +6,29 @@ import { increaseBrightness } from '@/utils/increaseBrightness'
 const addCSStoToastNotification = (toastNotification, type) => {
   const color = stylesToastNotification[type].color
   const colorHex = transformTailwindColorToHex(color)
-  const colorHexLighter = increaseBrightness(colorHex, 80)
+  const colorHexLighter = increaseBrightness(colorHex, 60)
 
   toastNotification.style.cssText = `
     font-weight: 400;
-	margin-right: 20px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	padding-right: 10px;
+	  margin-right: 20px;
+	  padding-top: 4px;
+	  padding-bottom: 4px;
+	  padding-right: 8px;
     display: flex;
     align-items: center;
-	background-color: ${colorHexLighter};
-	border: 2px solid ${colorHex};
-	color: ${colorHex};
-	font-size: 12px;
-	border-radius: 0.375rem;
+	  background-color: ${colorHexLighter};
+	  border: 2px solid ${colorHex};
+	  color: ${colorHex};
+	  font-size: 12px;
+	  border-radius: 0.375rem;
     `
 }
 
-const addCSStoIcon = (iconSVGElement, type) => {
+const addCSStoIcon = (iconSVGElement) => {
   iconSVGElement.style.cssText = `
-	margin: 0 2px;
-	transform: scale(0.8);
-	stroke-width: 3;
+	margin: 0 10px;
+	transform: scale(1);
+	stroke-width: 2;
 	`
 }
 
