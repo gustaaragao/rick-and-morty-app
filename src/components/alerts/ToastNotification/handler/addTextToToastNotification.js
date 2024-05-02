@@ -1,4 +1,4 @@
-import { typesToastNotification } from "./typesToastNotification/typesToastNotification"
+import { defaultNotification } from "../../defaultNotification"
 
 export const addTextToNotification = (toastNotification, message, type) => {
   const divText = document.createElement('div')
@@ -11,7 +11,7 @@ export const addTextToNotification = (toastNotification, message, type) => {
   if (message) {
     spanText.innerHTML = message
   } else {
-    spanText.innerHTML = typesToastNotification[type].defaultMessage
+    spanText.innerHTML = defaultNotification[type].defaultMessage
   }
 
   divText.style.cssText = `
