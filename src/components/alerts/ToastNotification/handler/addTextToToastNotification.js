@@ -1,3 +1,5 @@
+import { typesToastNotification } from "./typesToastNotification/typesToastNotification"
+
 export const addTextToNotification = (toastNotification, message, type) => {
   const divText = document.createElement('div')
 
@@ -5,7 +7,16 @@ export const addTextToNotification = (toastNotification, message, type) => {
   const spanText = document.createElement('span')
 
   titleText.innerHTML = type.charAt(0).toUpperCase() + type.slice(1)
-  spanText.innerHTML = message
+
+  if (message) {
+    spanText.innerHTML = message
+  } else {
+    spanText.innerHTML = typesToastNotification[type].defaultMessage
+  }
+
+  divText.style.cssText = `
+    width: 100%;
+  `
 
   titleText.style.cssText = `
     font-weight: 900;

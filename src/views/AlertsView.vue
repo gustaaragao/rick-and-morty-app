@@ -2,31 +2,31 @@
   <h1 class="text-lg font-black">Toast Notification</h1>
   <div class="flex gap-2 p-5 font-medium">
     <button
-      @click="successToastNotification('Successfully submitted!')"
+      @click="successToastNotification()"
       class="bg-green-400 p-2 rounded"
     >
       Success
     </button>
     <button
-      @click="errorToastNotification('Please fix the error!')"
+      @click="errorToastNotification('Default error message!')"
       class="bg-red-400 p-2 rounded"
     >
       Error
     </button>
     <button
-      @click="warningToastNotification('Invalid input, check again!')"
+      @click="warningToastNotification('Messagem de warning diferenciada!')"
       class="bg-yellow-400 p-2 rounded"
     >
       Warning
     </button>
   </div>
 
-  <!-- <h1 class="text-lg font-black">Base Alert</h1>
+  <h1 class="text-lg font-black">Base Alert</h1>
 	<div class="flex gap-2 p-5 font-medium">
 		<button class="bg-green-400 p-2 rounded">Sucess</button>
 		<button class="bg-red-400 p-2 rounded">Error</button>
 		<button class="bg-yellow-400 p-2 rounded">Warning</button>
-	</div> -->
+	</div>
 
   <ToastBox></ToastBox>
 </template>

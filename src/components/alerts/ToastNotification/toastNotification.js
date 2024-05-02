@@ -3,9 +3,14 @@ import { addTextToNotification } from "./handler/addTextToToastNotification"
 import { addCloseButton } from "./handler/addCloseButton"
 import { getToastBox } from "./handler/getToastBox"
 
-const toastNotification = (type) => (message) => {
+const toastNotification = (type) => (message = '') => {
   try {
-    const toastBox = getToastBox()
+    
+    if (message.length > 50) {
+      throw new Error('Message longer than 50 characters.')
+    }
+
+    const toastBox = getToastBox('')
 
     const toastNotification = document.createElement('div')
 
@@ -17,9 +22,9 @@ const toastNotification = (type) => (message) => {
 
     toastBox.appendChild(toastNotification)
 
-    // setTimeout(() => {
-    //   toastNotification.remove()
-    // }, 6000)
+    setTimeout(() => {
+      toastNotification.remove()
+    }, 6000)
 
   } catch (err) {
     console.log(err)

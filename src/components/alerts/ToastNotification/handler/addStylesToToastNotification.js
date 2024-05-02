@@ -1,20 +1,19 @@
 import { createElement } from 'lucide'
-import { stylesToastNotification } from './stylesToastNotification'
+import { typesToastNotification } from './typesToastNotification/typesToastNotification'
 import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex'
 import { increaseBrightness } from '@/utils/increaseBrightness'
 
 const addCSStoToastNotification = (toastNotification, type) => {
-  const color = stylesToastNotification[type].color
+  const color = typesToastNotification[type].color
   const colorHex = transformTailwindColorToHex(color)
   const colorHexLighter = increaseBrightness(colorHex, 60)
 
   toastNotification.style.cssText = `
     font-weight: 400;
-	  margin-right: 20px;
 	  padding-top: 4px;
 	  padding-bottom: 4px;
-	  padding-right: 8px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 	  background-color: ${colorHexLighter};
 	  border: 2px solid ${colorHex};
@@ -27,13 +26,12 @@ const addCSStoToastNotification = (toastNotification, type) => {
 const addCSStoIcon = (iconSVGElement) => {
   iconSVGElement.style.cssText = `
 	margin: 0 10px;
-	transform: scale(1);
 	stroke-width: 2;
 	`
 }
 
 const addIcon = (toastNotification, type) => {
-  const icon = stylesToastNotification[type].icon
+  const icon = typesToastNotification[type].icon
 
   const iconSVGElement = createElement(icon)
 
