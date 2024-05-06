@@ -17,7 +17,7 @@
       "password": "Senha@123"
     },
     {
-      "id": "9a82",
+      "id": "bc63",
       "firstname": "gustavo",
       "lastname": "gustavo",
       "username": "gustavo",
@@ -25,7 +25,6 @@
       "password": "Senha@123"
     }
   ],
-
   "favorites": [
     {
       "id": "1",
@@ -36,7 +35,7 @@
       "favCharacters": []
     },
     {
-      "id": "9a82",
+      "id": "bc63",
       "favCharacters": []
     }
   ]
