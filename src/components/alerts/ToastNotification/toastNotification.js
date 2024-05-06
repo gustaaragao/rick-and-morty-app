@@ -4,26 +4,25 @@ import { addCloseButton } from "./handler/addCloseButton"
 import { getToastBox } from "./handler/getToastBox"
 
 const toastNotification = (type) => (message = '') => {
-  try {
-    
+  try { 
     if (message.length > 50) {
       throw new Error('Message longer than 50 characters.')
     }
 
     const toastBox = getToastBox('')
 
-    const toastNotification = document.createElement('div')
+    const notification = document.createElement('div')
 
-    addStylesToToastNotification(toastNotification, type)
+    addStylesToToastNotification(notification, type)
     
-    addTextToNotification(toastNotification, message, type)
+    addTextToNotification(notification, message, type)
 
-    addCloseButton(toastNotification)
+    addCloseButton(notification)
 
-    toastBox.appendChild(toastNotification)
+    toastBox.appendChild(notification)
 
     setTimeout(() => {
-      toastNotification.remove()
+      notification.remove()
     }, 6000)
 
   } catch (err) {
@@ -31,6 +30,6 @@ const toastNotification = (type) => (message = '') => {
   }
 }
 
-export const successToastNotification = toastNotification('success')
-export const errorToastNotification = toastNotification('error')
-export const warningToastNotification = toastNotification('warning')
+export const toastNotificationSucess = toastNotification('success')
+export const toastNotificationError = toastNotification('error')
+export const toastNotificationWarning = toastNotification('warning')
