@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full" :class="(props.error || localError) ? 'animate-shake-r' : ''">
+  <div class="w-full" :class="props.error || localError ? 'animate-shake-r' : ''">
     <div v-if="props.label" class="text-md" ref="divLabel">
       <label>
         {{ props.label }}
@@ -9,31 +9,52 @@
     <div class="border-2 rounded-xl flex shadow-md mt-1" ref="containerBaseInput">
       <!--begin: Icon-->
       <div class="flex items-center justify-center pl-1">
-        <i class="scale-[0.8]">
+        <i class="scale-[0.8]" ref="icon">
           <slot name="icon" ref="iconSlot"></slot>
         </i>
       </div>
       <!--end: Icon-->
       <!-- begin: Placeholder -->
-      <div v-if="props.placeholder" class="absolute z-0 opacity-65 pt-1 pl-9 select-none">
+      <div
+        v-if="props.placeholder"
+        class="absolute z-0 opacity-65 pt-1 select-none"
+        :class="paddingPlaceholder ? 'pl-9' : 'pl-3'"
+      >
         <span v-show="showPlaceholder">{{ props.placeholder }}</span>
       </div>
       <!-- end: Placeholder -->
       <!-- begin: Input -->
-      <input :type="inputType" class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
-        v-model="inputValue" @input="(event) => {
-          emit('update:model-value', event.target.value)
-          hidePlaceholder()
-        }" @focus="changeColorBaseInput(focusColorHex)" @blur="(event) => {changeColorBaseInput(defaultColorHex);validateInput(event)}" />
+      <input
+        :type="inputType"
+        class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+        v-model="inputValue"
+        @input="
+          (event) => {
+            emit('update:model-value', event.target.value)
+            hidePlaceholder()
+          }
+        "
+        @focus="changeColorBaseInput(focusColorHex)"
+        @blur="
+          (event) => {
+            changeColorBaseInput(defaultColorHex)
+            validateInput(event)
+          }
+        "
+      />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
-      <div v-if="props.type === 'password'"
-        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50" @click="() => {
-          showPasswordBoolean = !showPasswordBoolean
-          showPassword()
-          changeColorBaseInput(focusColorHex)
-        }
-          ">
+      <div
+        v-if="props.type === 'password'"
+        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
+        @click="
+          () => {
+            showPasswordBoolean = !showPasswordBoolean
+            showPassword()
+            changeColorBaseInput(focusColorHex)
+          }
+        "
+      >
         <i v-show="!showPasswordBoolean">
           <Eye />
         </i>
@@ -45,7 +66,6 @@
     </div>
     <!--end: container Base Input -->
     <!-- begin: Error Message -->
-    <!--:class="props.error || localError.value ? 'visible' : 'invisible'"-->
     <div v-show="localError">
       <div class="flex flex-row items-center text-xs text-red-500 pt-1 gap-0.5">
         <i class="scale-[0.60]">
@@ -86,7 +106,7 @@ const props = defineProps({
   },
   error: {
     type: Boolean,
-    default: false,
+    default: false
   },
   validationParameters: {
     type: Object,
@@ -107,10 +127,12 @@ const focusColorHex = ref('')
 
 const containerBaseInput = ref(null)
 const divLabel = ref(null)
+const icon = ref(null)
 
 const inputValue = ref('')
 const inputType = ref(props.type)
 
+const paddingPlaceholder = ref(false)
 const showPlaceholder = ref(true)
 const showPasswordBoolean = ref(false)
 
@@ -121,6 +143,8 @@ onMounted(() => {
   containerBaseInput.value.style.borderColor = defaultColorHex.value
   containerBaseInput.value.style.color = defaultColorHex.value
   divLabel.value.style.color = defaultColorHex.value
+
+  paddingPlaceholder.value = !!icon.value.innerHTML.trim()
 })
 
 const changeColorBaseInput = (finalColorHex) => {
@@ -137,10 +161,10 @@ const validateInput = (event) => {
   const minLength = props.validationParameters.minLength
 
   const isPatternValid = patternRegex ? !!event.target.value.match(patternRegex) : true
-  
+
   const isMaxLengthValid = maxLength ? event.target.value.length <= maxLength : true
   const isMinLengthValid = minLength ? event.target.value.length >= minLength : true
-  
+
   const isLengthValid = isMaxLengthValid && isMinLengthValid
 
   if (!isPatternValid) {
