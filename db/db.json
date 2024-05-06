@@ -1,20 +1,20 @@
 {
   "users": [
     {
+      "id": "1",
       "firstname": "Gustavo",
       "lastname": "Silva",
       "username": "gustavo.silva",
       "email": "gustavo.silva@gmail.com",
-      "password": "12345",
-      "id": 1
+      "password": "Senha@123"
     },
     {
+      "id": "2",
       "firstname": "Gustavo",
       "lastname": "Aragão",
       "username": "gustavo.aragao",
       "email": "gustavo.aragao@gmail.com",
-      "password": "12345",
-      "id": 2
+      "password": "Senha@123"
     }
   ]
 }
