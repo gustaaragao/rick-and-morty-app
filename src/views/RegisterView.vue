@@ -259,5 +259,8 @@ async function tryRegister() {
       const id = response.data.id
       console.log(id)
     })
+    .catch((err) => {
+      errorMessage.value = err
+    })
 }
 </script>

@@ -15,6 +15,29 @@
       "username": "gustavo.aragao",
       "email": "gustavo.aragao@gmail.com",
       "password": "Senha@123"
+    },
+    {
+      "id": "9a82",
+      "firstname": "gustavo",
+      "lastname": "gustavo",
+      "username": "gustavo",
+      "email": "gustavo@gmail.com",
+      "password": "Senha@123"
+    }
+  ],
+
+  "favorites": [
+    {
+      "id": "1",
+      "favCharacters": []
+    },
+    {
+      "id": "2",
+      "favCharacters": []
+    },
+    {
+      "id": "9a82",
+      "favCharacters": []
     }
   ]
 }
