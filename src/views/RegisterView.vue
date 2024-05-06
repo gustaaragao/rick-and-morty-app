@@ -189,7 +189,8 @@ const validationParametersEmail = {
 }
 
 const validationParametersPassword = {
-  pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$'
+  pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$',
+  patternErrorMessage: 'The password must contain at least 8 upper and lower characters with at least one number from 0-9 and one special character (!@#$%^&*()-+).'
 }
 
 const isFormValid = ref(true)
