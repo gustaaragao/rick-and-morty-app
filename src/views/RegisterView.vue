@@ -155,7 +155,7 @@ import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
-import router from '@/router'
+// import router from '@/router'
 
 const errorMessage = ref('')
 
@@ -189,7 +189,9 @@ const validationParametersEmail = {
 }
 
 const validationParametersPassword = {
-  pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$'
+  pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$',
+  patternErrorMessage:
+    'The password must contain at least 8 upper and lower characters with at least one number from 0-9 and one special character (!@#$%^&*()-+).'
 }
 
 const isFormValid = ref(true)
@@ -237,7 +239,6 @@ const submitForm = () => {
       checkConfirmPassword()
 
       if (isConfirmPasswordValid.value) {
-        console.log('SUBMIT >>>>>>', form.value)
         errorMessage.value = ''
         tryRegister()
       }
@@ -246,6 +247,20 @@ const submitForm = () => {
 }
 
 async function tryRegister() {
-  return
+  await dbRouter.register
+    .post(
+      form.value.firstname,
+      form.value.lastname,
+      form.value.username,
+      form.value.email,
+      form.value.password
+    )
+    .then(async (response) => {
+      const id = response.data.id
+      console.log(id)
+    })
+    .catch((err) => {
+      errorMessage.value = err
+    })
 }
 </script>

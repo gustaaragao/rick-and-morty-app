@@ -114,10 +114,14 @@ const props = defineProps({
       return {
         pattern: '',
         minLength: null,
-        maxLength: null
+        maxLength: null,
+        patternErrorMessage: '',
+        maxLengthErrorMessage: '',
+        minLengthErrorMessage: '',
+        lengthErrorMessage: '',
       }
     }
-  }
+  },
 })
 
 const emit = defineEmits(['update:model-value', 'validate:input'])
@@ -156,9 +160,16 @@ const changeColorBaseInput = (finalColorHex) => {
 let localError = ref('')
 
 const validateInput = (event) => {
+  // Parâmetros de Validação
   const patternRegex = props.validationParameters.pattern
   const maxLength = props.validationParameters.maxLength
   const minLength = props.validationParameters.minLength
+
+  // Mensagens de Erro específicas
+  const patternErrorMessage = props.validationParameters.patternErrorMessage
+  const minLengthErrorMessage = props.validationParameters.minLengthErrorMessage
+  const maxLengthErrorMessage = props.validationParameters.maxLengthErrorMessage
+  const lengthErrorMessage = props.validationParameters.lengthErrorMessage
 
   const isPatternValid = patternRegex ? !!event.target.value.match(patternRegex) : true
 
@@ -168,14 +179,14 @@ const validateInput = (event) => {
   const isLengthValid = isMaxLengthValid && isMinLengthValid
 
   if (!isPatternValid) {
-    localError.value = `The ${props.type} is not valid.`
+    localError.value = patternErrorMessage ? patternErrorMessage : `The ${props.type} is not valid.`
   } else if (!isLengthValid) {
     if (!maxLength) {
-      localError.value = `The input must be at least ${minLength} character(s) long.`
+      localError.value = maxLengthErrorMessage ? maxLengthErrorMessage : `The input must be at least ${minLength} character(s) long.`
     } else if (!minLength) {
-      localError.value = `The input must have a maximum of ${maxLength} character(s).`
+      localError.value = minLengthErrorMessage ? minLengthErrorMessage : `The input must have a maximum of ${maxLength} character(s).`
     } else {
-      localError.value = `The input must be between ${minLength} and ${maxLength} characters long.`
+      localError.value = lengthErrorMessage ? lengthErrorMessage : `The input must be between ${minLength} and ${maxLength} characters long.`
     }
   } else {
     localError.value = ''

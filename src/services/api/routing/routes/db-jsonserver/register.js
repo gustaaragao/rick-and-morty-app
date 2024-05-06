@@ -15,13 +15,10 @@ async function checkDBForEmail(email) {
 export const register = {
   post: async function (firstname, lastname, username, email, password) {
     if (await checkDBForUsername(username)) {
-			// TODO: usar "trow"
-      console.log('Nome de usuário já utilizado.')
-      return
+      throw 'The username is already taken.'
     }
     if (await checkDBForEmail(email)) {
-      console.log('Nome de e-mail já utilizado.')
-      return
+      throw 'The e-mail is already taken.'
     }
 
     let dataNewUser = {
@@ -32,6 +29,6 @@ export const register = {
       password: password
     }
 
-    return await dbRequester("post", "users", "", dataNewUser)
+    return await dbRequester('post', 'users', '', dataNewUser)
   }
 }
