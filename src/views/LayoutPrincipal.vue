@@ -9,7 +9,8 @@
     <!--end: TopBar -->
     <!--begin: Search Input-->
     <div class="flex align-middle justify-center p-8">
-      <SearchInput class="w-[30rem]"> </SearchInput>
+      <SearchInput class="w-[30rem]" @update:model-value="(value) => (searchedCharacter = value)">
+      </SearchInput>
     </div>
     <!--end: Search Input-->
     <!--begin: Section Characters-->
@@ -23,8 +24,9 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { onUpdated, ref } from 'vue'
+import { onMounted, onUpdated, ref } from 'vue'
+
+import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 
 import SearchInput from '@/components/inputs/SearchInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
@@ -34,12 +36,14 @@ const characters = ref([])
 
 const searchedCharacter = ref('')
 
-axios.get(`character?name=${searchedCharacter.value}`).then((response) => {
-  characters.value = response.data.results
+onMounted(() => {
+  ramRouter.characters.get(searchedCharacter.value).then((response) => {
+    characters.value = response.data.results
+  })
 })
 
 onUpdated(() => {
-  axios.get(`character?name=${searchedCharacter.value}`).then((response) => {
+  ramRouter.characters.get(searchedCharacter.value).then((response) => {
     characters.value = response.data.results
   })
 })
