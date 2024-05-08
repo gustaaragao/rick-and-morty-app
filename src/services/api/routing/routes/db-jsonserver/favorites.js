@@ -19,11 +19,3 @@ export const favorites = {
     })
   }
 }
-
-// dbRequester('patch', `favorites/${userID}`, '')
-//   .then((response) => {
-//     console.log(response.data.favCharacters)
-//     response.data.favCharacters.push(character)
-//     console.log(response.data.favCharacters)
-//   })
-//   .catch((err) => console.log(err))
