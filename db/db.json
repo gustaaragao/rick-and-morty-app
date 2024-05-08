@@ -27,8 +27,21 @@
   ],
   "favorites": [
     {
-      "id": "1",
-      "favCharacters": []
+      "favCharacters": [
+        {
+          "id": 1,
+          "name": "Rick Sanchez"
+        },
+        {
+          "id": 2,
+          "name": "Morty Smith"
+        },
+        {
+          "id": 3,
+          "name": "Summer Smith"
+        }
+      ],
+      "id": "1"
     },
     {
       "id": "2",

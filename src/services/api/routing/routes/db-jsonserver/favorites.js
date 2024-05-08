@@ -12,12 +12,8 @@ export const favorites = {
       let userFavorites = response.data.favCharacters
       
       userFavorites.push(character)
-      
-      console.log(userFavorites)
 
-      // dbRequester('put', `favorites/${userID}`, '').then((response) => {
-      //   response.data.favCharacters = userFavorites
-      // })
+      dbRequester('put', `favorites/${userID}`, '', {favCharacters: userFavorites})
     }).catch((err) => {
       console.log(err)
     })
