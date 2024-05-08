@@ -16,7 +16,12 @@
     <!--begin: Section Characters-->
     <section class="grid grid-cols-3 gap-4 px-10 pb-10">
       <div v-for="character in characters" :key="character?.id">
-        <VisualizerCharacter class="" :character="character"> </VisualizerCharacter>
+        <!-- TODO: Como capturar o id do usuário da Sessão e como modificar o personagem -->
+        <VisualizerCharacter
+          :character="character"
+          @send:character="(character) => {dbRouter.favorites.addFavorite('1', character)}"
+        >
+        </VisualizerCharacter>
       </div>
     </section>
     <!--end: Section Characters-->
@@ -33,9 +38,10 @@
 </template>
 
 <script setup>
-import { onMounted, onUpdated, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
+import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import SearchInput from '@/components/inputs/SearchInput.vue'
@@ -68,12 +74,10 @@ const loadNextPage = (searchedCharacter, nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]
 
-    ramRouter.characters
-      .loadNextPage(searchedCharacter, numberPage)
-      .then((response) => {
-        characters.value.push(...response.data.results)
-        nextPageLink = response.data.info.next
-      })
+    ramRouter.characters.loadNextPage(searchedCharacter, numberPage).then((response) => {
+      characters.value.push(...response.data.results)
+      nextPageLink = response.data.info.next
+    })
   }
 }
 </script>
