@@ -124,9 +124,13 @@ const submitForm = () => {
 async function tryLogin() {
   let response = await dbRouter.login.get(form.value.username, form.value.password)
 
-  if ((response.status == 200 || response.status == 201) && response.data.length > 0) { 
-    localStorage.setItem('user-info', JSON.stringify(response.data[0]))
-   
+  if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
+    let userInfo = response.data[0]
+    let userFavorites = await dbRouter.favorites.get(userInfo.id)
+
+    localStorage.setItem('user-info', JSON.stringify(userInfo))
+    localStorage.setItem('user-favorites', JSON.stringify(userFavorites.data.favCharacters))
+
     router.push('/')
 
     return
