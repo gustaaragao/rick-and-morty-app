@@ -3,7 +3,15 @@
   <div class="w-full h-full rounded-xl bg-green-300 shadow-2xl">
     <div class="w-full">
       <!--begin: Favorite Button-->
-      <div @click="fillIcon = !fillIcon" class="flex justify-end cursor-pointer">
+      <div
+        class="flex justify-end cursor-pointer"
+        @click="
+          () => {
+            fillIcon = !fillIcon
+            emit('send:character', { id: props.character.id, name: props.character.name })
+          }
+        "
+      >
         <div class="absolute mt-4 mr-4 z-0">
           <Star :class="fillIcon ? 'fill-blue-500' : ''" class="scale-[1.5] stroke-[1.5px]" />
         </div>
@@ -41,4 +49,6 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['send:character'])
 </script>

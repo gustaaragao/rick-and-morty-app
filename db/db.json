@@ -17,7 +17,7 @@
       "password": "Senha@123"
     },
     {
-      "id": "9a82",
+      "id": "bc63",
       "firstname": "gustavo",
       "lastname": "gustavo",
       "username": "gustavo",
@@ -25,18 +25,30 @@
       "password": "Senha@123"
     }
   ],
-
   "favorites": [
     {
-      "id": "1",
-      "favCharacters": []
+      "favCharacters": [
+        {
+          "id": 1,
+          "name": "Rick Sanchez"
+        },
+        {
+          "id": 2,
+          "name": "Morty Smith"
+        },
+        {
+          "id": 3,
+          "name": "Summer Smith"
+        }
+      ],
+      "id": "1"
     },
     {
       "id": "2",
       "favCharacters": []
     },
     {
-      "id": "9a82",
+      "id": "bc63",
       "favCharacters": []
     }
   ]

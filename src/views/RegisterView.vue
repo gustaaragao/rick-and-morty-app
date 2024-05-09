@@ -146,6 +146,7 @@
     <!-- end: Submit Button -->
   </div>
   <!--end: Register -->
+  <ToastBox></ToastBox>
 </template>
 
 <script setup>
@@ -155,8 +156,10 @@ import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
-// import router from '@/router'
+import router from '@/router'
 
+import ToastBox from '@/components/alerts/ToastNotification/ToastBox.vue'
+import { toastNotificationSucess } from '@/components/alerts/ToastNotification/toastNotification'
 const errorMessage = ref('')
 
 const form = ref({
@@ -256,8 +259,9 @@ async function tryRegister() {
       form.value.password
     )
     .then(async (response) => {
-      const id = response.data.id
-      console.log(id)
+      const newUserID = response.data.id
+      dbRouter.favorites.create(newUserID)
+      toastNotificationSucess('User created successfully.')
     })
     .catch((err) => {
       errorMessage.value = err
