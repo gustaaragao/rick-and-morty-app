@@ -4,22 +4,6 @@
       "id": "1",
       "firstname": "Gustavo",
       "lastname": "Silva",
-      "username": "gustavo.silva",
-      "email": "gustavo.silva@gmail.com",
-      "password": "Senha@123"
-    },
-    {
-      "id": "2",
-      "firstname": "Gustavo",
-      "lastname": "Aragão",
-      "username": "gustavo.aragao",
-      "email": "gustavo.aragao@gmail.com",
-      "password": "Senha@123"
-    },
-    {
-      "id": "bc63",
-      "firstname": "gustavo",
-      "lastname": "gustavo",
       "username": "gustavo",
       "email": "gustavo@gmail.com",
       "password": "Senha@123"
@@ -27,29 +11,8 @@
   ],
   "favorites": [
     {
-      "favCharacters": [
-        {
-          "id": 1,
-          "name": "Rick Sanchez"
-        },
-        {
-          "id": 2,
-          "name": "Morty Smith"
-        },
-        {
-          "id": 3,
-          "name": "Summer Smith"
-        }
-      ],
+      "favCharacters": [],
       "id": "1"
-    },
-    {
-      "id": "2",
-      "favCharacters": []
-    },
-    {
-      "id": "bc63",
-      "favCharacters": []
     }
   ]
 }

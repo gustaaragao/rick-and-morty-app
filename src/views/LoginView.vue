@@ -115,7 +115,6 @@ const submitForm = () => {
     checkFilledForm()
 
     if (isFormFilled.value) {
-      console.log('SUBMIT >>>>>>', form.value)
       errorMessage.value = ''
       tryLogin()
     }
@@ -125,7 +124,9 @@ const submitForm = () => {
 async function tryLogin() {
   let response = await dbRouter.login.get(form.value.username, form.value.password)
 
-  if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
+  if ((response.status == 200 || response.status == 201) && response.data.length > 0) { 
+    localStorage.setItem('user-info', JSON.stringify(response.data[0]))
+   
     router.push('/')
 
     return
