@@ -39,8 +39,8 @@
 </template>
 
 <script setup>
-import ToggleSwitch from './buttons/ToggleSwitch.vue'
-import Dropdown from './dropdown/Dropdown.vue'
+import ToggleSwitch from '@/components/buttons/ToggleSwitch.vue'
+import Dropdown from '@/components/dropdown/Dropdown.vue'
 import { Moon, Sun } from 'lucide-vue-next'
 
 const acessProfileUser = () => {
