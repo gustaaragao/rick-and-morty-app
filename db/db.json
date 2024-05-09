@@ -2,6 +2,7 @@
   "users": [
     {
       "id": "1",
+      "profileImage": "",
       "firstname": "Gustavo",
       "lastname": "Silva",
       "username": "gustavo",
