@@ -7,11 +7,23 @@
       "username": "gustavo",
       "email": "gustavo@gmail.com",
       "password": "Senha@123"
+    },
+    {
+      "id": "63f5",
+      "firstname": "Gustavo",
+      "lastname": "Henrique",
+      "username": "henrique",
+      "email": "henrique@gmail.com",
+      "password": "Senha@123"
     }
   ],
   "favorites": [
     {
       "id": "f8ca",
+      "favCharacters": []
+    },
+    {
+      "id": "63f5",
       "favCharacters": []
     }
   ]

@@ -62,14 +62,6 @@ onMounted(() => {
   })
 })
 
-// onUpdated(() => {
-//   ramRouter.characters.get(name).then((response) => {
-//     characters.value = response.data.results
-
-//     nextPageLink.value = response.data.info.next
-//   })
-// })
-
 const loadNextPage = (searchedCharacter, nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]
