@@ -1,66 +1,78 @@
 <template>
-  <!--begin: Login -->
-  <div class="relative grid gap-4 pl-4 pt-2 pr-[450px]" @keyup.enter="() => submitForm()">
-    <h1>Login</h1>
-    <!-- begin: Username Input -->
-    <BaseInput
-      label="Username"
-      placeholder="Username"
-      focusColor="violet-400"
-      :validation-parameters="validationParametersUser"
-      :error="!!errorMessage"
-      @update:model-value="
-        (value) => {
-          form.username = value
-        }
-      "
-      @validate:input="
-        (value) => {
-          validateForm(value)
-        }
-      "
-    >
-      <template #icon>
-        <UserRound />
-      </template>
-    </BaseInput>
-    <!-- end: Username Input -->
-    <!-- begin: Password Input -->
-    <BaseInput
-      type="password"
-      label="Password"
-      placeholder="Password"
-      :error="!!errorMessage"
-      focusColor="violet-400"
-      @update:model-value="
-        (value) => {
-          form.password = value
-        }
-      "
-    >
-      <template #icon>
-        <KeyRound />
-      </template>
-    </BaseInput>
-    <!-- end: Password Input -->
-    <!-- begin: Error Span -->
-    <div
-      v-show="errorMessage"
-      class="flex justify-center text-red-600 text-xs font-semibold"
-      :class="errorMessage ? 'animate-shake-l' : ''"
-    >
-      {{ errorMessage }}
+  <div class="flex justify-center items-center min-h-[100vh]">
+    <!--begin: Login -->
+    <div class="grid gap-4 w-min h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white" @keyup.enter="() => submitForm()">
+      <!-- begin: Title -->
+      <h1 class="text-center text-2xl text-gray-400">
+        Login
+      </h1>
+      <!-- end: Title -->
+      <!-- begin: Username Input -->
+      <BaseInput
+        label="Username"
+        placeholder="Username"
+        focusColor="violet-400"
+        :validation-parameters="validationParametersUser"
+        :error="!!errorMessage"
+        @update:model-value="
+          (value) => {
+            form.username = value
+          }
+        "
+        @validate:input="
+          (value) => {
+            validateForm(value)
+          }
+        "
+      >
+        <template #icon>
+          <UserRound />
+        </template>
+      </BaseInput>
+      <!-- end: Username Input -->
+      <!-- begin: Password Input -->
+      <BaseInput
+        type="password"
+        label="Password"
+        placeholder="Password"
+        :error="!!errorMessage"
+        focusColor="violet-400"
+        @update:model-value="
+          (value) => {
+            form.password = value
+          }
+        "
+      >
+        <template #icon>
+          <KeyRound />
+        </template>
+      </BaseInput>
+      <!-- end: Password Input -->
+      <!-- begin: Error Span -->
+      <div
+        v-show="errorMessage"
+        class="flex justify-center text-red-600 text-xs font-semibold"
+        :class="errorMessage ? 'animate-shake-l' : ''"
+      >
+        {{ errorMessage }}
+      </div>
+      <!-- end: Error Span -->
+      <!-- begin: Submit Buttons -->
+      <div class="flex justify-center gap-4">
+        <BaseButton @click="submitForm()" :disabled="!isFormValid">
+          <template #text> Login </template>
+        </BaseButton>
+      </div>
+      <!-- end: Submit Buttons -->
+      <!-- begin: Register Button -->
+      <div class="flex justify-center text-sm gap-1">
+        <span>Don't have an account?</span> 
+        <span class="cursor-pointer select-none underline text-green-500 hover:text-green-600 " @click="router.push('/register')">Sign up.</span>
+      </div>
+      <!-- end: Register Button -->
     </div>
-    <!-- end: Error Span -->
-    <!-- begin: Submit Button -->
-    <div class="flex justify-center gap-5 select-none">
-      <BaseButton design="LightButton" @click="submitForm()" :disabled="!isFormValid">
-        <template #text> Login </template>
-      </BaseButton>
-    </div>
-    <!-- end: Submit Button -->
+    <!--end: Login -->
   </div>
-  <!--end: Login -->
 </template>
 
 <script setup>

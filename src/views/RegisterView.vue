@@ -1,152 +1,160 @@
 <template>
-  <!--begin: Register -->
-  <div
-    class="relative grid gap-4 pl-4 pt-2 pr-[450px] pb-[100px]"
-    @keyup.enter="() => submitForm()"
-  >
-    <h1>Register</h1>
-    <!-- begin: First Name Input -->
-    <BaseInput
-      label="First Name"
-      placeholder="First Name"
-      focusColor="violet-400"
-      :validation-parameters="validationParametersFirstName"
-      :error="!!errorMessage"
-      @update:model-value="
-        (value) => {
-          form.firstname = value
-        }
-      "
-      @validate:input="
-        (value) => {
-          validateForm(value)
-        }
-      "
-    >
-    </BaseInput>
-    <!-- end: First Name Input -->
-    <!-- begin: Last Name Input -->
-    <BaseInput
-      label="Last Name"
-      placeholder="Last Name"
-      focusColor="violet-400"
-      :validation-parameters="validationParametersLastName"
-      :error="!!errorMessage"
-      @update:model-value="
-        (value) => {
-          form.lastname = value
-        }
-      "
-      @validate:input="
-        (value) => {
-          validateForm(value)
-        }
-      "
-    >
-    </BaseInput>
-    <!-- end: Last Name Input -->
-    <!-- begin: Username Input -->
-    <BaseInput
-      label="Username"
-      placeholder="Username"
-      focusColor="violet-400"
-      :validation-parameters="validationParametersUser"
-      :error="!!errorMessage"
-      @update:model-value="
-        (value) => {
-          form.username = value
-        }
-      "
-      @validate:input="
-        (value) => {
-          validateForm(value)
-        }
-      "
-    >
-      <template #icon>
-        <UserRound />
-      </template>
-    </BaseInput>
-    <!-- end: Username Input -->
-    <!-- begin: E-mail Input -->
-    <BaseInput
-      label="E-mail"
-      placeholder="E-mail"
-      focusColor="violet-400"
-      :validation-parameters="validationParametersEmail"
-      :error="!!errorMessage"
-      @update:model-value="
-        (value) => {
-          form.email = value
-        }
-      "
-      @validate:input="
-        (value) => {
-          validateForm(value)
-        }
-      "
-    >
-      <template #icon>
-        <Mail />
-      </template>
-    </BaseInput>
-    <!-- end: E-mail Input -->
-    <!-- begin: Password Input -->
-    <BaseInput
-      type="password"
-      label="Password"
-      placeholder="Password"
-      :validation-parameters="validationParametersPassword"
-      :error="!!errorMessage"
-      focusColor="violet-400"
-      @update:model-value="
-        (value) => {
-          form.password = value
-        }
-      "
-    >
-      <template #icon>
-        <KeyRound />
-      </template>
-    </BaseInput>
-    <!-- end: Password Input -->
-    <!-- begin: Confirm Password Input -->
-    <BaseInput
-      type="password"
-      label="Confirm Password"
-      placeholder="Confirm Password"
-      :error="!!errorMessage"
-      focusColor="violet-400"
-      @update:model-value="
-        (value) => {
-          form.confirmPassword = value
-        }
-      "
-    >
-      <template #icon>
-        <KeyRound />
-      </template>
-    </BaseInput>
-    <!-- end: Confirm Password Input -->
-    <!-- begin: Error Span -->
+  <div class="flex justify-center items-center min-h-[100vh]">
+    <!--begin: Register -->
     <div
-      v-show="errorMessage"
-      class="flex justify-center text-red-600 text-xs font-semibold"
-      :class="errorMessage ? 'animate-shake-l' : ''"
+      class="grid gap-4 w-min h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white"
+      @keyup.enter="() => submitForm()"
     >
-      {{ errorMessage }}
+      <h1 class="text-center text-2xl text-gray-400">Register</h1>
+      <!-- begin: First Name Input -->
+      <BaseInput
+        label="First Name"
+        placeholder="First Name"
+        focusColor="violet-400"
+        :validation-parameters="validationParametersFirstName"
+        :error="!!errorMessage"
+        @update:model-value="
+          (value) => {
+            form.firstname = value
+          }
+        "
+        @validate:input="
+          (value) => {
+            validateForm(value)
+          }
+        "
+      >
+      </BaseInput>
+      <!-- end: First Name Input -->
+      <!-- begin: Last Name Input -->
+      <BaseInput
+        label="Last Name"
+        placeholder="Last Name"
+        focusColor="violet-400"
+        :validation-parameters="validationParametersLastName"
+        :error="!!errorMessage"
+        @update:model-value="
+          (value) => {
+            form.lastname = value
+          }
+        "
+        @validate:input="
+          (value) => {
+            validateForm(value)
+          }
+        "
+      >
+      </BaseInput>
+      <!-- end: Last Name Input -->
+      <!-- begin: Username Input -->
+      <BaseInput
+        label="Username"
+        placeholder="Username"
+        focusColor="violet-400"
+        :validation-parameters="validationParametersUser"
+        :error="!!errorMessage"
+        @update:model-value="
+          (value) => {
+            form.username = value
+          }
+        "
+        @validate:input="
+          (value) => {
+            validateForm(value)
+          }
+        "
+      >
+        <template #icon>
+          <UserRound />
+        </template>
+      </BaseInput>
+      <!-- end: Username Input -->
+      <!-- begin: E-mail Input -->
+      <BaseInput
+        label="E-mail"
+        placeholder="E-mail"
+        focusColor="violet-400"
+        :validation-parameters="validationParametersEmail"
+        :error="!!errorMessage"
+        @update:model-value="
+          (value) => {
+            form.email = value
+          }
+        "
+        @validate:input="
+          (value) => {
+            validateForm(value)
+          }
+        "
+      >
+        <template #icon>
+          <Mail />
+        </template>
+      </BaseInput>
+      <!-- end: E-mail Input -->
+      <!-- begin: Password Input -->
+      <BaseInput
+        type="password"
+        label="Password"
+        placeholder="Password"
+        :validation-parameters="validationParametersPassword"
+        :error="!!errorMessage"
+        focusColor="violet-400"
+        @update:model-value="
+          (value) => {
+            form.password = value
+          }
+        "
+      >
+        <template #icon>
+          <KeyRound />
+        </template>
+      </BaseInput>
+      <!-- end: Password Input -->
+      <!-- begin: Confirm Password Input -->
+      <BaseInput
+        type="password"
+        label="Confirm Password"
+        placeholder="Confirm Password"
+        :error="!!errorMessage"
+        focusColor="violet-400"
+        @update:model-value="
+          (value) => {
+            form.confirmPassword = value
+          }
+        "
+      >
+        <template #icon>
+          <KeyRound />
+        </template>
+      </BaseInput>
+      <!-- end: Confirm Password Input -->
+      <!-- begin: Error Span -->
+      <div
+        v-show="errorMessage"
+        class="flex justify-center text-red-600 text-xs font-semibold"
+        :class="errorMessage ? 'animate-shake-l' : ''"
+      >
+        {{ errorMessage }}
+      </div>
+      <!-- end: Error Span -->
+      <!-- begin: Register Button -->
+      <div class="flex justify-center gap-4">
+        <BaseButton @click="submitForm()" :disabled="!isFormValid">
+          <template #text> Register </template>
+        </BaseButton>
+      </div>
+      <!-- end: Register Button -->
+      <!-- begin: Login Button -->
+      <div class="flex justify-center text-sm gap-1">
+        <span>Already have an account?</span> 
+        <span class="cursor-pointer select-none underline text-green-500 hover:text-green-600 " @click="router.push('/login')">Login in.</span>
+      </div>
+      <!-- end: Login Button -->
     </div>
-    <!-- end: Error Span -->
-    <!-- begin: Submit Button -->
-    <div class="flex justify-center gap-5 select-none">
-      <BaseButton design="LightButton" @click="submitForm()" :disabled="!isFormValid">
-        <template #text> Register </template>
-      </BaseButton>
-    </div>
-    <!-- end: Submit Button -->
+    <!--end: Register -->
+    <ToastBox></ToastBox>
   </div>
-  <!--end: Register -->
-  <ToastBox></ToastBox>
 </template>
 
 <script setup>

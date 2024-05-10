@@ -3,7 +3,7 @@
     <!--begin: TopBar -->
     <TopBar class="sticky top-0">
       <template #image>
-        <img src="@\assets\rick_and_mordy_logo.png" />
+        <img src="@\assets\rick_and_morty_logo.png" />
       </template>
     </TopBar>
     <!--end: TopBar -->
