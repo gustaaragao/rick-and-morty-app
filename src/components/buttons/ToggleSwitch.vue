@@ -1,21 +1,21 @@
 <template>
   <!--begin: Background-->
-  <div
-    class="w-14 h-8 p-1 flex items-center rounded-full cursor-pointer transition-all duration-500"
-    :class="modelValue ? 'bg-gray-300' : 'bg-orange-500'"
-    @click="updateModelValue()"
-  >
+  <div class="w-14 h-8 p-1 flex items-center rounded-full cursor-pointer transition-all duration-500"
+    :class="modelValue ? props.onColorBackground : props.offColorBackground" @click="updateModelValue()">
     <!--begin: Circle-->
     <div
-      class="w-6 h-6 bg-white rounded-full shadow-lg flex justify-center items-center transition-all duration-500 transform"
-      :class="modelValue ? 'translate-x-6' : ''"
-    >
-      <i v-if="!modelValue">
-        <slot name="iconOn"></slot>
-      </i>
-      <i v-else>
-        <slot name="iconOff"></slot>
-      </i>
+      class="w-6 h-6 bg-white rounded-full shadow-lg flex justify-center items-center transition-all duration-500 transform "
+      :class="modelValue ? `translate-x-6 ${props.onColorCircle}` : props.offColorCircle">
+      <!-- begin: Icons -->
+      <div class="text-white">
+        <i v-if="!modelValue">
+          <slot name="iconOn"></slot>
+        </i>
+        <i v-else>
+          <slot name="iconOff"></slot>
+        </i>
+      </div>
+      <!-- end: Icons -->
     </div>
     <!--begin: Circle-->
   </div>
@@ -24,6 +24,25 @@
 
 <script setup>
 import { ref } from 'vue'
+
+const props = defineProps({
+  offColorCircle: {
+    type: String,
+    default: 'bg-yellow-500',
+  },
+  offColorBackground: {
+    type: String,
+    default: 'bg-yellow-200',
+  },
+  onColorCircle: {
+    type: String,
+    default: 'bg-blue-400',
+  },
+  onColorBackground: {
+    type: String,
+    default: 'bg-blue-200',
+  },
+})
 
 const modelValue = ref(false)
 

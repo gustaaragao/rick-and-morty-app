@@ -1,15 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LayoutPrincipal from '@/views/LayoutPrincipal.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import CharactersView from '@/views/LayoutPrincipal/CharactersView.vue'
+import LocationsView from '@/views/LayoutPrincipal/LocationsView.vue'
+import EpisodesView from '@/views/LayoutPrincipal/EpisodesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'LayoutPrincipal',
-      component: LayoutPrincipal
+      path: '/characters',
+      name: 'CharactersView',
+      component: CharactersView
+    },
+    {
+      path: '/episodes',
+      name: 'EpisodesView',
+      component: EpisodesView
+    },
+    {
+      path: '/locations',
+      name: 'LocationsView',
+      component: LocationsView
     },
     {
       path: '/login',
@@ -20,6 +33,11 @@ const router = createRouter({
       path: '/register',
       name: 'RegisterView',
       component: RegisterView
+    },
+    {
+      path: '/profile',
+      name: 'ProfileView',
+      component: ProfileView
     },
   ]
 })

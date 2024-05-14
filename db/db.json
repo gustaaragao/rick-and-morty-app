@@ -1,19 +1,30 @@
 {
   "users": [
     {
-      "id": "1",
-      "profileImage": "",
+      "id": "f8ca",
       "firstname": "Gustavo",
-      "lastname": "Silva",
+      "lastname": "Henrique",
       "username": "gustavo",
       "email": "gustavo@gmail.com",
+      "password": "Senha@123"
+    },
+    {
+      "id": "63f5",
+      "firstname": "Gustavo",
+      "lastname": "Henrique",
+      "username": "henrique",
+      "email": "henrique@gmail.com",
       "password": "Senha@123"
     }
   ],
   "favorites": [
     {
-      "favCharacters": [],
-      "id": "1"
+      "id": "f8ca",
+      "favCharacters": []
+    },
+    {
+      "id": "63f5",
+      "favCharacters": []
     }
   ]
 }
