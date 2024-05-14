@@ -1,14 +1,6 @@
 <template>
-  <div>
-    <!--begin: TopBar -->
-    <TopBar class="sticky top-0">
-      <template #image>
-        <img src="@\assets\rick_and_morty_logo.png" />
-      </template>
-    </TopBar>
-    <!--end: TopBar -->
-    <!--begin: Search Input-->
-    <div class="flex align-middle justify-center p-8">
+   <!--begin: Search Input-->
+   <div class="flex align-middle justify-center p-8">
       <SearchInput class="w-[30rem]" @update:model-value="(value) => (searchedCharacter = value)">
       </SearchInput>
     </div>
@@ -17,10 +9,8 @@
     <section class="grid grid-cols-3 gap-4 px-10 pb-10">
       <div v-for="character in characters" :key="character?.id">
         <!-- TODO: Como capturar o id do usuário da Sessão e como modificar o personagem -->
-        <VisualizerCharacter
-          :character="character"
-          @send:character="(character) => {dbRouter.favorites.addFavorite('1', character)}"
-        >
+        <VisualizerCharacter :character="character"
+          @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
         </VisualizerCharacter>
       </div>
     </section>
@@ -34,7 +24,6 @@
       </div>
     </div>
     <!-- end:  Load More Button -->
-  </div>
 </template>
 
 <script setup>
@@ -46,7 +35,6 @@ import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import SearchInput from '@/components/inputs/SearchInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
-import TopBar from '@/components/TopBar.vue'
 
 const characters = ref([])
 
@@ -61,7 +49,6 @@ onMounted(() => {
     nextPageLink.value = response.data.info.next
   })
 })
-
 const loadNextPage = (searchedCharacter, nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]

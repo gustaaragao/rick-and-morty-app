@@ -143,7 +143,7 @@ async function tryLogin() {
     localStorage.setItem('user-info', JSON.stringify(userInfo))
     localStorage.setItem('user-favorites', JSON.stringify(userFavorites.data.favCharacters))
 
-    router.push('/')
+    router.push('/characters')
 
     return
   }

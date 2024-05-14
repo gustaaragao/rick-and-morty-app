@@ -13,13 +13,13 @@
       </div>
       <!-- end: Profile Button -->
     </div>
-    <!-- begin: Top Menu -->
-    <div class="flex gap-8 text-slate-100 text-xl font-bold underline select-none">
-      <a class="cursor-pointer">Characters</a>
-      <a class="cursor-pointer">Locations</a>
-      <a class="cursor-pointer">Episodes</a>
-    </div>
-    <!-- end: Top Menu -->
+    <!-- begin: Navbar -->
+    <nav class="flex gap-8 text-slate-100 text-xl font-bold underline select-none">
+      <RouterLink to="/characters" class="cursor-pointer">Characters</RouterLink>
+      <RouterLink to="/locations" class="cursor-pointer">Locations</RouterLink>
+      <RouterLink to="/episodes" class="cursor-pointer">Episodes</RouterLink>
+    </nav>
+    <!-- end: Navbar -->
     <!-- begin: ToggleSwitch-->
     <div>
       <ToggleSwitch>
@@ -38,6 +38,7 @@
 
 <script setup>
 import ToggleSwitch from '@/components/buttons/ToggleSwitch.vue'
+import { RouterLink } from 'vue-router';
 import router from '@/router';
 import { Moon, Sun, LogOut, CircleUserRound } from 'lucide-vue-next'
 
