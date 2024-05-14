@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import CharactersView from '@/views/LayoutPrincipal/CharactersView.vue'
-import LocationsView from '@/views/LayoutPrincipal/LocationsView.vue'
-import EpisodesView from '@/views/LayoutPrincipal/EpisodesView.vue'
+import CharactersView from '@/views/CharactersView.vue'
+import LocationsView from '@/views/LocationsView.vue'
+import EpisodesView from '@/views/EpisodesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'HomeView',
+      component: HomeView
+    },
     {
       path: '/characters',
       name: 'CharactersView',
