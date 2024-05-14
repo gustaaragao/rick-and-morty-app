@@ -22,10 +22,10 @@
     <div>
       <ToggleSwitch>
         <template #iconOn>
-          <Sun size="16" />
+          <Sun size="16" class="fill-white" />
         </template>
         <template #iconOff>
-          <Moon size="16" />
+          <Moon size="16" class="fill-white" />
         </template>
       </ToggleSwitch>
     </div>

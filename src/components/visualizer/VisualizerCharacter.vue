@@ -11,12 +11,12 @@
       <!-- end: Status -->
       <!--begin: Favorite Button-->
       <div class="flex justify-end cursor-pointer" @click="() => {
-          fillIcon = !fillIcon
-          emit('send:character', { id: props.character.id, name: props.character.name })
-        }
+        fillIcon = !fillIcon
+        emit('send:character', { id: props.character.id, name: props.character.name })
+      }
         ">
-        <div class="absolute mt-4 mr-4 z-0">
-          <Star :class="fillIcon ? 'fill-blue-500' : ''" class="scale-[1.5] stroke-[1.5px]" />
+        <div class="absolute mt-4 mr-4 z-0 ">
+          <Star :class="fillIcon ? 'fill-yellow-500' : ''" class="scale-[1.5] stroke-2 stroke-yellow-500" />
         </div>
       </div>
       <!--begin: Favorite Button-->
