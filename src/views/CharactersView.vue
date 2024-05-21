@@ -1,29 +1,31 @@
 <template>
-   <!--begin: Search Input-->
-   <div class="flex align-middle justify-center p-8">
-      <SearchInput class="w-[30rem]" @update:model-value="(value) => (searchedCharacter = value)">
-      </SearchInput>
+  <!--begin: Search Input-->
+  <div class="flex align-middle justify-center p-8">
+    <BaseInput placeholder="Search for a character...">
+      <template #icon>
+        <Search />
+      </template>
+    </BaseInput>
+  </div>
+  <!--end: Search Input-->
+  <!--begin: Section Characters-->
+  <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
+    <div v-for="character in characters" :key="character?.id">
+      <VisualizerCharacter :character="character"
+        @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
+      </VisualizerCharacter>
     </div>
-    <!--end: Search Input-->
-    <!--begin: Section Characters-->
-    <section class="grid grid-cols-3 gap-4 px-10 pb-10">
-      <div v-for="character in characters" :key="character?.id">
-        <!-- TODO: Como capturar o id do usuário da Sessão e como modificar o personagem -->
-        <VisualizerCharacter :character="character"
-          @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
-        </VisualizerCharacter>
-      </div>
-    </section>
-    <!--end: Section Characters-->
-    <!-- begin: Load More Button -->
-    <div v-if="!!nextPageLink">
-      <div class="flex justify-center pb-8">
-        <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
-          <template #text> Load More </template>
-        </BaseButton>
-      </div>
+  </section> -->
+  <!--end: Section Characters-->
+  <!-- begin: Load More Button -->
+  <div v-if="!!nextPageLink">
+    <div class="flex justify-center pb-8">
+      <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
+        <template #text> Load More </template>
+      </BaseButton>
     </div>
-    <!-- end:  Load More Button -->
+  </div>
+  <!-- end:  Load More Button -->
 </template>
 
 <script setup>
@@ -33,8 +35,10 @@ import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import SearchInput from '@/components/inputs/SearchInput.vue'
+import BaseInput from '@/components/inputs/BaseInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
+
+import { Search } from 'lucide-vue-next'
 
 const characters = ref([])
 
@@ -49,6 +53,7 @@ onMounted(() => {
     nextPageLink.value = response.data.info.next
   })
 })
+
 const loadNextPage = (searchedCharacter, nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]

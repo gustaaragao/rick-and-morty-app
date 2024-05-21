@@ -28,15 +28,15 @@ import { ref } from 'vue'
 const props = defineProps({
   offColorCircle: {
     type: String,
-    default: 'bg-yellow-500',
+    default: 'bg-amber-400',
   },
   offColorBackground: {
     type: String,
-    default: 'bg-yellow-200',
+    default: 'bg-yellow-100',
   },
   onColorCircle: {
     type: String,
-    default: 'bg-blue-400',
+    default: 'bg-blue-800',
   },
   onColorBackground: {
     type: String,
