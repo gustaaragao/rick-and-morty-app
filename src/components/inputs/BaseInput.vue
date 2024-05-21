@@ -38,7 +38,6 @@
              @focus="inputIsFocused = true"
              @blur="
               (event) => {
-                console.log(event.target)
                 inputIsFocused = false
                 validateInput(event)
               }" 
