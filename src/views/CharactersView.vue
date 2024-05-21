@@ -1,13 +1,18 @@
 <template>
-  <!--begin: Search Input-->
-  <div class="flex align-middle justify-center p-8">
+  <div class="flex p-8 gap-4">
+    <!--begin: Search Input-->
     <BaseInput placeholder="Search for a character...">
       <template #icon>
         <Search />
       </template>
     </BaseInput>
+    <!--end: Search Input-->
+    <!-- begin: Dropdown Filters -->
+    <Dropdown title="Filters" :options=[1,2,3]>
+
+    </Dropdown>
+    <!-- end: Dropdown Filters -->
   </div>
-  <!--end: Search Input-->
   <!--begin: Section Characters-->
   <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
     <div v-for="character in characters" :key="character?.id">
@@ -37,6 +42,7 @@ import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
+import Dropdown from '@/components/dropdown/Dropdown.vue'
 
 import { Search } from 'lucide-vue-next'
 
