@@ -1,41 +1,61 @@
 <template>
-  <!-- begin: Dropdown -->
-  <div class="flex items-center cursor-pointer 
-  border-2 rounded-xl shadow-md pl-2 pr-1" 
-  :class="showDropdown ? 'border-purple-400 rounded-b-none' : 'border-gray-400'"
-  @click="showDropdown = !showDropdown"
-  >
-  <!-- begin: Title -->
-  <h1 v-if="props.title" 
-        class="pr-1 select-none"
-        :class="showDropdown ? 'text-purple-400' : 'text-gray-400'"
-        > 
-        {{ props.title  }}
+  <div ref="dropdownRef" class="relative select-none">
+    <!-- begin: Dropdown -->
+    <div class="flex items-center cursor-pointer h-full pl-2 pr-1
+                border-2 border-gray-400 rounded-xl shadow-md"
+         :class="showDropdown ? 'rounded-b-none' : ''"
+         @click="showDropdown = !showDropdown"
+    >
+      <!-- begin: Icon -->
+      <i v-if="$slots.icon" class="scale-[0.75] text-gray-400">
+          <slot name="icon"></slot>
+      </i>
+      <!-- end: Icon -->
+      <!-- begin: Title -->
+      <h1 v-if="props.title" class="pr-1 text-gray-400">
+        {{ props.title }}
       </h1>
       <!-- end: Title -->
       <!-- begin: Chevron Icons -->
-      <div class="scale-[0.75]"
-      :class="showDropdown ? 'text-purple-400' : 'text-gray-400'"
+      <div class="scale-[0.75] text-gray-400">
+        <i v-show="showDropdown" class="z-0">
+          <ChevronDown />
+        </i>
+        <i v-show=!showDropdown>
+          <ChevronUp />
+        </i>
+      </div>
+      <!-- end: Chevron Icon -->
+    </div>
+    <!-- end: Dropdown -->
+    <!-- begin: Options Wrapper -->
+    <div v-show="showDropdown" 
+         class="absolute w-full border-x-2 border-b-2 rounded-b-xl border-gray-400 divide-y-2 divide-gray-400"
+    >
+      <!-- begin: Options -->
+      <div v-for="(option, index) in options" 
+           :key="index"
+           class="flex justify-center py-1 text-gray-400"
       >
-      <i v-if="showDropdown"><ChevronDown /></i>
-      <i v-else><ChevronUp /></i>
+        <input type="radio" 
+               :id="index"
+               name="radio"
+               class="mr-1"
+        >
+        <label :for="index"
+               class="cursor-pointer"
+        >
+          {{ option }}
+        </label>
+      </div>
+      <!-- end: Options -->
     </div>
-    <!-- end: Chevron Icon -->
+    <!-- end: Options Wrapper -->
   </div>
-  <!-- end: Dropdown -->
-  <!-- begin: Options Wrapper -->
-  <div v-show="showDropdown" class="absolute">
-    <!-- begin: Options -->
-    <div v-for="(option, index) in options" :key="index">
-      {{ option }}
-    </div>
-    <!-- end: Options -->
-  </div>
-  <!-- end: Options Wrapper -->
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { ChevronDown, ChevronUp } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -46,9 +66,35 @@ const props = defineProps({
   options: {
     type: Array,
     required: true,
+  },
+  type: {
+    type: String,
+    default: ''
   }
 })
 
+const emit = defineEmits(['update:model-value'])
+
+const dropdownRef = ref(null)
+
 const showDropdown = ref(false)
 
+
+const hideOptions = (element) => {
+  if (!dropdownRef.value.contains(element.target)) {
+    showDropdown.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('click', hideOptions)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('click', hideOptions)
+})
 </script>
+
+<style scoped>
+
+</style>
