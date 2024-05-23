@@ -35,12 +35,14 @@
       <!-- begin: Options -->
       <div v-for="(option, index) in options" 
            :key="index"
-           class="flex justify-center py-1 text-gray-400"
+           class="flex justify-center py-1 text-gray-400 cursor-pointer"
       >
-        <input type="radio" 
+        <input :type="props.type == 'radio' || props.type == 'checkbox' ? props.type : 'checkbox'"
+               class="mr-2 cursor-pointer"
                :id="index"
-               name="radio"
-               class="mr-1"
+               :value="option"
+               v-model="selectedOptions"
+               @input="() => {if (props.type === 'radio') {showDropdown = false}}"
         >
         <label :for="index"
                class="cursor-pointer"
@@ -55,7 +57,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { ChevronDown, ChevronUp } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -68,12 +70,20 @@ const props = defineProps({
     required: true,
   },
   type: {
-    type: String,
-    default: ''
+    validator(value) {
+      return ['radio', 'checkbox'].includes(value)
+    },
+    default: 'checkbox',
   }
 })
 
 const emit = defineEmits(['update:model-value'])
+
+const selectedOptions = ref([])
+
+watch(selectedOptions, () => {
+  emit('update:model-value', selectedOptions.value)
+})
 
 const dropdownRef = ref(null)
 

@@ -8,27 +8,20 @@
     </BaseInput>
     <!--end: Search Input-->
     <!-- begin: Dropdown Filters -->
-    <Dropdown title="Filters" :options=optionsFilter>
+    <Dropdown title="Filters"
+              type="radio" 
+              :options=optionsFilter
+              v-model="selectedFilters"
+    >
       <template #icon>
         <Filter />
       </template>
     </Dropdown>
     <!-- end: Dropdown Filters -->
   </div>
-  <!-- begin: Filters -->
-  <!-- <div class="flex justify-center gap-3 py-4 select-none">
-    <div v-for="(selectedOption, index) in selectedOptionsFilter" 
-         :key="index"
-         class="flex align-center border-[1.5px] border-gray-400 rounded-xl 
-                pl-2 py-0.5 text-xs text-gray-400"
-    >
-      {{ selectedOption }}
-      <div class="scale-[0.5] cursor-pointer">
-        <CircleX />
-      </div>
-    </div>
-  </div> -->
-  <!-- end: Filters -->
+  <div>
+    {{ selectedFilters }}
+  </div>
   <!--begin: Section Characters-->
   <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
     <div v-for="character in characters" :key="character?.id">
@@ -64,7 +57,7 @@ import { Search, CircleX, Filter } from 'lucide-vue-next'
 
 const optionsFilter = ref(['Opcao1', 'Opcao2', 'Opcao3'])
 
-const selectedOptionsFilter = ref(['Opcao2', 'Opcao3'])
+const selectedFilters = ref([])
 
 const characters = ref([])
 
