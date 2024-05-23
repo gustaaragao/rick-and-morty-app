@@ -110,6 +110,11 @@ onBeforeUnmount(() => {
 
 <style scoped>
 
+/*
+TODO: Criar um estilo para checkbox e outro para radio
+Referencia: https://moderncss.dev/pure-css-custom-checkbox-style/
+*/
+
 input {
   display: none;
 }
@@ -133,4 +138,5 @@ input:checked + label:before {
   box-sizing: border-box;
   border: 4px solid rgb(74 222 128);
 }
+
 </style>
