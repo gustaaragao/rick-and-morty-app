@@ -33,11 +33,11 @@
       <!-- begin: Input -->
       <input :type="inputType" 
              class="w-full rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+             :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'"
              v-model="inputValue" 
              @focus="inputIsFocused = true"
              @blur="
               (event) => {
-                console.log(event.target)
                 inputIsFocused = false
                 validateInput(event)
               }" 
@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next'
 
 const props = defineProps({
