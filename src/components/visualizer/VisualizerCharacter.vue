@@ -3,7 +3,7 @@
   <div class="w-full h-full rounded-xl shadow-xl border-4 border-gray-300">
     <div class="w-full">
       <!-- begin: Status -->
-      <div class="absolute mt-4 ml-2">
+      <div class="absolute z-0 mt-4 ml-2">
         <div class="p-0.5 rounded-md text-white font-medium" :class="colorsStatusCharacter[character.status]">
           {{ character.status.toUpperCase() }}
         </div>
