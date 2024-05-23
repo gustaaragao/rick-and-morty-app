@@ -22,17 +22,21 @@
         <!-- end: Clear Button -->
       </div>
     </div>
-    <!-- begin: Select Filters -->
-    <div class="flex justify-center gap-4 py-4">
-      <!-- TODO: RADIO INPUT -->
+    <!-- begin: Options Filters -->
+    <div class="pt-3 pb-6 text-sm">
+      <RadioInput title="Status:" 
+                  :options="optionsFilterStatus" 
+                  class="flex gap-4 pb-1.5"
+                  @update:model-value="(value) => { selectedFilterStatus = value }">
+      </RadioInput>
+      <RadioInput title="Gender:" 
+                  :options="optionsFilterGender" 
+                  class="flex gap-4"
+                  @update:model-value="(value) => { selectedFilterGender = value }">
+      </RadioInput>
     </div>
-    <!-- end: Select Filters -->
+    <!-- end: Options Filters -->
   </div>
-  <!--
-    Filtros:
-    status -> 'Alive', 'Dead' or 'unknown'
-    gender -> 'Female', 'Male', 'Genderless' or 'unknown'
-  -->
   <!--begin: Section Characters-->
   <section class="grid grid-cols-3 gap-4 px-64 pb-10">
     <div v-for="character in characters" :key="character?.id">
@@ -61,6 +65,7 @@ import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue'
+import RadioInput from '@/components/inputs/radio/RadioInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
 
 import { Search, Filter } from 'lucide-vue-next'
@@ -68,8 +73,8 @@ import { Search, Filter } from 'lucide-vue-next'
 const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
 const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
 
-const selectedFiltersStatus = ref([])
-const selectedFiltersGender = ref([])
+const selectedFilterStatus = ref('')
+const selectedFilterGender = ref('')
 
 const characters = ref([])
 

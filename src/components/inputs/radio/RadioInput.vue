@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h1>
+  <div class="text-gray-500">
+    <h1 class="font-bold">
       {{ title }}
     </h1>
     <div v-for="(option, index) in props.options">
       <input type="radio"
-             name="radio"
+             :name="title"
              :id="props.title.toLowerCase() + 'option' +  index"
              :value="option"
              @input="(event) => {emit('update:model-value', event.target.value)}"
@@ -13,7 +13,7 @@
       <label class="cursor-pointer"
              :for="props.title.toLowerCase() + 'option' +  index"
       >
-        {{ option }}
+        {{ capitalize(option) }}
       </label>
     </div>
   </div>
@@ -32,6 +32,10 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:model-value'])
+
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
 </script>
 
