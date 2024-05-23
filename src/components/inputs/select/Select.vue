@@ -92,7 +92,6 @@ const selectRef = ref(null)
 
 const showOptions = ref(false)
 
-
 const hideOptions = (element) => {
   if (!selectRef.value.contains(element.target)) {
     showOptions.value = false
