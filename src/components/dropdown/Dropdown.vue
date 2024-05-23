@@ -5,7 +5,7 @@
   >
     <!-- begin: Dropdown -->
     <div class="flex items-center cursor-pointer h-full pl-2 pr-1
-                border-2 border-gray-400 rounded-xl"
+                border-2 border-gray-400 rounded-xl bg-white"
          :class="showDropdown ? 'rounded-b-none' : ''"
          @click="showDropdown = !showDropdown"
     >
@@ -39,7 +39,7 @@
       <!-- begin: Options -->
       <div v-for="(option, index) in options" 
            :key="index"
-           class="flex justify-center py-1 text-gray-400 cursor-pointer"
+           class="flex justify-center py-1 text-gray-400 cursor-pointer bg-white last:rounded-b-xl"
       >
         <input :type="props.type == 'radio' || props.type == 'checkbox' ? props.type : 'checkbox'"
                :id="index"
