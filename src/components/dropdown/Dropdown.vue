@@ -1,8 +1,11 @@
 <template>
-  <div ref="dropdownRef" class="relative select-none">
+  <div ref="dropdownRef" 
+       class="relative select-none rounded-xl shadow-md"
+       :class="showDropdown ? 'rounded-b-none shadow-none' : ''"
+  >
     <!-- begin: Dropdown -->
     <div class="flex items-center cursor-pointer h-full pl-2 pr-1
-                border-2 border-gray-400 rounded-xl shadow-md"
+                border-2 border-gray-400 rounded-xl"
          :class="showDropdown ? 'rounded-b-none' : ''"
          @click="showDropdown = !showDropdown"
     >
@@ -31,6 +34,7 @@
     <!-- begin: Options Wrapper -->
     <div v-show="showDropdown" 
          class="absolute w-full border-x-2 border-b-2 rounded-b-xl border-gray-400 divide-y-2 divide-gray-400"
+         :class="showDropdown ? 'shadow-md' : ''"
     >
       <!-- begin: Options -->
       <div v-for="(option, index) in options" 
@@ -38,7 +42,6 @@
            class="flex justify-center py-1 text-gray-400 cursor-pointer"
       >
         <input :type="props.type == 'radio' || props.type == 'checkbox' ? props.type : 'checkbox'"
-               class="mr-2 cursor-pointer"
                :id="index"
                :value="option"
                v-model="selectedOptions"
@@ -107,4 +110,27 @@ onBeforeUnmount(() => {
 
 <style scoped>
 
+input {
+  display: none;
+}
+
+input + label::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+
+  background-color: white;
+  border-radius: 50%;
+  border: 1.75px solid rgb(156 163 175);
+
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+input:checked + label:before {
+  background-color: white;
+  box-sizing: border-box;
+  border: 4px solid rgb(74 222 128);
+}
 </style>

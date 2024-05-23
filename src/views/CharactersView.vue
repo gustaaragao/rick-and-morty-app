@@ -9,7 +9,6 @@
     <!--end: Search Input-->
     <!-- begin: Dropdown Filters -->
     <Dropdown title="Filters"
-              type="radio" 
               :options=optionsFilter
               v-model="selectedFilters"
     >
