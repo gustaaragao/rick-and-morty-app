@@ -7,19 +7,34 @@
       </template>
     </BaseInput>
     <!--end: Search Input-->
-    <!-- begin: Dropdown Filters -->
-    <Dropdown title="Filters"
-              :options=optionsFilter
-              v-model="selectedFilters"
+    <!-- begin: Select Filters -->
+    <Select title="Filters"
+            :options=optionsFilter
+            v-model="selectedFilters"
     >
       <template #icon>
         <Filter />
       </template>
-    </Dropdown>
-    <!-- end: Dropdown Filters -->
+    </Select>
+    <!-- end: Select Filters -->
   </div>
-  <div>
-    {{ selectedFilters }}
+  <!-- begin: Label Select Filters -->
+  <LabelSelect></LabelSelect>
+  <!-- end: Label Select Filters -->
+  <div class="flex justify-center gap-4 py-6">
+    <div v-for="filter in selectedFilters"
+         class="flex items-center gap-2 py-0.5 px-1.5 bg-white
+                border-2 border-gray-400 text-sm text-gray-400 rounded-full"
+    >
+      <p>
+        {{ filter }}
+      </p>
+      <i class="cursor-pointer"
+         @click="removeFilter(selectedFilters, filter)"
+      >
+        <CircleX size="12" />
+      </i>
+    </div>
   </div>
   <!--begin: Section Characters-->
   <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
@@ -42,7 +57,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter'
@@ -50,13 +65,22 @@ import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
-import Dropdown from '@/components/dropdown/Dropdown.vue'
+import Select from '@/components/inputs/select/Select.vue'
+import LabelSelect from '@/components/inputs/select/LabelSelect.vue'
 
 import { Search, CircleX, Filter } from 'lucide-vue-next'
 
 const optionsFilter = ref(['Opcao1', 'Opcao2', 'Opcao3'])
 
 const selectedFilters = ref([])
+
+const removeFilter = (selectedFilters, filter) => {
+  const index = selectedFilters.indexOf(filter)
+
+  if (index > -1) {
+    selectedFilters.splice(index, 1)
+  }
+}
 
 const characters = ref([])
 
