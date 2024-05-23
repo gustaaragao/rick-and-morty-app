@@ -1,34 +1,50 @@
 <template>
-  <div class="flex px-20 pt-8 gap-4">
-    <!--begin: Search Input-->
-    <BaseInput placeholder="Search for a character...">
-      <template #icon>
-        <Search />
-      </template>
-    </BaseInput>
-    <!--end: Search Input-->
-    <!-- begin: Select Filters -->
-    <Select title="Filters"
-            :options=optionsFilter
-            v-model="selectedFilters"
-    >
-      <template #icon>
-        <Filter />
-      </template>
-    </Select>
-    <!-- end: Select Filters -->
+  <div class="px-96">
+
+    <div class="flex items-center pt-8 gap-4">
+      <!--begin: Search Input-->
+      <BaseInput placeholder="Search for a character...">
+        <template #icon>
+          <Search />
+        </template>
+      </BaseInput>
+      <!--end: Search Input-->
+      <div class="flex gap-2">
+        <!-- begin: Search Button -->
+        <BaseButton>
+          <template #text>Search</template>
+        </BaseButton>
+        <!-- end: Search Button -->
+        <!-- begin: Clear Button -->
+        <BaseButton design='LightButton'>
+          <template #text>Clear</template>
+        </BaseButton>
+        <!-- end: Clear Button -->
+      </div>
+    </div>
+    <!-- begin: Options Filters -->
+    <div class="pt-3 pb-6 text-sm">
+      <RadioInput title="Status:" 
+                  :options="optionsFilterStatus" 
+                  class="flex gap-4 pb-1.5"
+                  @update:model-value="(value) => { selectedFilterStatus = value }">
+      </RadioInput>
+      <RadioInput title="Gender:" 
+                  :options="optionsFilterGender" 
+                  class="flex gap-4"
+                  @update:model-value="(value) => { selectedFilterGender = value }">
+      </RadioInput>
+    </div>
+    <!-- end: Options Filters -->
   </div>
-  <!-- begin: Label Select Filters -->
-  <LabelSelect :selectedOptions="selectedFilters"></LabelSelect>
-  <!-- end: Label Select Filters -->
   <!--begin: Section Characters-->
-  <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
+  <section class="grid grid-cols-3 gap-4 px-64 pb-10">
     <div v-for="character in characters" :key="character?.id">
       <VisualizerCharacter :character="character"
         @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
       </VisualizerCharacter>
     </div>
-  </section> -->
+  </section>
   <!--end: Section Characters-->
   <!-- begin: Load More Button -->
   <div v-if="!!nextPageLink">
@@ -49,23 +65,16 @@ import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue'
+import RadioInput from '@/components/inputs/radio/RadioInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
-import Select from '@/components/inputs/select/Select.vue'
-import LabelSelect from '@/components/inputs/select/LabelSelect.vue'
 
-import { Search, CircleX, Filter } from 'lucide-vue-next'
+import { Search, Filter } from 'lucide-vue-next'
 
-const optionsFilter = ref(['Opcao1', 'Opcao2', 'Opcao3'])
+const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
+const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
 
-const selectedFilters = ref([])
-
-const removeFilter = (selectedFilters, filter) => {
-  const index = selectedFilters.indexOf(filter)
-
-  if (index > -1) {
-    selectedFilters.splice(index, 1)
-  }
-}
+const selectedFilterStatus = ref('')
+const selectedFilterGender = ref('')
 
 const characters = ref([])
 
