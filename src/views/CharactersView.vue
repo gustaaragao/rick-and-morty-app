@@ -19,23 +19,8 @@
     <!-- end: Select Filters -->
   </div>
   <!-- begin: Label Select Filters -->
-  <LabelSelect></LabelSelect>
+  <LabelSelect :selectedOptions="selectedFilters"></LabelSelect>
   <!-- end: Label Select Filters -->
-  <div class="flex justify-center gap-4 py-6">
-    <div v-for="filter in selectedFilters"
-         class="flex items-center gap-2 py-0.5 px-1.5 bg-white
-                border-2 border-gray-400 text-sm text-gray-400 rounded-full"
-    >
-      <p>
-        {{ filter }}
-      </p>
-      <i class="cursor-pointer"
-         @click="removeFilter(selectedFilters, filter)"
-      >
-        <CircleX size="12" />
-      </i>
-    </div>
-  </div>
   <!--begin: Section Characters-->
   <!-- <section class="grid grid-cols-3 gap-4 px-10 pb-10">
     <div v-for="character in characters" :key="character?.id">
@@ -63,7 +48,7 @@ import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import BaseInput from '@/components/inputs/BaseInput.vue'
+import BaseInput from '@/components/inputs/text/BaseInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
 import Select from '@/components/inputs/select/Select.vue'
 import LabelSelect from '@/components/inputs/select/LabelSelect.vue'
