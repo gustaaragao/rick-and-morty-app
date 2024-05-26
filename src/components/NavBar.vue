@@ -1,6 +1,6 @@
 <template>
   <!--begin: TopBar-->
-  <div class="w-full h-20 py-1 px-4 rounded-b-2xl bg-green-400 shadow-md flex justify-between items-center z-50">
+  <div class="w-full h-20 py-1 px-4 rounded-b-2xl bg-green-400 shadow-md flex justify-between items-center z-40">
     <div class="flex gap-1">
       <!-- begin: LogOut Button -->
       <div class="cursor-pointer pl-2 text-slate-100" @click="logoutUser">

@@ -1,6 +1,6 @@
 <template>
   <!-- begin: NavBar -->
-  <NavBar class="sticky top-0"
+  <NavBar
     v-if="router.currentRoute.value.href != '/login' && router.currentRoute.value.href != '/register'">
     <template #image>
       <img src="@\assets\rick_and_morty_logo.png" />

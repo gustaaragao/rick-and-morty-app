@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center pt-10">
+  <div class="flex justify-center">
     <!-- begin: Table -->
     <Table
     :columns="['episode', 'name', 'air_date', 'characters']"
