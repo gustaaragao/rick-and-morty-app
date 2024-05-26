@@ -1,33 +1,26 @@
 <template>
   <div class="flex justify-center pt-10">
+    <!-- begin: Table -->
     <Table
-    :rows="mockData"
+    :columns="['episode', 'name', 'air_date', 'characters']"
+    :rows="episodesData"
     />
+    <!-- end: Table -->
+    
   </div>
 </template>
 
 <script setup>
 import Table from '@/components/table/Table.vue'
+import { ramRouter } from '@/services/api/routing/routers/ramRouter';
+import { onMounted, ref } from 'vue';
 
-const mockData = [
-  {
-    episode: '01',
-    name: 'Gustavo',
-    air_date: '27/05/2024',
-    characters: 'AA',
-  },
-  {
-    episode: '02',
-    name: 'Henrique',
-    air_date: '01/01/2024',
-    characters: 'BB',
-  },
-  {
-    episode: '03',
-    name: 'Aragao',
-    air_date: '31/12/2024',
-    characters: 'CC',
-  },
-]
+const episodesData = ref([])
+
+onMounted(() => {
+  ramRouter.episodes.getAll().then((response) => {
+    episodesData.value = response.data.results
+  })
+})
 
 </script>
