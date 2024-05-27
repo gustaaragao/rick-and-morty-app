@@ -1,20 +1,21 @@
 <template>
   <!--begin: Visualizer Character-->
-  <div class="w-full h-full rounded-xl shadow-2xl border-4 border-gray-300">
+  <div class="w-full h-full rounded-xl shadow-xl border-4 border-gray-300">
     <div class="w-full">
       <!-- begin: Status -->
-      <div class="absolute mt-4 ml-2">
+      <div class="absolute z-0 mt-4 ml-2">
         <div class="p-0.5 rounded-md text-white font-medium" :class="colorsStatusCharacter[character.status]">
           {{ character.status.toUpperCase() }}
         </div>
       </div>
       <!-- end: Status -->
       <!--begin: Favorite Button-->
-      <div class="flex justify-end cursor-pointer" @click="() => {
-        fillIcon = !fillIcon
-        emit('send:character', { id: props.character.id, name: props.character.name })
-      }
-        ">
+      <div class="flex justify-end cursor-pointer" 
+           @click="() => {
+            fillIcon = !fillIcon
+            emit('send:character', { id: props.character.id, name: props.character.name })
+          }"
+      >
         <div class="absolute mt-4 mr-4 z-0 ">
           <Star :class="fillIcon ? 'fill-yellow-500' : ''" class="scale-[1.5] stroke-2 stroke-yellow-500" />
         </div>

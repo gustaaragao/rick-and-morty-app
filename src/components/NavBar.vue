@@ -47,6 +47,4 @@ const logoutUser = () => {
   router.push('/login')
 }
 
-console.log(router.currentRoute.value)
-
 </script>

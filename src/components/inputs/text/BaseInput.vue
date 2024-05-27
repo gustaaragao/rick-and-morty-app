@@ -1,59 +1,62 @@
 <template>
   <div class="w-full" :class="props.error || localError ? 'animate-shake-r' : ''">
-    <div v-if="props.label" class="text-md" ref="divLabel">
-      <label>
+    <div v-if="props.label">
+      <label class="text-md" :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'">
         {{ props.label }}
       </label>
     </div>
     <!--begin: container Base Input -->
-    <div class="border-2 rounded-xl flex shadow-md mt-1" ref="containerBaseInput">
+    <div class="border-2 rounded-xl flex shadow-md mt-1" 
+         :class="inputIsFocused ? 'border-purple-400' : 'border-gray-400'"
+    >
       <!--begin: Icon-->
-      <div class="flex items-center justify-center pl-1">
-        <i class="scale-[0.8]" ref="icon">
-          <slot name="icon" ref="iconSlot"></slot>
+      <div v-if="$slots.icon" class="flex items-center justify-center pl-1">
+        <i class="scale-[0.8]" 
+           :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'" 
+        >
+          <slot name="icon"></slot>
         </i>
       </div>
       <!--end: Icon-->
       <!-- begin: Placeholder -->
-      <div
-        v-if="props.placeholder"
-        class="absolute z-0 opacity-65 pt-1 select-none"
-        :class="paddingPlaceholder ? 'pl-9' : 'pl-3'"
+      <div v-if="props.placeholder" 
+           class="absolute z-0 opacity-65 pt-1 select-none"
+           :class="$slots.icon ? 'pl-9' : 'pl-3'"
       >
-        <span v-show="showPlaceholder">{{ props.placeholder }}</span>
+        <span v-show="showPlaceholder"
+              :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'"
+        >
+          {{ props.placeholder }}
+        </span>
       </div>
       <!-- end: Placeholder -->
       <!-- begin: Input -->
-      <input
-        :type="inputType"
-        class="w-fit rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
-        v-model="inputValue"
-        @input="
-          (event) => {
-            emit('update:model-value', event.target.value)
-            hidePlaceholder()
-          }
-        "
-        @focus="changeColorBaseInput(focusColorHex)"
-        @blur="
-          (event) => {
-            changeColorBaseInput(defaultColorHex)
-            validateInput(event)
-          }
-        "
-      />
+      <input :type="inputType" 
+             class="w-full rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+             :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'"
+             v-model="inputValue" 
+             @focus="inputIsFocused = true"
+             @blur="
+              (event) => {
+                inputIsFocused = false
+                validateInput(event)
+              }" 
+             @input="
+              (event) => {
+                emit('update:model-value', event.target.value)
+                hidePlaceholder()
+              }" 
+     />
       <!-- end: Input -->
       <!-- begin: Toggle Password Visibility -->
-      <div
-        v-if="props.type === 'password'"
-        class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
-        @click="
-          () => {
+      <div v-if="props.type === 'password'"
+           class="flex items-center justify-end mr-2 cursor-pointer scale-[0.75] opacity-50"
+           :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'"
+           @click="() => {
             showPasswordBoolean = !showPasswordBoolean
             showPassword()
-            changeColorBaseInput(focusColorHex)
-          }
-        "
+            inputIsFocused = !inputIsFocused
+          }"
       >
         <i v-show="!showPasswordBoolean">
           <Eye />
@@ -79,9 +82,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next'
-import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex.js'
 
 const props = defineProps({
   type: {
@@ -89,14 +91,6 @@ const props = defineProps({
     default: 'text'
   },
   label: {
-    type: String,
-    default: ''
-  },
-  defaultColor: {
-    type: String,
-    default: 'gray-400'
-  },
-  focusColor: {
     type: String,
     default: ''
   },
@@ -126,36 +120,13 @@ const props = defineProps({
 
 const emit = defineEmits(['update:model-value', 'validate:input'])
 
-const defaultColorHex = ref('')
-const focusColorHex = ref('')
-
-const containerBaseInput = ref(null)
-const divLabel = ref(null)
-const icon = ref(null)
-
 const inputValue = ref('')
 const inputType = ref(props.type)
 
-const paddingPlaceholder = ref(false)
 const showPlaceholder = ref(true)
 const showPasswordBoolean = ref(false)
 
-onMounted(() => {
-  defaultColorHex.value = transformTailwindColorToHex(props.defaultColor)
-  focusColorHex.value = transformTailwindColorToHex(props.focusColor)
-
-  containerBaseInput.value.style.borderColor = defaultColorHex.value
-  containerBaseInput.value.style.color = defaultColorHex.value
-  divLabel.value.style.color = defaultColorHex.value
-
-  paddingPlaceholder.value = !!icon.value.innerHTML.trim()
-})
-
-const changeColorBaseInput = (finalColorHex) => {
-  containerBaseInput.value.style.borderColor = finalColorHex
-  containerBaseInput.value.style.color = finalColorHex
-  divLabel.value.style.color = finalColorHex
-}
+const inputIsFocused = ref(false)
 
 let localError = ref('')
 

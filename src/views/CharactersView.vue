@@ -1,40 +1,80 @@
 <template>
-   <!--begin: Search Input-->
-   <div class="flex align-middle justify-center p-8">
-      <SearchInput class="w-[30rem]" @update:model-value="(value) => (searchedCharacter = value)">
-      </SearchInput>
-    </div>
-    <!--end: Search Input-->
-    <!--begin: Section Characters-->
-    <section class="grid grid-cols-3 gap-4 px-10 pb-10">
-      <div v-for="character in characters" :key="character?.id">
-        <!-- TODO: Como capturar o id do usuário da Sessão e como modificar o personagem -->
-        <VisualizerCharacter :character="character"
-          @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
-        </VisualizerCharacter>
-      </div>
-    </section>
-    <!--end: Section Characters-->
-    <!-- begin: Load More Button -->
-    <div v-if="!!nextPageLink">
-      <div class="flex justify-center pb-8">
-        <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
-          <template #text> Load More </template>
+  <div class="px-96">
+
+    <div class="flex items-center pt-8 gap-4">
+      <!--begin: Search Input-->
+      <BaseInput placeholder="Search for a character...">
+        <template #icon>
+          <Search />
+        </template>
+      </BaseInput>
+      <!--end: Search Input-->
+      <div class="flex gap-2">
+        <!-- begin: Search Button -->
+        <BaseButton>
+          <template #text>Search</template>
         </BaseButton>
+        <!-- end: Search Button -->
+        <!-- begin: Clear Button -->
+        <BaseButton design='LightButton'>
+          <template #text>Clear</template>
+        </BaseButton>
+        <!-- end: Clear Button -->
       </div>
     </div>
-    <!-- end:  Load More Button -->
+    <!-- begin: Options Filters -->
+    <div class="pt-3 pb-6 text-sm">
+      <RadioInput title="Status:" 
+                  :options="optionsFilterStatus" 
+                  class="flex gap-4 pb-1.5"
+                  @update:model-value="(value) => { selectedFilterStatus = value }">
+      </RadioInput>
+      <RadioInput title="Gender:" 
+                  :options="optionsFilterGender" 
+                  class="flex gap-4"
+                  @update:model-value="(value) => { selectedFilterGender = value }">
+      </RadioInput>
+    </div>
+    <!-- end: Options Filters -->
+  </div>
+  <!--begin: Section Characters-->
+  <section class="grid grid-cols-3 gap-4 px-64 pb-10">
+    <div v-for="character in characters" :key="character?.id">
+      <VisualizerCharacter :character="character"
+        @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
+      </VisualizerCharacter>
+    </div>
+  </section>
+  <!--end: Section Characters-->
+  <!-- begin: Load More Button -->
+  <div v-if="!!nextPageLink">
+    <div class="flex justify-center pb-8">
+      <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
+        <template #text> Load More </template>
+      </BaseButton>
+    </div>
+  </div>
+  <!-- end:  Load More Button -->
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import SearchInput from '@/components/inputs/SearchInput.vue'
+import BaseInput from '@/components/inputs/text/BaseInput.vue'
+import RadioInput from '@/components/inputs/radio/RadioInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
+
+import { Search, Filter } from 'lucide-vue-next'
+
+const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
+const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
+
+const selectedFilterStatus = ref('')
+const selectedFilterGender = ref('')
 
 const characters = ref([])
 
@@ -49,6 +89,7 @@ onMounted(() => {
     nextPageLink.value = response.data.info.next
   })
 })
+
 const loadNextPage = (searchedCharacter, nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]

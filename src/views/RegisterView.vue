@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center min-h-[100vh]">
     <!--begin: Register -->
     <div
-      class="grid gap-4 w-min h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white"
+      class="grid gap-4 w-96 h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white"
       @keyup.enter="() => submitForm()"
     >
       <h1 class="text-center text-2xl text-gray-400">Register</h1>
@@ -158,7 +158,7 @@
 </template>
 
 <script setup>
-import BaseInput from '@/components/inputs/BaseInput.vue'
+import BaseInput from '@/components/inputs/text/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
 import { ref } from 'vue'
