@@ -1,6 +1,6 @@
 <template>
   <BaseModal :show-modal="props.showCharacters">
-    <div v-if="character in props.characters">
+    <div v-for="character in props.characters">
       {{ character }}
     </div>
   </BaseModal>
