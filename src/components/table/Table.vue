@@ -12,7 +12,7 @@
       <tr v-for="row in processedRows">
         <td v-for="item in Object.values(row)" class="text-center">
           <button v-if="Array.isArray(item)"
-                  @click="console.log(item)"
+                  @click="handleButton(item)"
           >
             Array
           </button>
@@ -25,13 +25,15 @@
     </table>
   </div>
 
-  <BaseModal></BaseModal>
+  <CharactersModal :show-characters="showCharacters.value"
+                   :characters="characters"
+  />
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { filterArrayOfObjects, sortKeysofObject } from '@/utils/utilsObject.js';
-import BaseModal from '@/components/modal/BaseModal.vue'
+import CharactersModal from '@/components/modal/CharactersModal.vue'
 
 const props = defineProps({
   columns: {
@@ -43,6 +45,18 @@ const props = defineProps({
     required: true,
   },
 })
+
+const showCharacters = ref(false)
+
+const characters = ref([])
+
+const handleButton = (characters) => {
+  characters.value = characters
+
+  showCharacters.value = true
+
+  console.log(showCharacters.value)
+}
 
 const processedHeaderNames = computed(() => {
   let columnsName;

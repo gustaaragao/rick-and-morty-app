@@ -1,6 +1,7 @@
 <template>
+  <!-- STUDY: teleport -> https://vuejs.org/guide/built-ins/teleport.html -->
   <!-- begin: Opacity Background -->
-  <div v-if="showModal"
+  <div v-show="showModal"
        class="absolute bg-black w-full h-screen z-50 bg-opacity-30 top-0 left-0 flex justify-center items-center align-middle">
     <!-- begin: Modal -->
     <div class="bg-white rounded-2xl p-4 min-w-96"
@@ -14,7 +15,6 @@
       </div>
       <!-- end: Close Button -->
       <slot>
-        Hello
       </slot>
     </div>
     <!-- end: Modal -->
