@@ -1,31 +1,27 @@
 <template>
-  <div class="flex flex-col gap-8 w-[200px] pt-8 pl-8">
-    <MultiSelect title='Teste1' :options="options" @update:model-value="selectedOptions"></MultiSelect>
-    <LabelMultiSelect :selected-options="selectedOptions"></LabelMultiSelect>
-    
-    <MultiSelect title='Teste2' :options="options" @update:model-value="selectedOptions2"></MultiSelect>
-    <LabelMultiSelect :selected-options="selectedOptions2"></LabelMultiSelect>
+  <div class="pt-8 pl-8">
+    <RadioInput title="Titulo1" :options="optionsRadio" @update:model-value="(value) => {selectedOption = value}"></RadioInput>
+    {{ selectedOption }}
+  </div>
+
+  <div class="pt-8 pl-8">
+    <RadioInput title="Titulo2" :options="optionsRadio2" @update:model-value="(value) => {selectedOption2 = value}" class="flex gap-4"></RadioInput>
+    {{ selectedOption2 }}
   </div>
 </template>
 
 <script setup>
-// TODO: MUDAR DE SELECT PARA MULTISELECT e desativar o RADIO
-import MultiSelect from '@/components/inputs/select/MultiSelect.vue'
-import LabelMultiSelect from '@/components/inputs/select/LabelMultiSelect.vue'
+// import SelectInput from '@/components/inputs/select/Select.vue'
+// import LabelSelectInput from '@/components/inputs/select/LabelSelect.vue'
 
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
-const options = ref(['A', 'B', 'C'])
+import RadioInput from '@/components/inputs/radio/RadioInput.vue'
 
-const selectedOptions = ref([])
-const selectedOptions2 = ref([])
+const optionsRadio = ref(['A', 'B', 'C']);
+const optionsRadio2 = ref(['A', 'E', 'F']);
 
-watch(selectedOptions, () => {
-  console.log(selectedOptions.value);
-})
-
-watch(selectedOptions2, () => {
-  console.log(selectedOptions2.value);
-})
+const selectedOption = ref('');
+const selectedOption2 = ref('');
 
 </script>
