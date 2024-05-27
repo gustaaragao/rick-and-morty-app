@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-// TODO: MUDAR DE SELECT PARA MULTISELECT e desativar o RADIO
 // import SelectInput from '@/components/inputs/select/Select.vue'
 // import LabelSelectInput from '@/components/inputs/select/LabelSelect.vue'
 
