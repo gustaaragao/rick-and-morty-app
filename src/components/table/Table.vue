@@ -1,5 +1,5 @@
 <template>
-  <div id="table-container" class="mx-96">
+  <div id="table-container" class="mx-96 mt-20">
     <table class="w-full">
       <!-- begin: Header  -->
       <tr>
@@ -24,12 +24,14 @@
       <!-- end: Rows -->
     </table>
   </div>
+
+  <BaseModal></BaseModal>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { filterArrayOfObjects, sortKeysofObject } from '@/utils/utilsObject.js';
-
+import BaseModal from '@/components/modal/BaseModal.vue'
 
 const props = defineProps({
   columns: {
@@ -63,11 +65,6 @@ const processedRows = computed(() => {
 
   return props.rows
 })
-
-watch(processedRows, () => {
-  console.log(processedRows.value)
-})
-
 </script>
 
 <style scoped>
