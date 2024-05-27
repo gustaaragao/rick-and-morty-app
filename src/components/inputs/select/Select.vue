@@ -1,13 +1,13 @@
 <template>
-  <div ref="dropdownRef" 
+  <div ref="selectRef" 
        class="relative select-none rounded-xl shadow-md"
-       :class="showDropdown ? 'rounded-b-none shadow-none' : ''"
+       :class="showOptions ? 'rounded-b-none shadow-none' : ''"
   >
-    <!-- begin: Dropdown -->
+    <!-- begin: Select -->
     <div class="flex items-center cursor-pointer h-full pl-2 pr-1
-                border-2 border-gray-400 rounded-xl"
-         :class="showDropdown ? 'rounded-b-none' : ''"
-         @click="showDropdown = !showDropdown"
+                border-2 border-gray-400 rounded-xl bg-white"
+         :class="showOptions ? 'rounded-b-none' : ''"
+         @click="showOptions = !showOptions"
     >
       <!-- begin: Icon -->
       <i v-if="$slots.icon" class="scale-[0.75] text-gray-400">
@@ -21,31 +21,31 @@
       <!-- end: Title -->
       <!-- begin: Chevron Icons -->
       <div class="scale-[0.75] text-gray-400">
-        <i v-show="showDropdown" class="z-0">
+        <i v-show="showOptions" class="z-0">
           <ChevronDown />
         </i>
-        <i v-show=!showDropdown>
+        <i v-show=!showOptions>
           <ChevronUp />
         </i>
       </div>
       <!-- end: Chevron Icon -->
     </div>
-    <!-- end: Dropdown -->
+    <!-- end: Select -->
     <!-- begin: Options Wrapper -->
-    <div v-show="showDropdown" 
+    <div v-show="showOptions" 
          class="absolute w-full border-x-2 border-b-2 rounded-b-xl border-gray-400 divide-y-2 divide-gray-400"
-         :class="showDropdown ? 'shadow-md' : ''"
+         :class="showOptions ? 'shadow-md' : ''"
     >
       <!-- begin: Options -->
       <div v-for="(option, index) in options" 
            :key="index"
-           class="flex justify-center py-1 text-gray-400 cursor-pointer"
+           class="flex justify-center py-1 text-gray-400 cursor-pointer bg-white last:rounded-b-xl"
       >
         <input :type="props.type == 'radio' || props.type == 'checkbox' ? props.type : 'checkbox'"
                :id="index"
                :value="option"
                v-model="selectedOptions"
-               @input="() => {if (props.type === 'radio') {showDropdown = false}}"
+               @input="() => {if (props.type === 'radio') {showOptions = false}}"
         >
         <label :for="index"
                class="cursor-pointer"
@@ -88,14 +88,13 @@ watch(selectedOptions, () => {
   emit('update:model-value', selectedOptions.value)
 })
 
-const dropdownRef = ref(null)
+const selectRef = ref(null)
 
-const showDropdown = ref(false)
-
+const showOptions = ref(false)
 
 const hideOptions = (element) => {
-  if (!dropdownRef.value.contains(element.target)) {
-    showDropdown.value = false
+  if (!selectRef.value.contains(element.target)) {
+    showOptions.value = false
   }
 }
 
