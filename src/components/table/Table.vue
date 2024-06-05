@@ -3,17 +3,18 @@
       class="overflow-x-auto mt-20 mb-10 
              border border-gray-300 shadow-xl text-gray-800"
   >
-    <div class="w-full flex justify-between px-8 py-4 text-sm bg-gray-50 gap-10">
-      <BaseInput>
+    <div class="w-full flex justify-between align-middle items-center px-8 py-4 text-sm bg-gray-50">
+      <BaseInput class="w-1/2">
         <template #icon>
           <Search />
         </template>
       </BaseInput>
-      <select>
-        <option value="episode">Episode</option>
-        <option value="name">Name</option>
-        <option value="air_date">Air date</option>
-      </select>
+      <RadioInput class="flex gap-8" :options="['Episode', 'Name']"/>
+      <BaseButton design="LightButton" color-button="gray-400" color-hover-effect="gray-500">
+        <template #icon>
+          <Eraser /> 
+        </template>
+      </BaseButton>
     </div>
     <table class="w-full">
       <!-- begin: Header  -->
@@ -80,10 +81,12 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { Plus, Search, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { Plus, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue';
+import RadioInput from '@/components/inputs/radio/RadioInput.vue';
+import BaseButton from '@/components/buttons/BaseButton.vue';
 import Select from '@/components/inputs/select/Select.vue';
 
 const props = defineProps({
