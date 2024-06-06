@@ -32,7 +32,7 @@
         <td v-for="item in Object.values(row)" class="px-8 py-2 text-center text-base">
           <div v-if="Array.isArray(item)" class="flex justify-center">
             <button @click="handleButton(item)">
-              <Plus />
+              <Eye />
             </button>
           </div>
           <span v-else>
@@ -81,13 +81,12 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { Plus, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue';
 import RadioInput from '@/components/inputs/radio/RadioInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
-import Select from '@/components/inputs/select/Select.vue';
 
 const props = defineProps({
   columns: {
