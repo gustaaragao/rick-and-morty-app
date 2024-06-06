@@ -52,25 +52,37 @@
     </table>
     <!-- begin: Pagination -->
     <!-- TODO: SELECT -->
-    <div class="w-full flex justify-between px-8 py-4 text-sm bg-gray-50">
-      <div class="flex items-center gap-3 ">
+    <div 
+        class="w-full flex px-8 py-4 text-sm bg-gray-50"
+        :class="showItemsPerPage ? 'justify-between' : 'justify-end'"
+    >
+      <!-- begin: Items per Page -->
+      <div
+          v-if="showItemsPerPage" 
+          class="flex items-center gap-3"
+      >
         <p>Items per page:</p>
         <select>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
+          <option
+              v-for="quantityItems in processCount(props.info.count)"
+          >
+            {{ quantityItems }}
+          </option>
         </select>
-        <p>1-5 of 100 items</p>
+        <p>1-5 of {{ props.info.count }} items</p>
       </div>
+      <!-- end: Items per Page -->
+      <!-- begin: Page -->
       <div class="flex items-center gap-3">
         <select>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>    
+          <option
+              v-for="page in props.info.pages" 
+              :value="page"
+          >
+            {{ page }}
+          </option>    
         </select>
-        <p>of 40 pages</p>
+        <p>of {{ props.info.pages }} pages</p>
         <div class="flex items-center gap-2">
           <button class="border border-gray-300">
             <ChevronLeft />
@@ -80,6 +92,7 @@
           </button>
         </div>
       </div>
+      <!-- end: Page -->
     </div>
     <!-- end: Pagination -->
   </div>
@@ -91,6 +104,7 @@
 import { computed, ref, watch } from 'vue';
 import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
+import { range } from '@/utils/range';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue';
 import RadioInput from '@/components/inputs/radio/RadioInput.vue';
@@ -105,6 +119,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  info: {
+    type: Object,
+    required: true
+  },
   searchOptions: {
     type: [Array, Boolean],
     default: false,
@@ -113,14 +131,14 @@ const props = defineProps({
 
 const showCharacters = ref(false)
 
+const showItemsPerPage = ref(props.info.count > 10)
+
 const characters = ref([])
 
 const handleButton = (characters) => {
   characters.value = characters
 
   showCharacters.value = true
-
-  console.log(showCharacters.value)
 }
 
 const processedHeaderNames = computed(() => {
@@ -148,6 +166,10 @@ const processedRows = computed(() => {
 
   return props.rows
 })
+
+const processCount = (count) => {
+  return range(0, count, 5).slice(1)
+}
 
 const searchOption = ref();
 watch(searchOption, () => {
