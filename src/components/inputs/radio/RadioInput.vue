@@ -5,7 +5,7 @@
     </h1>
     <div v-for="(option, index) in props.options">
       <input type="radio"
-             :name="title"
+             :name="title ? title : 'radio'"
              :id="props.title.toLowerCase() + 'option' +  index"
              :value="option"
              @input="(event) => {emit('update:model-value', event.target.value)}"
@@ -13,7 +13,7 @@
       <label class="cursor-pointer"
              :for="props.title.toLowerCase() + 'option' +  index"
       >
-        {{ capitalize(option) }}
+        {{ processLabel(option) }}
       </label>
     </div>
   </div>
@@ -33,8 +33,11 @@ const props = defineProps({
 
 const emit = defineEmits(['update:model-value'])
 
-const capitalize = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+const processLabel = (str) => {
+  const strWithoutUnderscore = str.replace('_', ' ')
+  const strCapitalize = strWithoutUnderscore.charAt(0).toUpperCase() + strWithoutUnderscore.slice(1)
+  
+  return strCapitalize
 }
 
 </script>

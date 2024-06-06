@@ -3,19 +3,27 @@
       class="overflow-x-auto mt-20 mb-10 
              border border-gray-300 shadow-xl text-gray-800"
   >
-    <div class="w-full flex justify-between align-middle items-center px-8 py-4 text-sm bg-gray-50">
-      <BaseInput class="w-1/2">
+    <!-- begin: Search -->
+    <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
+      <BaseInput class="w-full">
         <template #icon>
           <Search />
         </template>
       </BaseInput>
-      <RadioInput class="flex gap-8" :options="['Episode', 'Name']"/>
+      <div class="pr-8">
+        <RadioInput
+            class="flex gap-8 text-nowrap" 
+            :options="searchOptions ? searchOptions : processedHeaderNames"
+            @update:model-value="(value) => {searchOption = value}"
+        />
+      </div>
       <BaseButton design="LightButton" color-button="gray-400" color-hover-effect="gray-500">
         <template #icon>
           <Eraser /> 
         </template>
       </BaseButton>
     </div>
+    <!-- end: Search -->
     <table class="w-full">
       <!-- begin: Header  -->
       <tr class="bg-gray-50 border-y border-gray-300">
@@ -80,7 +88,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
@@ -96,6 +104,10 @@ const props = defineProps({
   rows: {
     type: Object,
     required: true,
+  },
+  searchOptions: {
+    type: [Array, Boolean],
+    default: false,
   },
 })
 
@@ -136,4 +148,10 @@ const processedRows = computed(() => {
 
   return props.rows
 })
+
+const searchOption = ref();
+watch(searchOption, () => {
+  console.log(searchOption.value);
+})
+
 </script>
