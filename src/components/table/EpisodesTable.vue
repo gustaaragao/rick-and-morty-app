@@ -1,7 +1,7 @@
 <template>
   <Table
     :columns="['episode', 'name', 'air_date', 'characters']"
-    :rows="episodesData"
+    :data="episodesData"
     :info="episodesInfo"
     :search-options="['episode', 'name']"
   />

@@ -24,7 +24,10 @@
       </BaseButton>
     </div>
     <!-- end: Search -->
-    <table class="w-full">
+    <table
+        v-if="props.data.length !== 0" 
+        class="w-full"
+    >
       <!-- begin: Header  -->
       <tr class="bg-gray-50 border-y border-gray-300">
         <th v-for="name in processedHeaderNames" class="px-8 py-3 text-center text-base">
@@ -50,28 +53,15 @@
       </tr>
       <!-- end: Rows -->
     </table>
+    <div 
+        v-else
+        class="bg-gray-50 text-center py-8"
+    >
+      Nenhum dado foi encontrado...
+    </div>
     <!-- begin: Pagination -->
     <!-- TODO: SELECT -->
-    <div 
-        class="w-full flex px-8 py-4 text-sm bg-gray-50"
-        :class="showItemsPerPage ? 'justify-between' : 'justify-end'"
-    >
-      <!-- begin: Items per Page -->
-      <div
-          v-if="showItemsPerPage" 
-          class="flex items-center gap-3"
-      >
-        <p>Items per page:</p>
-        <select>
-          <option
-              v-for="quantityItems in processCount(props.info.count)"
-          >
-            {{ quantityItems }}
-          </option>
-        </select>
-        <p>1-5 of {{ props.info.count }} items</p>
-      </div>
-      <!-- end: Items per Page -->
+    <div class="w-full flex justify-end px-8 py-4 text-sm bg-gray-50">
       <!-- begin: Page -->
       <div class="flex items-center gap-3">
         <select>
@@ -115,8 +105,8 @@ const props = defineProps({
     type: [Array, Boolean],
     default: false,
   },
-  rows: {
-    type: Object,
+  data: {
+    type: Array,
     required: true,
   },
   info: {
@@ -131,8 +121,6 @@ const props = defineProps({
 
 const showCharacters = ref(false)
 
-const showItemsPerPage = ref(props.info.count > 10)
-
 const characters = ref([])
 
 const handleButton = (characters) => {
@@ -145,7 +133,7 @@ const processedHeaderNames = computed(() => {
   let columnsName;
   // Check if props.columns is not passed or if it is an empty array
   if (!props.columns || props.columns?.length === 0) {
-    columnsName = Object.keys(props.rows[0])
+    columnsName = Object.keys(props.data[0])
   } else {
     // If `props.columns` is passed, it's used in the table header
     columnsName = props.columns
@@ -161,10 +149,10 @@ const processedHeaderNames = computed(() => {
 const processedRows = computed(() => {
   //  Check if props.columns is passed and if it is not an empty array
   if (props.columns && props.columns?.length !== 0) {
-    return filterArrayOfObjects(props.rows, props.columns)
+    return filterArrayOfObjects(props.data, props.columns)
   }
 
-  return props.rows
+  return props.data
 })
 
 const processCount = (count) => {
