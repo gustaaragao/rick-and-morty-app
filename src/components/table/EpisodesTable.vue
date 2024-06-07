@@ -15,12 +15,15 @@ import { onMounted, ref } from 'vue';
 const episodesData = ref([])
 const episodesInfo = ref({})
 
+const selectedSearchOption = ref('')
+
+const searchedName = ref('')
+const searchedEpisode = ref('')
+
 onMounted(() => {
   ramRouter.episodes.getAll().then((response) => {
     episodesData.value = response.data.results
     episodesInfo.value = response.data.info
-
-    console.log(episodesInfo.value)
   })
 })
 </script>
