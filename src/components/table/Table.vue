@@ -5,7 +5,11 @@
   >
     <!-- begin: Search -->
     <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
-      <BaseInput class="w-full">
+      <BaseInput 
+          class="w-full"
+          :disabled="selectedSearchOption === ''"
+          @update:model-value="(value) => {searchValue = value}"
+      >
         <template #icon>
           <Search />
         </template>
@@ -14,10 +18,15 @@
         <RadioInput
             class="flex gap-8 text-nowrap" 
             :options="searchOptions ? searchOptions : processedHeaderNames"
-            @update:model-value="(value) => {searchOption = value}"
+            @update:model-value="(value) => {selectedSearchOption = value}"
         />
       </div>
-      <BaseButton design="LightButton" color-button="gray-400" color-hover-effect="gray-500">
+      <BaseButton
+          @click="clearSearch()"
+          design="LightButton" 
+          color-button="gray-400" 
+          color-hover-effect="gray-500"
+      >
         <template #icon>
           <Eraser /> 
         </template>
@@ -94,7 +103,6 @@
 import { computed, ref, watch } from 'vue';
 import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
-import { range } from '@/utils/range';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue';
 import RadioInput from '@/components/inputs/radio/RadioInput.vue';
@@ -155,13 +163,12 @@ const processedRows = computed(() => {
   return props.data
 })
 
-const processCount = (count) => {
-  return range(0, count, 5).slice(1)
-}
+const selectedSearchOption = ref('');
+const searchValue = ref('')
 
-const searchOption = ref();
-watch(searchOption, () => {
-  console.log(searchOption.value);
-})
+const clearSearch = () => {
+  searchValue.value = ''
+  selectedSearchOption.value = ''
+}
 
 </script>

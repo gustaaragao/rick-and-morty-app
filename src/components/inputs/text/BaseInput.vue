@@ -1,13 +1,14 @@
 <template>
-  <div class="w-full" :class="props.error || localError ? 'animate-shake-r' : ''">
+  <div class="w-full " :class="props.error || localError ? 'animate-shake-r' : ''">
     <div v-if="props.label">
       <label class="text-md" :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'">
         {{ props.label }}
       </label>
     </div>
     <!--begin: container Base Input -->
-    <div class="border-2 rounded-xl flex shadow-md mt-1" 
-         :class="inputIsFocused ? 'border-purple-400' : 'border-gray-400'"
+    <div 
+        class="border-2 rounded-xl flex shadow-md mt-1"
+        :class="[inputIsFocused ? 'border-purple-400' : 'border-gray-400', props.disabled ? 'bg-gray-100' : 'bg-gray-50']"
     >
       <!--begin: Icon-->
       <div v-if="$slots.icon" class="flex items-center justify-center pl-1">
@@ -32,7 +33,8 @@
       <!-- end: Placeholder -->
       <!-- begin: Input -->
       <input :type="inputType" 
-             class="w-full rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10"
+             :disabled="props.disabled"
+             class="w-full rounded-xl focus:outline-none pl-2 mr-2 py-1 bg-transparent z-10 disabled:cursor-not-allowed"
              :class="inputIsFocused ? 'text-purple-400' : 'text-gray-400'"
              v-model="inputValue" 
              @focus="inputIsFocused = true"
@@ -82,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -97,6 +99,9 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  disabled: {
+    type: Boolean,
   },
   error: {
     type: Boolean,
@@ -116,6 +121,10 @@ const props = defineProps({
       }
     }
   },
+})
+
+watch(props.disabled, () => {
+  console.log(props.disabled);
 })
 
 const emit = defineEmits(['update:model-value', 'validate:input'])
