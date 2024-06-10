@@ -4,41 +4,14 @@
              border border-gray-300 shadow-xl text-gray-800"
   >
     <!-- begin: Search -->
-    <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
-      <BaseInput 
-          class="w-full"
-          :disabled="selectedSearchOption === ''"
-          @update:model-value="(value) => {searchValue = value}"
-      >
-        <template #icon>
-          <Search />
-        </template>
-      </BaseInput>
-      <div class="pr-8">
-        <RadioInput
-            class="flex gap-8 text-nowrap" 
-            :options="searchOptions ? searchOptions : processedHeaderNames"
-            @update:model-value="(value) => {selectedSearchOption = value}"
-        />
-      </div>
-      <BaseButton
-          @click="clearSearch()"
-          design="LightButton" 
-          color-button="gray-400" 
-          color-hover-effect="gray-500"
-      >
-        <template #icon>
-          <Eraser /> 
-        </template>
-      </BaseButton>
-    </div>
+    <slot name="search"></slot>
     <!-- end: Search -->
     <table
         v-if="props.data.length !== 0" 
         class="w-full"
     >
       <!-- begin: Header  -->
-      <tr class="bg-gray-50 border-y border-gray-300">
+      <tr class="bg-gray-50">
         <th v-for="name in processedHeaderNames" class="px-8 py-3 text-center text-base">
           {{ name }}
         </th>
@@ -69,30 +42,7 @@
       Nenhum dado foi encontrado...
     </div>
     <!-- begin: Pagination -->
-    <!-- TODO: SELECT -->
-    <div class="w-full flex justify-end px-8 py-4 text-sm bg-gray-50">
-      <!-- begin: Page -->
-      <div class="flex items-center gap-3">
-        <select>
-          <option
-              v-for="page in props.info.pages" 
-              :value="page"
-          >
-            {{ page }}
-          </option>    
-        </select>
-        <p>of {{ props.info.pages }} pages</p>
-        <div class="flex items-center gap-2">
-          <button class="border border-gray-300">
-            <ChevronLeft />
-          </button>
-          <button class="border border-gray-300">
-            <ChevronRight />
-          </button>
-        </div>
-      </div>
-      <!-- end: Page -->
-    </div>
+    <slot name="pagination"></slot>
     <!-- end: Pagination -->
   </div>
 
@@ -100,13 +50,10 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
-import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { computed, ref, } from 'vue';
+import { Eye  } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
-import BaseInput from '@/components/inputs/text/BaseInput.vue';
-import RadioInput from '@/components/inputs/radio/RadioInput.vue';
-import BaseButton from '@/components/buttons/BaseButton.vue';
 
 const props = defineProps({
   columns: {
@@ -116,14 +63,6 @@ const props = defineProps({
   data: {
     type: Array,
     required: true,
-  },
-  info: {
-    type: Object,
-    required: true
-  },
-  searchOptions: {
-    type: [Array, Boolean],
-    default: false,
   },
 })
 

@@ -1,7 +1,9 @@
 <template>
-Locations
+  <div class="flex justify-center">
+    <LocationsTable />
+  </div>
 </template>
 
 <script setup>
-console.log("locations")
+import LocationsTable from '@/components/table/LocationsTable.vue';
 </script>
