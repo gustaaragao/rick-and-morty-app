@@ -123,10 +123,6 @@ const props = defineProps({
   },
 })
 
-watch(props.disabled, () => {
-  console.log(props.disabled);
-})
-
 const emit = defineEmits(['update:model-value', 'validate:input'])
 
 const inputValue = ref('')

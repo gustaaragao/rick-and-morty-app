@@ -24,7 +24,7 @@
       <!-- begin: Search Button -->
       <BaseButton
         @click="sendSearchValue()"
-        :disabled="selectedSearchOption === '' && searchValue === ''"
+        :disabled="selectedSearchOption === '' || searchValue === ''"
         color-button="purple-600"
         color-hover-effect="purple-700"
       >
@@ -71,11 +71,12 @@ const emit = defineEmits(['update:search-value'])
 const selectedSearchOption = ref('');
 const searchValue = ref('')
 
-const sendSearchValue = () => emit('update:search-value', searchValue.value)
-
+const sendSearchValue = () => {
+  const searchObject = {'value': searchValue.value, 'option': selectedSearchOption.value}
+  emit('update:search-value', searchObject)
+}
 
 const clearSearch = () => {
-  console.log('clear');
   searchValue.value = ''
   selectedSearchOption.value = ''
 }

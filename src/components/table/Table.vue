@@ -42,30 +42,7 @@
       Nenhum dado foi encontrado...
     </div>
     <!-- begin: Pagination -->
-    <!-- TODO: SELECT -->
-    <div class="w-full flex justify-end px-8 py-4 text-sm bg-gray-50">
-      <!-- begin: Page -->
-      <div class="flex items-center gap-3">
-        <select>
-          <option
-              v-for="page in props.info.pages" 
-              :value="page"
-          >
-            {{ page }}
-          </option>    
-        </select>
-        <p>of {{ props.info.pages }} pages</p>
-        <div class="flex items-center gap-2">
-          <button class="border border-gray-300">
-            <ChevronLeft />
-          </button>
-          <button class="border border-gray-300">
-            <ChevronRight />
-          </button>
-        </div>
-      </div>
-      <!-- end: Page -->
-    </div>
+    <slot name="pagination"></slot>
     <!-- end: Pagination -->
   </div>
 
@@ -73,13 +50,10 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
-import { Eye, Search, Eraser, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { computed, ref, } from 'vue';
+import { Eye  } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
-import BaseInput from '@/components/inputs/text/BaseInput.vue';
-import RadioInput from '@/components/inputs/radio/RadioInput.vue';
-import BaseButton from '@/components/buttons/BaseButton.vue';
 
 const props = defineProps({
   columns: {
@@ -89,14 +63,6 @@ const props = defineProps({
   data: {
     type: Array,
     required: true,
-  },
-  info: {
-    type: Object,
-    required: true
-  },
-  searchOptions: {
-    type: [Array, Boolean],
-    default: false,
   },
 })
 

@@ -37,20 +37,20 @@ const showModal = ref(props.showModal);
 
 const modalRef = ref(null)
 
-const closeModal = () => {
-  showModal.value = false
-}
+// const closeModal = () => {
+//   showModal.value = false
+// }
 
-const closeModalClickOutside = (element) => {
-  if (!modalRef.value.contains(element.target)) {
-    showModal.value = false
+// const closeModalClickOutside = (element) => {
+//   if (!modalRef.value.contains(element.target)) {
+//     showModal.value = false
 
-    window.removeEventListener('click', closeModalClickOutside)
-  }
-}
+//     window.removeEventListener('click', closeModalClickOutside)
+//   }
+// }
 
-onMounted(() => {
-  window.addEventListener('click', closeModalClickOutside)
-})
+// onMounted(() => {
+//   window.addEventListener('click', closeModalClickOutside)
+// })
 
 </script>
