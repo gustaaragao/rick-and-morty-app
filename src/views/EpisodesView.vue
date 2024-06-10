@@ -1,9 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <!-- begin: Table -->
     <EpisodesTable />
-    <!-- end: Table -->
-    
   </div>
 </template>
 

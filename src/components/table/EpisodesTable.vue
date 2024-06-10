@@ -4,11 +4,18 @@
     :data="episodesData"
     :info="episodesInfo"
     :search-options="['episode', 'name']"
-  />
+  >
+    <template #search>
+      <SearchTable 
+        :search-options="['episode', 'name']"
+      />
+    </template>
+  </Table>
 </template>
 
 <script setup>
-import Table from '@/components/table/Table.vue'
+import Table from '@/components/table/Table.vue';
+import SearchTable from './handler/SearchTable.vue';
 import { ramRouter } from '@/services/api/routing/routers/ramRouter';
 import { onMounted, ref } from 'vue';
 

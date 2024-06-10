@@ -4,41 +4,14 @@
              border border-gray-300 shadow-xl text-gray-800"
   >
     <!-- begin: Search -->
-    <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
-      <BaseInput 
-          class="w-full"
-          :disabled="selectedSearchOption === ''"
-          @update:model-value="(value) => {searchValue = value}"
-      >
-        <template #icon>
-          <Search />
-        </template>
-      </BaseInput>
-      <div class="pr-8">
-        <RadioInput
-            class="flex gap-8 text-nowrap" 
-            :options="searchOptions ? searchOptions : processedHeaderNames"
-            @update:model-value="(value) => {selectedSearchOption = value}"
-        />
-      </div>
-      <BaseButton
-          @click="clearSearch()"
-          design="LightButton" 
-          color-button="gray-400" 
-          color-hover-effect="gray-500"
-      >
-        <template #icon>
-          <Eraser /> 
-        </template>
-      </BaseButton>
-    </div>
+    <slot name="search"></slot>
     <!-- end: Search -->
     <table
         v-if="props.data.length !== 0" 
         class="w-full"
     >
       <!-- begin: Header  -->
-      <tr class="bg-gray-50 border-y border-gray-300">
+      <tr class="bg-gray-50">
         <th v-for="name in processedHeaderNames" class="px-8 py-3 text-center text-base">
           {{ name }}
         </th>

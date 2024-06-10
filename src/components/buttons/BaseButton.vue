@@ -6,7 +6,10 @@
       <i class="scale-[0.8]">
         <slot name="icon"></slot>
       </i>
-      <span class="text-sm">
+      <span
+          v-if="slots.text" 
+          class="text-sm pr-1"
+      >
         <slot name="text"></slot>
       </span>
     </button>
@@ -14,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, useSlots } from 'vue'
 import { transformTailwindColorToHex } from '@/utils/transformTailwindColorToHex.js'
 
 const props = defineProps({
@@ -39,6 +42,8 @@ const props = defineProps({
     default: false,
   },
 })
+
+const slots = useSlots()
 
 const colorButtonHex = ref('')
 const colorTextHex = ref('')
