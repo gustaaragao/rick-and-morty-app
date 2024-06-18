@@ -1,5 +1,5 @@
 <template>
-  <BaseModal :show-modal="props.showCharacters">
+  <BaseModal>
     <div v-for="character in props.characters">
       {{ character }}
     </div>
@@ -10,10 +10,6 @@
 import BaseModal from './BaseModal.vue';
 
 const props = defineProps({
-  showCharacters: {
-    type: Boolean,
-    default: false,
-  },
   characters: {
     type: Array,
     default: [],
