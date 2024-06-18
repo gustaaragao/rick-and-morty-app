@@ -1,56 +1,48 @@
 <template>
-  <!-- STUDY: teleport -> https://vuejs.org/guide/built-ins/teleport.html -->
-  <!-- begin: Opacity Background -->
-  <div v-show="showModal"
-       class="absolute bg-black w-full h-screen z-50 bg-opacity-30 top-0 left-0 flex justify-center items-center align-middle">
-    <!-- begin: Modal -->
-    <div class="bg-white rounded-2xl p-4 min-w-96"
-         ref="modalRef"
+  <button @click="showModal = true">
+    <Eye />
+  </button>
+  <!-- begin: Modal -->
+  <Teleport to="body">
+    <!-- begin: Opacity Background -->
+    <div 
+      v-if="showModal"
+      class="absolute z-50 top-0 left-0
+             w-full h-screen bg-black-900 bg-opacity-60 
+             flex justify-center items-center align-middle"
     >
-      <!-- begin: Close Button -->
-      <div class="w-full flex justify-end pr-4 py-2">
-        <button @click="closeModal()">
-          <X />
-        </button>
+      <!-- begin: Modal Content -->
+      <div class="bg-white rounded-2xl p-4 min-w-96" ref="modalRef">
+        <!-- begin: Close Button -->
+        <div class="w-full flex justify-end pr-4 py-2">
+          <button @click="closeModal()">
+            <X />
+          </button>
+        </div>
+        <!-- end: Close Button -->
+        <slot>
+        </slot>
       </div>
-      <!-- end: Close Button -->
-      <slot>
-      </slot>
+      <!-- end: Modal Content -->
     </div>
-    <!-- end: Modal -->
-  </div>
-  <!-- end: Opacity Background -->
+    <!-- end: Opacity Background -->
+  </Teleport>
+  <!-- end: Modal -->
 </template>
 
 <script setup>
-import { X } from 'lucide-vue-next';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { Eye, X } from 'lucide-vue-next';
+import { ref, useSlots } from 'vue';
 
-const props = defineProps({
-  showModal: {
-    type: Boolean,
-    default: true,
-  }
-})
+const props = defineProps()
 
-const showModal = ref(props.showModal);
+const slots = useSlots()
+
+const showModal = ref(false);
 
 const modalRef = ref(null)
 
-// const closeModal = () => {
-//   showModal.value = false
-// }
-
-// const closeModalClickOutside = (element) => {
-//   if (!modalRef.value.contains(element.target)) {
-//     showModal.value = false
-
-//     window.removeEventListener('click', closeModalClickOutside)
-//   }
-// }
-
-// onMounted(() => {
-//   window.addEventListener('click', closeModalClickOutside)
-// })
-
+const closeModal = () => {
+  showModal.value = false
+}
 </script>

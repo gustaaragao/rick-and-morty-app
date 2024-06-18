@@ -1,6 +1,6 @@
 <template>
   <div 
-      class="overflow-x-auto mt-20 mb-10 
+      class="overflow-x-auto my-10
              border border-gray-300 shadow-xl text-gray-800"
   >
     <!-- begin: Search -->
@@ -24,9 +24,9 @@
       >
         <td v-for="item in Object.values(row)" class="px-8 py-2 text-center text-base">
           <div v-if="Array.isArray(item)" class="flex justify-center">
-            <button @click="handleButton(item)">
-              <Eye />
-            </button>
+            <CharactersModal 
+                :characters="item"
+            />
           </div>
           <span v-else>
             {{ item }}
@@ -45,8 +45,6 @@
     <slot name="pagination"></slot>
     <!-- end: Pagination -->
   </div>
-
-  <CharactersModal :show-characters="showCharacters.value" :characters="characters" />
 </template>
 
 <script setup>
