@@ -40,8 +40,10 @@
   <!--begin: Section Characters-->
   <section class="grid grid-cols-3 gap-4 px-64 pb-10">
     <div v-for="character in characters" :key="character?.id">
-      <VisualizerCharacter :character="character"
-        @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }">
+      <VisualizerCharacter 
+        :character="character"
+        @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }"
+      >
       </VisualizerCharacter>
     </div>
   </section>
@@ -58,7 +60,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter'
@@ -68,7 +70,7 @@ import BaseInput from '@/components/inputs/text/BaseInput.vue'
 import RadioInput from '@/components/inputs/radio/RadioInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
 
-import { Search, Filter } from 'lucide-vue-next'
+import { Search } from 'lucide-vue-next'
 
 const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
 const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
@@ -83,7 +85,7 @@ const searchedCharacter = ref('')
 const nextPageLink = ref('')
 
 onMounted(() => {
-  ramRouter.characters.get().then((response) => {
+  ramRouter.characters.getAll().then((response) => {
     characters.value = response.data.results
 
     nextPageLink.value = response.data.info.next

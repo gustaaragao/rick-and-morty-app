@@ -1,13 +1,18 @@
 <template>
   <BaseModal>
-    <div v-for="character in props.characters">
-      {{ character }}
+    <div 
+      v-for="id in idCharacters"
+    >
+      {{ id }}
     </div>
   </BaseModal>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import BaseModal from './BaseModal.vue';
+import VisualizerCharacter from '../visualizer/VisualizerCharacter.vue';
+import { ramRouter } from '@/services/api/routing/routers/ramRouter';
 
 const props = defineProps({
   characters: {
@@ -16,4 +21,7 @@ const props = defineProps({
   },
 })
 
+const getID = (characters) => characters.map((character) => character.split('/').pop())
+
+const idCharacters = ref(getID(props.characters))
 </script>
