@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    :class="designHorizontal ? '' : ''"
+  >
     <!-- begin: Character Image -->
     <div class="relative">
       <!-- begin: Status -->
@@ -35,12 +37,23 @@
         <h1 class="text-3xl font-extrabold">
           {{ character.name }}
         </h1>
-        <h2 class="text-3xl font-medium">
-          {{ character.species }}
-        </h2>
-        <h3 class="text-2xl font-normal">
-          {{ character.gender }}
-        </h3>
+        <p class="text-2xl">
+            <span class="font-semibold">
+              {{ character.species }}
+            </span> 
+            -
+            <span class="font-medium">
+              {{ character.gender }}
+            </span> 
+        </p>
+        <p class="text-lg">
+          <h3 class="font-semibold">
+            Last known location:
+          </h3>
+          <i>
+            {{ character.location.name }}
+          </i>
+        </p>
       </div>
       <!-- end: Info -->
       <!-- begin: Favorite Button -->
@@ -80,6 +93,10 @@ const props = defineProps({
   showEpisodesButton: {
     type: Boolean,
     default: true,
+  },
+  designHorizontal: {
+    type: Boolean,
+    default: false,
   }
 })
 
