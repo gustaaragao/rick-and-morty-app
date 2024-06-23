@@ -7,6 +7,10 @@
       v-for="character in renderedCharacters"
     >
       {{ character }}
+
+      <!-- <VisualizerCharacter 
+        :character="character"
+      /> -->
     </div>
   </BaseModal>
 </template>

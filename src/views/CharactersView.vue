@@ -38,8 +38,8 @@
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-3 gap-4 px-64 pb-10">
-    <div v-for="character in characters" :key="character?.id">
+  <section class="grid grid-cols-3 gap-6 px-64"> <!-- pb-10 gap-4 px-64-->
+    <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character"
         @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }"

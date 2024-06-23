@@ -1,49 +1,60 @@
 <template>
-  <!--begin: Visualizer Character-->
-  <div class="w-full h-full rounded-xl shadow-xl border-4 border-gray-300">
-    <div class="w-full">
+  <div>
+    <!-- begin: Character Image -->
+    <div class="relative">
       <!-- begin: Status -->
-      <div class="absolute z-0 mt-4 ml-2">
-        <div class="p-0.5 rounded-md text-white font-medium" :class="colorsStatusCharacter[character.status]">
-          {{ character.status.toUpperCase() }}
-        </div>
+      <div class="absolute top-8 left-8 z-10">
+          <div 
+            class="p-3 rounded-md text-white font-bold text-3xl" 
+            :class="colorsStatusCharacter[character.status]"
+          >
+              {{ character.status.toUpperCase() }}
+          </div>
       </div>
-      <!-- end: Status -->
-      <!--begin: Favorite Button-->
-      <div class="flex justify-end cursor-pointer" 
-           @click="() => {
-            fillIcon = !fillIcon
-            emit('send:character', { id: props.character.id, name: props.character.name })
-          }"
-      >
-        <div class="absolute mt-4 mr-4 z-0 ">
-          <Star :class="fillIcon ? 'fill-yellow-500' : ''" class="scale-[1.5] stroke-2 stroke-yellow-500" />
-        </div>
-      </div>
-      <!--begin: Favorite Button-->
-
-      <!--begin: Character Image-->
-      <div class="w-full">
-        <img :src="character.image" class="rounded-t-lg" />
-      </div>
-      <!--end: Character Image-->
-
-      <!--begin: Section Character Data-->
-      <section class="grid gap-2 pl-2 py-1 text-lg rounded-b-xl">
-        <header class="font-bold text-xl">
-          {{ character.name }}
-        </header>
-        <p><b>Species:</b> {{ character.species }}</p>
-        <p><b>Gender:</b> {{ character.gender }}</p>
-      </section>
-      <!--end: Section Character Data-->
+      <img :src="character.image" class="w-full z-1 rounded-t-3xl object-fill"/>
     </div>
+    <!-- end: Character Image -->
+    <!-- begin: Section Character Info -->
+    <section class="flex align-middle gap-4 px-8 py-2 bg-white rounded-b-3xl">
+      <button
+        @click="handleEpisodesButton()"
+      >
+        <Tv 
+          size="3em" 
+          class="stroke-2"
+        />
+      </button>
+      <!-- begin: Info -->
+      <div class="w-full flex flex-col gap-2 text-center">
+        <h1 class="text-3xl font-extrabold">
+          {{ character.name }}
+        </h1>
+        <h2 class="text-3xl font-medium">
+          {{ character.species }}
+        </h2>
+        <h3 class="text-2xl font-normal">
+          {{ character.gender }}
+        </h3>
+      </div>
+      <!-- end: Info -->
+      <!-- begin: Favorite Button -->
+      <button
+        @click="handleFavoriteButton()"
+      >
+        <Star 
+          size="3em" 
+          class="stroke-2 stroke-yellow-500"
+          :class="fillIcon ? 'fill-yellow-500' : ''" 
+        />
+      </button>
+      <!-- end: Favorite Button -->
+    </section>
+    <!-- end: Section Character Info -->
   </div>
-  <!--end: Visualizer Character-->
 </template>
 
 <script setup>
-import { Star } from 'lucide-vue-next'
+import { Star, Tv } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 const fillIcon = ref(false)
@@ -57,9 +68,20 @@ const props = defineProps({
 
 const emit = defineEmits(['send:character'])
 
+const handleFavoriteButton = () => {
+  fillIcon.value = !fillIcon.value;
+  emit('send:character', { id: props.character.id, name: props.character.name });
+}
+
+// TODO: Fazer modal para os Episodes 
+const handleEpisodesButton = () => {
+  console.log('episodes')
+}
+
 const colorsStatusCharacter = {
   'Alive': 'bg-green-400',
   'Dead': 'bg-red-400',
   'unknown': 'bg-gray-400',
 }
+
 </script>
