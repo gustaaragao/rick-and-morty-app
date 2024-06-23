@@ -1,5 +1,5 @@
 <template>
-  <button @click="showModal = true">
+  <button @click="openModal()">
     <Eye />
   </button>
   <!-- begin: Modal -->
@@ -32,17 +32,23 @@
 
 <script setup>
 import { Eye, X } from 'lucide-vue-next';
-import { ref, useSlots } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps()
 
-const slots = useSlots()
+const emit = defineEmits(['show:modal', 'close:modal'])
 
 const showModal = ref(false);
 
 const modalRef = ref(null)
 
+const openModal = () => {
+  emit('show:modal')
+  showModal.value = true
+}
+
 const closeModal = () => {
+  emit('close:modal')
   showModal.value = false
 }
 </script>

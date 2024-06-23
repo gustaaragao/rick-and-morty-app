@@ -25,7 +25,7 @@
         <td v-for="item in Object.values(row)" class="px-8 py-2 text-center text-base">
           <div v-if="Array.isArray(item)" class="flex justify-center">
             <CharactersModal 
-                :characters="item"
+                :characters-url="item"
             />
           </div>
           <span v-else>
@@ -49,7 +49,6 @@
 
 <script setup>
 import { computed, ref, } from 'vue';
-import { Eye  } from 'lucide-vue-next';
 import { filterArrayOfObjects } from '@/utils/utilsObject.js';
 import CharactersModal from '@/components/modal/CharactersModal.vue'
 

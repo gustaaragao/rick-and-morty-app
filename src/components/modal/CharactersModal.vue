@@ -1,9 +1,12 @@
-<template>
-  <BaseModal>
+<template v-if="showModal">
+  <BaseModal 
+    @show:modal="searchCharacters()"
+    @close:modal="clearRenderedCharacters()"
+  >
     <div 
-      v-for="id in idCharacters"
+      v-for="character in renderedCharacters"
     >
-      {{ id }}
+      {{ character }}
     </div>
   </BaseModal>
 </template>
@@ -15,13 +18,28 @@ import VisualizerCharacter from '../visualizer/VisualizerCharacter.vue';
 import { ramRouter } from '@/services/api/routing/routers/ramRouter';
 
 const props = defineProps({
-  characters: {
+  charactersUrl: {
     type: Array,
     default: [],
   },
 })
 
-const getID = (characters) => characters.map((character) => character.split('/').pop())
+const getID = (charactersUrl) => charactersUrl.map((url) => url.split('/').pop())
 
-const idCharacters = ref(getID(props.characters))
+const idCharacters = ref(getID(props.charactersUrl))
+
+const renderedCharacters = ref([])
+
+const searchCharacters = () => {
+  idCharacters.value.map((id) => {
+    ramRouter.characters.getByID(id).then((response) => {
+      const character = response.data
+      renderedCharacters.value.push(character.name) // TODO: Retirar esse '.name'
+    })
+  })
+}
+
+const clearRenderedCharacters = () => {
+  renderedCharacters.value = []
+}
 </script>
