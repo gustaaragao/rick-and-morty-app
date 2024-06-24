@@ -1,81 +1,45 @@
 <template>
   <div
-    :class="designHorizontal ? '' : ''"
+    class="w-full h-full"
+    :class="designHorizontal ? 'flex' : ''"
   >
     <!-- begin: Character Image -->
     <div class="relative">
       <!-- begin: Status -->
-      <div class="absolute top-8 left-8 z-10">
+      <div 
+        class="absolute z-10"
+        :class="designHorizontal ? 'top-4 left-4' : 'top-8 left-8'"
+      >
           <div 
-            class="p-3 rounded-md text-white font-bold text-3xl" 
-            :class="colorsStatusCharacter[character.status]"
+            class="rounded-md text-white font-bold" 
+            :class="[
+              colorsStatusCharacter[character.status],
+              designHorizontal ? 'p-1 text-xl' : 'p-3 text-3xl'  
+            ]"
           >
               {{ character.status.toUpperCase() }}
           </div>
       </div>
-      <img :src="character.image" class="w-full z-1 rounded-t-3xl object-fill"/>
+      <img 
+        :src="character.image" 
+        class="min-w-full z-1"
+        :class="designHorizontal ? 'rounded-l-3xl' : 'rounded-t-3xl'"  
+      />
     </div>
     <!-- end: Character Image -->
+     
     <!-- begin: Section Character Info -->
-    <section 
-      class="flex align-middle px-8 py-2 bg-white rounded-b-3xl"
-      :class="showEpisodesButton ? 'gap-4' : 'relative gap-0'"
-    >
-      <!-- begin: Show Episodes Button -->
-      <button
-        v-if="showEpisodesButton"
-        @click="handleEpisodesButton()"
-      >
-        <Tv 
-          size="3em" 
-          class="stroke-2"
-        />
-      </button>
-      <!-- end: Show Episodes Button -->
-      <!-- begin: Info -->
-      <div class="w-full flex flex-col gap-2 text-center">
-        <h1 class="text-3xl font-extrabold">
-          {{ character.name }}
-        </h1>
-        <p class="text-2xl">
-            <span class="font-semibold">
-              {{ character.species }}
-            </span> 
-            -
-            <span class="font-medium">
-              {{ character.gender }}
-            </span> 
-        </p>
-        <p class="text-lg">
-          <h3 class="font-semibold">
-            Last known location:
-          </h3>
-          <i>
-            {{ character.location.name }}
-          </i>
-        </p>
-      </div>
-      <!-- end: Info -->
-      <!-- begin: Favorite Button -->
-      <button
-        @click="handleFavoriteButton()"
-        :class="showEpisodesButton ? '' : 'absolute top-11 right-8'"
-      >
-        <Star 
-          size="3em" 
-          class="stroke-2 stroke-yellow-500"
-          :class="fillIcon ? 'fill-yellow-500' : ''" 
-        />
-      </button>
-      <!-- end: Favorite Button -->
-    </section>
+    <CharacterInfo
+      :character="props.character"
+      :showButtons="props.showButtons"
+      :designHorizontal="props.designHorizontal"
+    />
     <!-- end: Section Character Info -->
   </div>
 </template>
 
 <script setup>
-import { Star, Tv } from 'lucide-vue-next'
-import { ref } from 'vue'
+import CharacterInfo from '@/components/visualizer/handler/CharacterInfo.vue';
 
 const colorsStatusCharacter = {
   'Alive': 'bg-green-400',
@@ -83,14 +47,12 @@ const colorsStatusCharacter = {
   'unknown': 'bg-gray-400',
 }
 
-const fillIcon = ref(false)
-
 const props = defineProps({
   character: {
     type: Object,
     required: true
   },
-  showEpisodesButton: {
+  showButtons: {
     type: Boolean,
     default: true,
   },
@@ -99,17 +61,5 @@ const props = defineProps({
     default: false,
   }
 })
-
-const emit = defineEmits(['send:character'])
-
-const handleFavoriteButton = () => {
-  fillIcon.value = !fillIcon.value;
-  emit('send:character', { id: props.character.id, name: props.character.name });
-}
-
-// TODO: Fazer modal para os Episodes 
-const handleEpisodesButton = () => {
-  console.log('episodes')
-}
 
 </script>
