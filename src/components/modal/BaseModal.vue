@@ -2,37 +2,37 @@
   <button @click="openModal()">
     <Eye />
   </button>
-  <!-- begin: Modal -->
-  <Teleport to="body">
-    <!-- begin: Opacity Background -->
+
+  <!-- begin: Opacity Background -->
+  <div 
+    v-if="showModal"
+    class="fixed inset-0 z-50 bg-black-900 bg-opacity-60 
+           flex justify-center items-center align-middle"
+  >
+    <!-- begin: Modal Content -->
     <div 
-      v-if="showModal"
-      class="absolute z-50 top-0 left-0
-             w-full h-screen bg-black-900 bg-opacity-60 
-             flex justify-center items-center align-middle"
+      ref="modalRef"
+      class="bg-gray-100 rounded-md max-w-4/5 h-4/5 min-h-fit overflow-y-auto" 
     >
-      <!-- begin: Modal Content -->
-      <div class="bg-white rounded-2xl p-4 min-w-96" ref="modalRef">
-        <!-- begin: Close Button -->
-        <div class="w-full flex justify-end pr-4 py-2">
-          <button @click="closeModal()">
-            <X />
-          </button>
-        </div>
-        <!-- end: Close Button -->
-        <slot>
-        </slot>
+      <!-- begin: Close Button -->
+      <div 
+        class="flex w-full justify-end bg-gray-100 py-4 pr-4">
+        <button @click="closeModal()">
+          <X />
+        </button>
       </div>
-      <!-- end: Modal Content -->
+      <!-- end: Close Button -->
+      <slot>
+      </slot>
     </div>
-    <!-- end: Opacity Background -->
-  </Teleport>
-  <!-- end: Modal -->
+    <!-- end: Modal Content -->
+  </div>
+  <!-- end: Opacity Background -->
 </template>
 
 <script setup>
 import { Eye, X } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, onUpdated } from 'vue';
 
 const props = defineProps()
 
@@ -51,4 +51,16 @@ const closeModal = () => {
   emit('close:modal')
   showModal.value = false
 }
+
+const disableScrollPage = () => {
+  if (showModal.value) {
+    document.documentElement.style.overflow = 'hidden';
+    return
+  };
+  document.documentElement.style.overflow = 'auto';
+}
+
+onUpdated(() => {
+  disableScrollPage()
+});
 </script>

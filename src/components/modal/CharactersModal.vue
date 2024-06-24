@@ -3,9 +3,8 @@
     @show:modal="searchCharacters()"
     @close:modal="clearRenderedCharacters()"
   >
-    <div 
-      v-for="character in renderedCharacters"
-    >
+    <div v-for="character in renderedCharacters" class="px-10 py-4">
+      <!-- TODO: FAZER SISTEMA SEARCH DOS CHARACTERS -->
       <VisualizerCharacter
         :character="character"
         :design-horizontal="true"
