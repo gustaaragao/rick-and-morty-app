@@ -3,14 +3,12 @@
     @show:modal="searchCharacters()"
     @close:modal="clearRenderedCharacters()"
   >
-    <div 
-      v-for="character in renderedCharacters"
-    >
-      {{ character }}
-
-      <!-- <VisualizerCharacter 
+    <div v-for="character in renderedCharacters" class="px-10 py-4">
+      <!-- TODO: FAZER SISTEMA SEARCH DOS CHARACTERS -->
+      <VisualizerCharacter
         :character="character"
-      /> -->
+        :design-horizontal="true"
+      />
     </div>
   </BaseModal>
 </template>
@@ -38,7 +36,7 @@ const searchCharacters = () => {
   idCharacters.value.map((id) => {
     ramRouter.characters.getByID(id).then((response) => {
       const character = response.data
-      renderedCharacters.value.push(character.name) // TODO: Retirar esse '.name'
+      renderedCharacters.value.push(character)
     })
   })
 }
