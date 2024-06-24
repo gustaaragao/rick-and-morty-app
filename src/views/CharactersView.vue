@@ -38,9 +38,9 @@
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-3 gap-4 px-64 pb-10">
-    <div v-for="character in characters" :key="character?.id">
-      <VisualizerCharacter 
+  <section class="grid grid-cols-3 gap-6 px-32">
+    <div v-for="character in characters">
+      <VisualizerCharacter
         :character="character"
         @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }"
       >
@@ -50,7 +50,7 @@
   <!--end: Section Characters-->
   <!-- begin: Load More Button -->
   <div v-if="!!nextPageLink">
-    <div class="flex justify-center pb-8">
+    <div class="flex justify-center py-10">
       <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
         <template #text> Load More </template>
       </BaseButton>

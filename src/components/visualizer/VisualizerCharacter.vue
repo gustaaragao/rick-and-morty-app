@@ -1,65 +1,65 @@
 <template>
-  <!--begin: Visualizer Character-->
-  <div class="w-full h-full rounded-xl shadow-xl border-4 border-gray-300">
-    <div class="w-full">
+  <div
+    class="w-full h-full"
+    :class="designHorizontal ? 'flex' : ''"
+  >
+    <!-- begin: Character Image -->
+    <div class="relative">
       <!-- begin: Status -->
-      <div class="absolute z-0 mt-4 ml-2">
-        <div class="p-0.5 rounded-md text-white font-medium" :class="colorsStatusCharacter[character.status]">
-          {{ character.status.toUpperCase() }}
-        </div>
-      </div>
-      <!-- end: Status -->
-      <!--begin: Favorite Button-->
-      <div class="flex justify-end cursor-pointer" 
-           @click="() => {
-            fillIcon = !fillIcon
-            emit('send:character', { id: props.character.id, name: props.character.name })
-          }"
+      <div 
+        class="absolute z-10"
+        :class="designHorizontal ? 'top-4 left-4' : 'top-8 left-8'"
       >
-        <div class="absolute mt-4 mr-4 z-0 ">
-          <Star :class="fillIcon ? 'fill-yellow-500' : ''" class="scale-[1.5] stroke-2 stroke-yellow-500" />
-        </div>
+          <div 
+            class="rounded-md text-white font-bold" 
+            :class="[
+              colorsStatusCharacter[character.status],
+              designHorizontal ? 'p-1 text-xl' : 'p-3 text-3xl'  
+            ]"
+          >
+              {{ character.status.toUpperCase() }}
+          </div>
       </div>
-      <!--begin: Favorite Button-->
-
-      <!--begin: Character Image-->
-      <div class="w-full">
-        <img :src="character.image" class="rounded-t-lg" />
-      </div>
-      <!--end: Character Image-->
-
-      <!--begin: Section Character Data-->
-      <section class="grid gap-2 pl-2 py-1 text-lg rounded-b-xl">
-        <header class="font-bold text-xl">
-          {{ character.name }}
-        </header>
-        <p><b>Species:</b> {{ character.species }}</p>
-        <p><b>Gender:</b> {{ character.gender }}</p>
-      </section>
-      <!--end: Section Character Data-->
+      <img 
+        :src="character.image" 
+        class="min-w-full z-1"
+        :class="designHorizontal ? 'rounded-l-3xl' : 'rounded-t-3xl'"  
+      />
     </div>
+    <!-- end: Character Image -->
+     
+    <!-- begin: Section Character Info -->
+    <CharacterInfo
+      :character="props.character"
+      :showButtons="props.showButtons"
+      :designHorizontal="props.designHorizontal"
+    />
+    <!-- end: Section Character Info -->
   </div>
-  <!--end: Visualizer Character-->
 </template>
 
 <script setup>
-import { Star } from 'lucide-vue-next'
-import { ref } from 'vue'
-
-const fillIcon = ref(false)
-
-const props = defineProps({
-  character: {
-    type: Object,
-    required: true
-  }
-})
-
-const emit = defineEmits(['send:character'])
+import CharacterInfo from '@/components/visualizer/handler/CharacterInfo.vue';
 
 const colorsStatusCharacter = {
   'Alive': 'bg-green-400',
   'Dead': 'bg-red-400',
   'unknown': 'bg-gray-400',
 }
+
+const props = defineProps({
+  character: {
+    type: Object,
+    required: true
+  },
+  showButtons: {
+    type: Boolean,
+    default: true,
+  },
+  designHorizontal: {
+    type: Boolean,
+    default: false,
+  }
+})
+
 </script>
