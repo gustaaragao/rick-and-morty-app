@@ -1,7 +1,7 @@
 <template>
   <div 
       class="w-full flex flex-row bg-white py-4 px-10"
-      :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl'"
+      :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl h-full'"
     >
       <!-- begin: Show Episodes Button -->
       <EpisodesModal 

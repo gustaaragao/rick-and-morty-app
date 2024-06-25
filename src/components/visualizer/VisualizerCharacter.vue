@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-full h-full rounded-3xl shadow-lg"
-    :class="designHorizontal ? 'flex' : ''"
+    class="w-full h-full rounded-3xl shadow-lg bg-white"
+    :class="designHorizontal ? 'flex items-center' : ''"
   >
     <!-- begin: Character Image -->
     <div class="relative">
@@ -29,11 +29,13 @@
     <!-- end: Character Image -->
      
     <!-- begin: Section Character Info -->
-    <CharacterInfo
-      :character="props.character"
-      :showButtons="props.showButtons"
-      :designHorizontal="props.designHorizontal"
-    />
+    <div class="w-full h-full" :class="props.designHorizontal ? '' : 'h-72'">
+      <CharacterInfo
+        :character="props.character"
+        :showButtons="props.showButtons"
+        :designHorizontal="props.designHorizontal"
+      />
+    </div>
     <!-- end: Section Character Info -->
   </div>
 </template>
