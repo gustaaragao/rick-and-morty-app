@@ -62,16 +62,6 @@ const props = defineProps({
   },
 })
 
-const showCharacters = ref(false)
-
-const characters = ref([])
-
-const handleButton = (characters) => {
-  characters.value = characters
-
-  showCharacters.value = true
-}
-
 const processedHeaderNames = computed(() => {
   let columnsName;
   // Check if props.columns is not passed or if it is an empty array
