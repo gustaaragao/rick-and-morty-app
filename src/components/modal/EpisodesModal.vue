@@ -9,19 +9,21 @@
         class="stroke-2"
       />
     </template>
-
-    <div v-for="episode in renderedEpisodes">
-      <VisualizerEpisode  
-        :episode="episode"
-      />
-    </div>
+    
+    <!-- TODO: ADICIONAR PESQUISA -->
+    <Table 
+      :data="renderedEpisodes"
+      :columns="['episode', 'name', 'air_date']"
+      class="mt-2"
+    />
+    
   </BaseModal>
 </template>
 
 <script setup>
 import BaseModal from './BaseModal.vue';
+import Table from '../table/Table.vue';
 import { Tv } from 'lucide-vue-next';
-import VisualizerEpisode from '../visualizer/VisualizerEpisode.vue';
 import { ramRouter } from '@/services/api/routing/routers/ramRouter';
 import { ref } from 'vue';
 

@@ -1,7 +1,6 @@
 <template>
   <div 
-      class="overflow-x-auto my-10
-             border border-gray-300 shadow-xl text-gray-800"
+      class="border border-gray-300 text-gray-800 overflow-x-auto"
   >
     <!-- begin: Search -->
     <slot name="search"></slot>

@@ -2,6 +2,7 @@
   <Table
     :columns="['name', 'type', 'dimension', 'residents']"
     :data="locationsData"
+    class="my-10"
   >
     <template #search>
       <SearchTable 
