@@ -84,6 +84,8 @@ import { ref } from 'vue'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
 import router from '@/router'
 
+import { filterKeysOfObject } from '@/utils/utilsObject'
+
 const errorMessage = ref('')
 
 const form = ref({
@@ -138,10 +140,10 @@ async function tryLogin() {
 
   if ((response.status == 200 || response.status == 201) && response.data.length > 0) {
     let userInfo = response.data[0]
-    let userFavorites = await dbRouter.favorites.get(userInfo.id)
+
+    userInfo = filterKeysOfObject(userInfo, ['id', 'firstname', 'lastname', 'username', 'email'])
 
     localStorage.setItem('user-info', JSON.stringify(userInfo))
-    localStorage.setItem('user-favorites', JSON.stringify(userFavorites.data.favCharacters))
 
     router.push('/characters')
 
