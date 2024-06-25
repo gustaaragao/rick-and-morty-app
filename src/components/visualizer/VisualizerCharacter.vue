@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full rounded-3xl shadow-lg"
+    class="w-full h-full bg-white rounded-3xl shadow-lg"
     :class="designHorizontal ? 'flex' : ''"
   >
     <!-- begin: Character Image -->
