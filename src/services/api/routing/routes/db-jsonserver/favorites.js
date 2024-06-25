@@ -29,18 +29,5 @@ export const favorites = {
     .catch((err) => {
       console.error(err)
     })
-  },
-  removeFavorite: async function(userID, character) {
-    dbRequester('get', `favorites/${userID}`, '')
-    .then((response) => {
-      let userFavorites = response.data.favCharacters
-
-      userFavorites = removeItem(userFavorites, character)
-
-      dbRequester('put', `favorites/${userID}`, '', { favCharacters: userFavorites })
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-  },
+  }
 }
