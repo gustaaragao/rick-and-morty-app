@@ -38,7 +38,7 @@
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-3 gap-6 px-32">
+  <section class="grid grid-cols-4 gap-6 px-32">
     <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character" 
@@ -61,7 +61,6 @@
 import { onMounted, ref } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
-import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue'

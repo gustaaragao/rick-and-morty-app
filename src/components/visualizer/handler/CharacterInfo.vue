@@ -1,8 +1,9 @@
 <template>
   <div 
-      class="w-full flex bg-white py-4 px-10"
+      class="w-full flex flex-row bg-white py-4 px-10"
       :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl'"
     >
+      <!-- begin: Show Episodes Button -->
       <EpisodesModal 
         :episodes-url="character.episode"
       />     
@@ -38,7 +39,7 @@
         class="h-fit self-center"
       >
         <Star 
-          size="3em" 
+          size="2.5em" 
           class="stroke-2 stroke-yellow-500"
           :class="fillIcon ? 'fill-yellow-500' : ''" 
         />

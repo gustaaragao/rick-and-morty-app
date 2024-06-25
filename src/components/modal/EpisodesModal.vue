@@ -5,7 +5,7 @@
   >
     <template #icon>
       <Tv 
-        size="3em"
+        size="2.5em"
         class="stroke-2"
       />
     </template>

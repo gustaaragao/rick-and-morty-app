@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-full bg-white rounded-3xl shadow-lg"
+    class="w-full h-full rounded-3xl shadow-lg"
     :class="designHorizontal ? 'flex' : ''"
   >
     <!-- begin: Character Image -->
@@ -14,7 +14,7 @@
             class="rounded-md text-white font-bold" 
             :class="[
               colorsStatusCharacter[character.status],
-              designHorizontal ? 'p-1 text-xl' : 'p-3 text-3xl'  
+              designHorizontal ? 'p-2 text-xl' : 'p-2 text-xl'  
             ]"
           >
               {{ character.status.toUpperCase() }}
