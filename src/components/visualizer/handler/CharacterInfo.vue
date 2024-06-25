@@ -57,7 +57,8 @@
 
 <script setup>
 import { Star, Tv } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { dbRouter } from '@/services/api/routing/routers/dbRouter';
 
 const props = defineProps({
   character: {
@@ -76,10 +77,31 @@ const props = defineProps({
 
 const fillIcon = ref(false)
 
+const checkFavoriteCharacter = () => {
+  const userID = JSON.parse(localStorage.getItem('user-info')).id
+
+  dbRouter.favorites.get(userID).then((response) => {
+    const favorites = response.data.favCharacters
+    
+    const isFavoriteCharacter = favorites.some((favs) => JSON.stringify(favs) === JSON.stringify(props.character))
+
+    if (isFavoriteCharacter) {
+      fillIcon.value = true
+    }
+  })
+
+}
+
+onMounted(() => {
+  checkFavoriteCharacter()
+})
+
 const handleFavoriteButton = () => {
   fillIcon.value = !fillIcon.value;
-  // TODO: Fazer lógica para Favoritar personagem
-  // emit('send:character', { id: props.character.id, name: props.character.name });
+
+  const userID = JSON.parse(localStorage.getItem('user-info')).id
+
+  dbRouter.favorites.updateFavorite(userID, props.character)
 }
 
 // TODO: Fazer modal para os Episodes 

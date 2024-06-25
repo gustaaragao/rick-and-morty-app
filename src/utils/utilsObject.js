@@ -49,3 +49,7 @@ export const filterArrayOfObjects = (arrayOfObjects, keysOfInterest) => {
 
   return sortedFilteredArray
 }
+
+export const removeObjectOfArray = (array, targetObj) => {
+  return array.filter(obj => JSON.stringify(obj) !== JSON.stringify(targetObj));
+}

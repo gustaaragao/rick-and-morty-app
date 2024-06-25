@@ -40,11 +40,9 @@
   <!--begin: Section Characters-->
   <section class="grid grid-cols-3 gap-6 px-32">
     <div v-for="character in characters">
-      <VisualizerCharacter
-        :character="character"
-        @send:character="(character) => { dbRouter.favorites.addFavorite('1', character) }"
-      >
-      </VisualizerCharacter>
+      <VisualizerCharacter 
+        :character="character" 
+      />
     </div>
   </section>
   <!--end: Section Characters-->
