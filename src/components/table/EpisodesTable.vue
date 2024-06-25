@@ -2,6 +2,7 @@
   <Table
     :columns="['episode', 'name', 'air_date', 'characters']"
     :data="episodesData"
+    class="my-10"
   >
     <template #search>
       <SearchTable 

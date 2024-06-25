@@ -3,17 +3,9 @@
       class="w-full flex bg-white py-4 px-10"
       :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl'"
     >
-      <!-- begin: Show Episodes Button -->
-      <button
-        v-if="showButtons"
-        class="h-fit self-center"
-        @click="handleEpisodesButton()"
-      >
-        <Tv 
-          size="3em" 
-          class="stroke-2"
-        />
-      </button>
+      <EpisodesModal 
+        :episodes-url="character.episode"
+      />     
       <!-- end: Show Episodes Button -->
       <!-- begin: Info -->
       <div class="w-full flex flex-col gap-2 self-center text-center">
@@ -56,7 +48,8 @@
 </template>
 
 <script setup>
-import { Star, Tv } from 'lucide-vue-next';
+import { Star } from 'lucide-vue-next';
+import EpisodesModal from '@/components/modal/EpisodesModal.vue';
 import { onMounted, ref } from 'vue';
 import { dbRouter } from '@/services/api/routing/routers/dbRouter';
 

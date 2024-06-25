@@ -1,5 +1,10 @@
 <template>
-  <button @click="openModal()">
+
+  <button v-if="slots.icon" @click="openModal()">
+    <slot name="icon" />
+  </button>
+
+  <button v-else @click="openModal()">
     <Eye />
   </button>
 
@@ -32,11 +37,13 @@
 
 <script setup>
 import { Eye, X } from 'lucide-vue-next';
-import { ref, onUpdated } from 'vue';
+import { ref, onUpdated, useSlots } from 'vue';
 
 const props = defineProps()
 
 const emit = defineEmits(['show:modal', 'close:modal'])
+
+const slots = useSlots()
 
 const showModal = ref(false);
 

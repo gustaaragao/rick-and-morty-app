@@ -4,6 +4,9 @@ export const episodes = {
   getAll: async function() {
     return await ramRequester("get", "episode", '')
   },
+  getByID: async function(id='') {
+    return await ramRequester("get", `episode/${id}`, '')
+  },
   getByName: async function(name='') {
     return await ramRequester("get", `episode?name=${name}`, '')
   },
