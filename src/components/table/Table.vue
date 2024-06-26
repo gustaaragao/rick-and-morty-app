@@ -38,7 +38,7 @@
         v-else
         class="bg-gray-50 text-center py-8"
     >
-      Nenhum dado foi encontrado...
+      No data was found...
     </div>
     <!-- begin: Pagination -->
     <slot name="pagination"></slot>

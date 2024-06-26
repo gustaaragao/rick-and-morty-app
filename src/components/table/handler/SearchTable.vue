@@ -4,7 +4,7 @@
     <BaseInput 
         class="w-full" 
         :disabled="selectedSearchOption === ''"
-        @update:model-value="(value) => { searchValue = value }"
+        v-model="searchValue"
     >
       <template #icon>
         <Search />

@@ -4,11 +4,14 @@
       {{ title }}
     </h1>
     <div v-for="(option, index) in props.options">
-      <input type="radio"
-             :name="title ? title : 'radio'"
-             :id="props.title.toLowerCase() + 'option' +  index"
-             :value="option"
-             @input="(event) => {emit('update:model-value', event.target.value)}"
+      <input 
+        type="radio"
+        :name="title ? title : 'radio'"
+        :id="props.title.toLowerCase() + 'option' +  index"
+        :value="option"
+        @input="(event) => {
+          emit('update:model-value', event.target.value)
+        }"
       >
       <label class="cursor-pointer"
              :for="props.title.toLowerCase() + 'option' +  index"
