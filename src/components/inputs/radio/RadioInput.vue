@@ -3,44 +3,61 @@
     <h1 class="font-bold">
       {{ title }}
     </h1>
-    <div v-for="(option, index) in props.options">
+    <div class="" v-for="(option, index) in props.options">
       <input 
-        type="radio"
+        type="radio" 
+        :id="props.title.toLowerCase() + 'option' +  index  " 
         :name="title ? title : 'radio'"
-        :id="props.title.toLowerCase() + 'option' +  index"
         :value="option"
-        @input="(event) => {
-          emit('update:model-value', event.target.value)
-        }"
+        v-model="localValue"
+        @change="updateValue()"
       >
-      <label class="cursor-pointer"
-             :for="props.title.toLowerCase() + 'option' +  index"
+  
+      <label
+        class="text-dark-blue-950 font-medium select-none cursor-pointer"
+        :for="props.title.toLowerCase() + 'option' +  index"
       >
-        {{ processLabel(option) }}
+        {{ optionsName[index] ?? option }}
       </label>
     </div>
   </div>
+
+
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
+
 const props = defineProps({
   title: {
     type: String,
     default: '',
   },
-  options: {
-    type: Array,
-    required: true,
-  },
+	modelValue: {
+		type: [String, Number],
+		default: null,
+	},
+	options: {
+		type: Array,
+		required: true,
+	},
+	optionsName: {
+		type: Array,
+		default: [],
+	}
 })
+
 
 const emit = defineEmits(['update:model-value'])
 
-const processLabel = (str) => {
-  const strWithoutUnderscore = str.replace('_', ' ')
-  const strCapitalize = strWithoutUnderscore.charAt(0).toUpperCase() + strWithoutUnderscore.slice(1)
-  
-  return strCapitalize
+const localValue = ref(props.modelValue)
+
+watch(() => props.modelValue, () => {
+	localValue.value = props.modelValue
+})
+
+const updateValue = () => {
+	emit('update:model-value', localValue.value)
 }
 
 </script>
@@ -53,8 +70,8 @@ input {
 input + label:before {
     cursor: pointer;
     content: '';
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
 
     background-color: white;
     border-radius: 50%;
@@ -69,7 +86,6 @@ input + label:before {
 input:checked + label:before {
     background-color: white;
     box-sizing: border-box;
-    border: 4px solid #064E3B;
+    border: 6px solid #064E3B;
 }
-
 </style>

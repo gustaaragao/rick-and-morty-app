@@ -16,6 +16,7 @@
       <RadioInput 
           class="flex gap-8 text-nowrap" 
           :options="searchOptions"
+          :model-value="selectedSearchOption"
           @update:model-value="(value) => { selectedSearchOption = value }"
       />
     </div>
