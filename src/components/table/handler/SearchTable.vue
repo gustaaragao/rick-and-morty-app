@@ -12,7 +12,7 @@
     </BaseInput>
     <!-- end: Search Input -->
     <!-- begin: Options -->
-    <div class="pr-8">
+    <div class="w-28 mx-[20px] my-auto px-[15px] py-[20px] flex justify-between">
       <RadioInput 
           class="flex gap-8 text-nowrap" 
           :options="searchOptions"
