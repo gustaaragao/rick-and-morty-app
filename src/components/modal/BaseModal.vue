@@ -1,12 +1,20 @@
 <template>
   
   <!-- begin: Show Button -->
-  <div class="flex align-middle justify-center">
-    <button v-if="slots.icon" @click="openModal()">
+  <div class="flex justify-center items-center">
+    <button 
+      v-if="slots.icon" 
+      @click="openModal()"
+      class="w-fit h-fit"
+    >
       <slot name="icon" />
     </button>
     
-    <button v-else @click="openModal()">
+    <button 
+      v-else
+      @click="openModal()"
+      class="w-fit h-fit"
+    >
       <Eye />
     </button>
   </div>

@@ -32,7 +32,6 @@
     <div class="w-full h-full" :class="props.designHorizontal ? '' : 'h-72'">
       <CharacterInfo
         :character="props.character"
-        :showButtons="props.showButtons"
         :designHorizontal="props.designHorizontal"
       />
     </div>
@@ -53,10 +52,6 @@ const props = defineProps({
   character: {
     type: Object,
     required: true
-  },
-  showButtons: {
-    type: Boolean,
-    default: true,
   },
   designHorizontal: {
     type: Boolean,
