@@ -29,7 +29,7 @@
     <!-- end: Character Image -->
      
     <!-- begin: Section Character Info -->
-    <div class="w-full h-full" :class="props.designHorizontal ? '' : 'h-72'">
+    <div class="w-full h-full" :class="props.designHorizontal ? '' : 'h-52'">
       <CharacterInfo
         :character="props.character"
         :designHorizontal="props.designHorizontal"

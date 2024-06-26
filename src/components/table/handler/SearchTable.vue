@@ -66,14 +66,14 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:search-value'])
+const emit = defineEmits(['send:search-object'])
 
 const selectedSearchOption = ref('');
 const searchValue = ref('')
 
 const sendSearchValue = () => {
   const searchObject = {'value': searchValue.value, 'option': selectedSearchOption.value}
-  emit('update:search-value', searchObject)
+  emit('send:search-object', searchObject)
 }
 
 const clearSearch = () => {

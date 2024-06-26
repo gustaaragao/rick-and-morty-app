@@ -11,7 +11,10 @@
     </template>
     
     <!-- begin: Title Name Character -->
-    <h1 v-if="!!characterName">
+    <h1 
+      v-if="!!characterName"
+      class="text-center text-xl font-bold"
+    >
       {{ characterName }}'s Episodes
     </h1>
     <!-- end: Title Name Character -->
@@ -24,8 +27,10 @@
       <template #search>
         <SearchTable
           :search-options="['episode', 'name']"
-          @update:search-value="(value) => {
-            console.log(value) // TODO: MELHORAR ISSO -> Esse emit não tem um nome legal e tbm o botao de limpar não funciona bem
+          @send:search-object="(value) => {
+            filterEpisodes(value)
+            console.log(value)
+
           }"
         />
       </template>
@@ -71,6 +76,19 @@ const renderEpisodes = () => {
 
 const clearRenderedEpisodes = () => {
   renderedEpisodes.value = []
+}
+
+const filterEpisodes = (searchObject) => {
+  ramRouter.episodes.getByQuery(searchObject.value, searchObject.option)
+  .then((response) => {
+    const episodes = response.data.results
+    renderedEpisodes.value = episodes
+  })
+  .catch((error) => {
+    console.error(error)
+    const episodes = []
+    renderedEpisodes.value = episodes
+  })
 }
 
 </script>

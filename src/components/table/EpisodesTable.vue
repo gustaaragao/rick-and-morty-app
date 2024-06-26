@@ -7,7 +7,7 @@
     <template #search>
       <SearchTable 
         :search-options="['episode', 'name']"
-        @update:search-value="(searchObject) => search(searchObject)"
+        @send:search-object="(searchObject) => search(searchObject)"
       />
     </template>
     <template #pagination>
