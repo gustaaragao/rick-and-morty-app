@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
     <!-- begin: Search Input -->
-    <BaseInput 
-        class="w-full" 
+    <BaseInput
         :disabled="selectedSearchOption === ''"
-        v-model="searchValue"
+        :model-value="searchValue"
+        @update:model-value="(value) => { searchValue = value }"
     >
       <template #icon>
         <Search />
@@ -80,5 +80,4 @@ const clearSearch = () => {
   searchValue.value = ''
   selectedSearchOption.value = ''
 }
-
 </script>
