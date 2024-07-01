@@ -18,6 +18,7 @@
         :next-page="nextPage"
         @load:previous-page="loadPreviousPage()"
         @load:next-page="loadNextPage()"
+        @load:selected-page="(numberOfPage) => loadSelectedPage(numberOfPage)"
       />
     </template>
   </Table>
@@ -28,8 +29,8 @@ import Table from '@/components/table/Table.vue';
 import SearchTable from './handler/SearchTable.vue';
 import Pagination from './handler/Pagination.vue';
 import { ramRouter } from '@/services/api/routing/routers/ramRouter';
-import { onMounted, ref, computed, watch } from 'vue';
-import { getPage } from '@/utils/pagination';
+import { onMounted, ref, computed } from 'vue';
+import { getPage, replaceNumberOfPage } from '@/utils/pagination';
 
 const episodesData = ref([])
 const episodesInfo = ref({})
@@ -72,11 +73,33 @@ const loadNextPage = () => {
   })
 }
 
+const loadSelectedPage = (numberOfPage) => {
+  const page = computed(() => {
+    if (previousPage.value) {
+      return replaceNumberOfPage(numberOfPage, previousPage.value)
+    } else {
+      return replaceNumberOfPage(numberOfPage, nextPage.value)
+    }
+  })
+
+  ramRouter.episodes.loadPage(page.value)
+  .then((response) => {
+    episodesData.value = response.data.results
+    episodesInfo.value = response.data.info
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+}
+
 onMounted(() => {
   ramRouter.episodes.getAll()
   .then((response) => {
     episodesData.value = response.data.results
     episodesInfo.value = response.data.info
+  })
+  .catch((err) => {
+    console.error(err);
   })
 })
 </script>

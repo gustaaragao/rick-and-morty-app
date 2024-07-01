@@ -3,7 +3,13 @@
     <div class="flex items-center gap-3">
       <!-- TODO: FAZER UM SELECT E MUDAR OS BOTÕES PARA COMPONENTES -->
       <!-- begin: Select Page -->
-      <select>
+      <select
+        v-model="currentPage"
+        @input="(event) => {
+          currentPage = event.target.value
+          selectPage()
+        }"
+      >
         <option v-for="page in props.info.pages" :value="page">
           {{ page }}
         </option>
@@ -14,7 +20,7 @@
         <!-- begin: Load Previous Page -->
         <button
           :disabled="disablePreviousButton"  
-          @click="emit('load:previous-page')"
+          @click="loadPreviousPage()"
           class="border border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronLeft />
@@ -23,7 +29,7 @@
         <!-- begin: Load Next Page -->
         <button
           :disabled="disableNextButton"
-          @click="emit('load:next-page')" 
+          @click="loadNextPage()" 
           class="border border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronRight />
@@ -36,7 +42,7 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const props = defineProps({
   info: {
@@ -53,8 +59,25 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['load:next-page', 'load:previous-page'])
+const emit = defineEmits(['load:next-page', 'load:previous-page', 'load:selected-page'])
 
 const disablePreviousButton = computed(() => !!!props.previousPage)
 const disableNextButton = computed(() => !!!props.nextPage)
+
+const loadNextPage = () => {
+  emit('load:next-page')
+  currentPage.value++
+}
+
+const loadPreviousPage = () => {
+  emit('load:previous-page')
+  currentPage.value--
+}
+
+const currentPage = ref(1);
+
+const selectPage = () => {
+  const numberOfPage = `page=${currentPage.value}`
+  emit('load:selected-page', numberOfPage)
+}
 </script>

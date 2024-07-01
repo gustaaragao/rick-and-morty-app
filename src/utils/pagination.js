@@ -6,3 +6,13 @@ export const getPage = (url) => {
 
   return null
 }
+
+export const replaceNumberOfPage = (numberOfPage, url) => {
+  const urlArray = url.split('&')
+
+  urlArray[0] = numberOfPage
+
+  const newUrl = urlArray.join('&')
+  
+  return newUrl
+}
