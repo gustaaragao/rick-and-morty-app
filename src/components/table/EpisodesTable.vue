@@ -11,7 +11,7 @@
       />
     </template>
     <template #pagination>
-      <Pagination 
+      <Pagination
         v-if="showPagination"
         :info="episodesInfo"
         @load:previous-page="loadPreviousPage()"
@@ -26,12 +26,20 @@ import Table from '@/components/table/Table.vue';
 import SearchTable from './handler/SearchTable.vue';
 import Pagination from './handler/Pagination.vue';
 import { ramRouter } from '@/services/api/routing/routers/ramRouter';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 
 const episodesData = ref([])
 const episodesInfo = ref({})
 
 const showPagination = computed(() => episodesInfo?.value?.pages != 1)
+
+const getQueryInfo = (url) => {
+  const query = url.split('?')[1]
+
+  return url
+}
+
+const nextPage = computed(() => getQueryInfo(episodesInfo.value.next))
 
 const search = (searchObject) => {
   ramRouter.episodes.getByQuery(searchObject.option, searchObject.value)
@@ -46,7 +54,7 @@ const search = (searchObject) => {
 }
 
 const loadNextPage = () => {
-  console.log('next');
+  console.log(nextPage.value)
 }
   
 const loadPreviousPage = () => {
