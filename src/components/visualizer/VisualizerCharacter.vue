@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-full h-full rounded-3xl shadow-lg bg-white"
-    :class="designHorizontal ? 'flex items-center' : ''"
+    class="w-full h-full rounded-3xl shadow-lg"
+    :class="designHorizontal ? 'flex' : ''"
   >
     <!-- begin: Character Image -->
     <div class="relative">
@@ -14,7 +14,7 @@
             class="rounded-md text-white font-bold" 
             :class="[
               colorsStatusCharacter[character.status],
-              designHorizontal ? 'p-2 text-xl' : 'p-2 text-xl'  
+              designHorizontal ? 'p-1 text-xl' : 'p-3 text-3xl'  
             ]"
           >
               {{ character.status.toUpperCase() }}
@@ -29,12 +29,11 @@
     <!-- end: Character Image -->
      
     <!-- begin: Section Character Info -->
-    <div class="w-full h-full" :class="props.designHorizontal ? '' : 'h-52'">
-      <CharacterInfo
-        :character="props.character"
-        :designHorizontal="props.designHorizontal"
-      />
-    </div>
+    <CharacterInfo
+      :character="props.character"
+      :showButtons="props.showButtons"
+      :designHorizontal="props.designHorizontal"
+    />
     <!-- end: Section Character Info -->
   </div>
 </template>
@@ -52,6 +51,10 @@ const props = defineProps({
   character: {
     type: Object,
     required: true
+  },
+  showButtons: {
+    type: Boolean,
+    default: true,
   },
   designHorizontal: {
     type: Boolean,
