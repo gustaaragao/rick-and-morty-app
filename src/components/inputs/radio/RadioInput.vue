@@ -1,26 +1,24 @@
 <template>
-  <div class="">
+  <div class="mx-2">
     <label
-      v-for="option in options"
-      :for="option"
-      :key="option"
-      class="flex items-center gap-2"
+      v-for="(option, index) in options"
+      class="flex items-center gap-x-1.5"
     >
       <input
         type="radio"
         :value="option"
-        :id="option"
         name="radio-input"
         v-model="localValue"
         @change="updateValue()"
       />
-      {{ option }}
+      {{ optionsName[index] ?? capitalizeFirstLetter(option) }}
     </label>
   </div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue';
+import { capitalizeFirstLetter } from '@/utils/strings';
 
 const props = defineProps({
 	modelValue: {
@@ -51,8 +49,41 @@ const updateValue = () => {
 </script>
 
 <style scoped>
-label, input {
-  @apply cursor-pointer
+label, input[type="radio"] {
+  cursor: pointer;
 }
 
+label {
+  @apply text-gray-800 text-sm font-semibold;
+}
+
+input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0;
+
+  @apply w-[1.15em] h-[1.15em] border-[0.15em] border-gray-400 rounded-full;
+  transform: translateY(-0.075em);
+
+  @apply grid place-content-center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 0.5em 0.5em rgb(147, 51, 234);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
 </style>
