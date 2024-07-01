@@ -21,7 +21,7 @@
           v-for="row in processedRows" 
           class="odd:bg-gray-50 even:bg-gray-200 border-b border-gray-300"
       >
-        <td v-for="item in Object.values(row)" class="px-8 py-2 text-center text-base">
+        <td v-for="item in Object.values(row)" class="px-14 py-2 text-center text-base">
           <div v-if="Array.isArray(item)" class="flex justify-center">
             <CharactersModal 
                 :characters-url="item"
@@ -38,7 +38,7 @@
         v-else
         class="bg-gray-50 text-center py-8"
     >
-      Nenhum dado foi encontrado...
+      No data was found...
     </div>
     <!-- begin: Pagination -->
     <slot name="pagination"></slot>

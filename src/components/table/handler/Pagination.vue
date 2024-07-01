@@ -3,7 +3,13 @@
     <div class="flex items-center gap-3">
       <!-- TODO: FAZER UM SELECT E MUDAR OS BOTÕES PARA COMPONENTES -->
       <!-- begin: Select Page -->
-      <select>
+      <select
+        v-model="currentPage"
+        @input="(event) => {
+          currentPage = event.target.value
+          selectPage()
+        }"
+      >
         <option v-for="page in props.info.pages" :value="page">
           {{ page }}
         </option>
@@ -12,17 +18,19 @@
       <p>of {{ props.info.pages }} pages</p>
       <div class="flex items-center gap-2">
         <!-- begin: Load Previous Page -->
-        <button 
-            @click="emit('load:previous-page')"
-            class="border border-gray-300"
+        <button
+          :disabled="disablePreviousButton"  
+          @click="loadPreviousPage()"
+          class="border border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronLeft />
         </button>
         <!-- end: Load Previous Page -->
         <!-- begin: Load Next Page -->
         <button
-            @click="emit('load:next-page')" 
-            class="border border-gray-300"
+          :disabled="disableNextButton"
+          @click="loadNextPage()" 
+          class="border border-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronRight />
         </button>
@@ -34,13 +42,42 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { computed, ref, watch } from 'vue';
 
 const props = defineProps({
   info: {
     type: Object,
     required: true,
   },
+  previousPage: {
+    type: String,
+    default: ''
+  },
+  nextPage: {
+    type: String,
+    default: ''
+  }
 })
 
-const emit = defineEmits(['load:next-page', 'load:previous-page'])
+const emit = defineEmits(['load:next-page', 'load:previous-page', 'load:selected-page'])
+
+const disablePreviousButton = computed(() => !!!props.previousPage)
+const disableNextButton = computed(() => !!!props.nextPage)
+
+const loadNextPage = () => {
+  emit('load:next-page')
+  currentPage.value++
+}
+
+const loadPreviousPage = () => {
+  emit('load:previous-page')
+  currentPage.value--
+}
+
+const currentPage = ref(1);
+
+const selectPage = () => {
+  const numberOfPage = `page=${currentPage.value}`
+  emit('load:selected-page', numberOfPage)
+}
 </script>

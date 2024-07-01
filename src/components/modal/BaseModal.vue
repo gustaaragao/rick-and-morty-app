@@ -1,12 +1,24 @@
 <template>
-
-  <button v-if="slots.icon" @click="openModal()">
-    <slot name="icon" />
-  </button>
-
-  <button v-else @click="openModal()">
-    <Eye />
-  </button>
+  
+  <!-- begin: Show Button -->
+  <div class="flex justify-center items-center">
+    <button 
+      v-if="slots.icon" 
+      @click="openModal()"
+      class="w-fit h-fit"
+    >
+      <slot name="icon" />
+    </button>
+    
+    <button 
+      v-else
+      @click="openModal()"
+      class="w-fit h-fit"
+    >
+      <Eye />
+    </button>
+  </div>
+  <!-- begin: Show Button -->
 
   <!-- begin: Opacity Background -->
   <div 

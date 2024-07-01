@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
+  <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm">
     <!-- begin: Search Input -->
-    <BaseInput 
-        class="w-full" 
+    <BaseInput
         :disabled="selectedSearchOption === ''"
+        :model-value="searchValue"
         @update:model-value="(value) => { searchValue = value }"
     >
       <template #icon>
@@ -12,10 +12,11 @@
     </BaseInput>
     <!-- end: Search Input -->
     <!-- begin: Options -->
-    <div class="pr-8">
+    <div class="flex align-middle text-center items-center mx-4">
       <RadioInput 
           class="flex gap-8 text-nowrap" 
           :options="searchOptions"
+          :model-value="selectedSearchOption"
           @update:model-value="(value) => { selectedSearchOption = value }"
       />
     </div>
@@ -66,19 +67,20 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:search-value'])
+const emit = defineEmits(['send:search-object'])
 
 const selectedSearchOption = ref('');
 const searchValue = ref('')
 
 const sendSearchValue = () => {
   const searchObject = {'value': searchValue.value, 'option': selectedSearchOption.value}
-  emit('update:search-value', searchObject)
+  emit('send:search-object', searchObject)
 }
 
 const clearSearch = () => {
   searchValue.value = ''
   selectedSearchOption.value = ''
-}
 
+  sendSearchValue()
+}
 </script>

@@ -1,9 +1,11 @@
 <template>
   <div 
-      class="w-full flex bg-white py-4 px-10"
-      :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl'"
+      class="w-full flex flex-row bg-white px-8"
+      :class="designHorizontal ? 'rounded-r-3xl px-6' : 'rounded-b-3xl h-full'"
     >
-      <EpisodesModal 
+      <!-- begin: Show Episodes Button -->
+      <EpisodesModal
+        :character-name="character.name"
         :episodes-url="character.episode"
       />     
       <!-- end: Show Episodes Button -->
@@ -12,7 +14,7 @@
         <h1 class="text-3xl font-extrabold">
           {{ character.name }}
         </h1>
-        <p class="text-2xl">
+        <p class="text-xl">
             <span class="font-semibold">
               {{ character.species }}
             </span> 
@@ -21,7 +23,7 @@
               {{ character.gender }}
             </span> 
         </p>
-        <p class="text-lg">
+        <p class="text-md">
           <h3 class="font-semibold">
             Last known location:
           </h3>
@@ -33,12 +35,11 @@
       <!-- end: Info -->
       <!-- begin: Favorite Button -->
       <button
-        v-if="showButtons"
         @click="handleFavoriteButton()"
         class="h-fit self-center"
       >
         <Star 
-          size="3em" 
+          size="2.5em" 
           class="stroke-2 stroke-yellow-500"
           :class="fillIcon ? 'fill-yellow-500' : ''" 
         />
@@ -57,10 +58,6 @@ const props = defineProps({
   character: {
     type: Object,
     required: true
-  },
-  showButtons: {
-    type: Boolean,
-    default: true,
   },
   designHorizontal: {
     type: Boolean,

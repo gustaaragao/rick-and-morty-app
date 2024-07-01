@@ -23,22 +23,22 @@
       </div>
     </div>
     <!-- begin: Options Filters -->
-    <div class="pt-3 pb-6 text-sm">
+    <div class="flex flex-col gap-4 pt-4 pb-6">
       <RadioInput title="Status:" 
                   :options="optionsFilterStatus" 
-                  class="flex gap-4 pb-1.5"
+                  class="flex gap-6"
                   @update:model-value="(value) => { selectedFilterStatus = value }">
       </RadioInput>
       <RadioInput title="Gender:" 
                   :options="optionsFilterGender" 
-                  class="flex gap-4"
+                  class="flex gap-6"
                   @update:model-value="(value) => { selectedFilterGender = value }">
       </RadioInput>
     </div>
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-3 gap-6 px-32">
+  <section class="grid grid-cols-4 gap-6 px-32">
     <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character" 
@@ -61,7 +61,6 @@
 import { onMounted, ref } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
-import { dbRouter } from '@/services/api/routing/routers/dbRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import BaseInput from '@/components/inputs/text/BaseInput.vue'
