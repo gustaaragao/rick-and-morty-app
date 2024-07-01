@@ -2,7 +2,7 @@
   <div class="mx-2">
     <label
       v-for="(option, index) in options"
-      class="flex items-center gap-x-1.5"
+      class="flex items-center gap-x-1"
     >
       <input
         type="radio"
@@ -54,7 +54,13 @@ label, input[type="radio"] {
 }
 
 label {
-  @apply text-gray-800 text-sm font-semibold;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.1;
+  @apply text-gray-800;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
 }
 
 input[type="radio"] {

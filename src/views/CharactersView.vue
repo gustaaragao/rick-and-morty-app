@@ -23,15 +23,15 @@
       </div>
     </div>
     <!-- begin: Options Filters -->
-    <div class="pt-3 pb-6 text-sm">
+    <div class="flex flex-col gap-4 pt-4 pb-6">
       <RadioInput title="Status:" 
                   :options="optionsFilterStatus" 
-                  class="flex gap-4 pb-1.5"
+                  class="flex gap-6"
                   @update:model-value="(value) => { selectedFilterStatus = value }">
       </RadioInput>
       <RadioInput title="Gender:" 
                   :options="optionsFilterGender" 
-                  class="flex gap-4"
+                  class="flex gap-6"
                   @update:model-value="(value) => { selectedFilterGender = value }">
       </RadioInput>
     </div>

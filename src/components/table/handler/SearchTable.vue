@@ -80,5 +80,7 @@ const sendSearchValue = () => {
 const clearSearch = () => {
   searchValue.value = ''
   selectedSearchOption.value = ''
+
+  sendSearchValue()
 }
 </script>

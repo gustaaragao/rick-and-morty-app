@@ -7,7 +7,7 @@ export const episodes = {
   getByID: async function(id='') {
     return await ramRequester("get", `episode/${id}`, '')
   },
-  getByQuery: async function(value='', query='') {
+  getByQuery: async function(query='', value='') {
     return await ramRequester("get", `episode?${query}=${value}`, '')
   },
   loadNextPage: async function(page='', name='', episode='') {
