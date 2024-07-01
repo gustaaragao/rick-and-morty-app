@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-gray-50">
+  <div class="w-full flex justify-between align-middle items-center px-6 py-4 text-sm bg-purple-500">
     <!-- begin: Search Input -->
     <BaseInput
         :disabled="selectedSearchOption === ''"
@@ -12,7 +12,7 @@
     </BaseInput>
     <!-- end: Search Input -->
     <!-- begin: Options -->
-    <div class="w-28 mx-[20px] my-auto px-[15px] py-[20px] flex justify-between">
+    <div class="flex align-middle text-center items-center bg-white h-max mx-4">
       <RadioInput 
           class="flex gap-8 text-nowrap" 
           :options="searchOptions"

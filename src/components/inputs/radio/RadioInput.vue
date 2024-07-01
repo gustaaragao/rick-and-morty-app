@@ -1,19 +1,22 @@
 <template>
-  <label
-    v-for="option in options"
-    :for="option"
-    :key="option"
-  >
-    <input
-      type="radio"
-      :value="option"
-      :id="option"
-      name="radio-input"
-      v-model="localValue"
-      @change="updateValue()"
-    />
-    {{ option }}
-  </label>
+  <div class="">
+    <label
+      v-for="option in options"
+      :for="option"
+      :key="option"
+      class="flex items-center gap-2"
+    >
+      <input
+        type="radio"
+        :value="option"
+        :id="option"
+        name="radio-input"
+        v-model="localValue"
+        @change="updateValue()"
+      />
+      {{ option }}
+    </label>
+  </div>
 </template>
 
 <script setup>
