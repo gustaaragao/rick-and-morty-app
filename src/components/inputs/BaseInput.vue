@@ -33,6 +33,7 @@
           emit('update:model-value', event.target.value)
         }"
       >
+      <!-- begin: Show Password -->
       <div
         v-if="props.type === 'password'"
         class="flex items-center px-2 text-gray-400 border border-l-0 rounded-r-md"
@@ -52,15 +53,26 @@
           <EyeOff />
         </i>
       </div>
-
+      <!-- end: Show Password -->
     </div>
+    <!-- begin: Error Message -->
+    <div
+      v-show="!!errorMessage" 
+      class="flex flex-row items-center text-sm text-red-500 pt-1 gap-0.5 w-fit"
+    >
+      <i class="scale-[0.60]">
+          <CircleAlert />
+        </i>
+        <span> {{ errorMessage }} </span>
+    </div>
+    <!-- end: Error Message -->
     <!-- end: Input -->
   </div>
 </template>
 
 <script setup>
 import { ref, useSlots } from 'vue';
-import { Eye, EyeOff } from 'lucide-vue-next';
+import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
 
 const props = defineProps({
   type: {
@@ -79,6 +91,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  errorMessage: {
+    type: [String, Boolean],
+    default: false
+  }
 })
 
 const emit = defineEmits(['update:model-value'])

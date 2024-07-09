@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center min-h-[100vh]">
     <!--begin: Login -->
-    <div class="grid gap-4 w-96 h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white" @keyup.enter="() => submitForm()">
+    <div class="grid gap-4 w-96 h-min p-6 border border-gray-400 rounded-3xl shadow-2xl bg-white" @keyup.enter="() => submitForm()">
       <!-- begin: Title -->
       <h1 class="text-center text-2xl text-gray-400">
         Login
@@ -11,19 +11,7 @@
       <BaseInput
         label="Username"
         placeholder="Username"
-        focusColor="violet-400"
-        :validation-parameters="validationParametersUser"
-        :error="!!errorMessage"
-        @update:model-value="
-          (value) => {
-            form.username = value
-          }
-        "
-        @validate:input="
-          (value) => {
-            validateForm(value)
-          }
-        "
+        @update:model-value="(value) => { form.username = value }"
       >
         <template #icon>
           <UserRound />
@@ -33,15 +21,8 @@
       <!-- begin: Password Input -->
       <BaseInput
         type="password"
-        label="Password"
         placeholder="Password"
-        :error="!!errorMessage"
-        focusColor="violet-400"
-        @update:model-value="
-          (value) => {
-            form.password = value
-          }
-        "
+        @update:model-value="(value) => { form.password = value }"
       >
         <template #icon>
           <KeyRound />
@@ -65,7 +46,7 @@
       </div>
       <!-- end: Submit Buttons -->
       <!-- begin: Register Button -->
-      <div class="flex justify-center text-sm gap-1">
+      <div class="flex justify-center text-sm text-gray-600 gap-1">
         <span>Don't have an account?</span> 
         <span class="cursor-pointer select-none underline text-green-500 hover:text-green-600 " @click="router.push('/register')">Sign up.</span>
       </div>
@@ -93,18 +74,9 @@ const form = ref({
   password: ''
 })
 
-const validationParametersUser = {
-  minLength: 2,
-  maxLength: 30
-}
-
 const isFormValid = ref(true)
 
 const isFormFilled = ref(false)
-
-const validateForm = (isValid) => {
-  isFormValid.value = isValid
-}
 
 const checkFilledForm = () => {
   const valuesForm = Object.values(form.value)
