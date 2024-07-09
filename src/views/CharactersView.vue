@@ -3,8 +3,9 @@
 
     <div class="flex items-center pt-8 gap-4">
       <!--begin: Search Input-->
-      <BaseInput 
-        @update:model-value="(value) => { searchedCharacter = value }"
+      <BaseInput
+        :model-value="searchObject.value"
+        @update:model-value="(value) => { searchObject.value = value }"
         placeholder="Search for a character..."
       >
         <template #icon>
@@ -14,12 +15,17 @@
       <!--end: Search Input-->
       <div class="flex gap-2">
         <!-- begin: Search Button -->
-        <BaseButton>
+        <BaseButton
+          @click="searchCharacters()"
+        >
           <template #text>Search</template>
         </BaseButton>
         <!-- end: Search Button -->
         <!-- begin: Clear Button -->
-        <BaseButton design='LightButton'>
+        <BaseButton 
+          @click="clearSearchInputs()"
+          design='LightButton'
+        >
           <template #text>Clear</template>
         </BaseButton>
         <!-- end: Clear Button -->
@@ -28,33 +34,35 @@
     <!-- begin: Options Filters -->
     <div class="flex flex-col gap-4 pt-4 pb-6">
       <RadioInput title="Status:"
+                  class="flex gap-6"
                   input-name="status-input" 
-                  class="flex gap-6"
                   :options="optionsFilterStatus" 
-                  @update:model-value="(value) => { selectedFilterStatus = value }">
-      </RadioInput>
+                  :model-value="searchObject.status"
+                  @update:model-value="(value) => { searchObject.status = value }"
+      />
       <RadioInput title="Gender:"
-                  input-name="gender-input"
                   class="flex gap-6"
+                  input-name="gender-input"
                   :options="optionsFilterGender" 
-                  @update:model-value="(value) => { selectedFilterGender = value }">
-      </RadioInput>
+                  :model-value="searchObject.gender"
+                  @update:model-value="(value) => { searchObject.gender = value }"
+      />
     </div>
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <!-- <section class="grid grid-cols-4 gap-6 px-32">
+  <section class="grid grid-cols-4 gap-6 px-32">
     <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character" 
       />
     </div>
-  </section> -->
+  </section>
   <!--end: Section Characters-->
   <!-- begin: Load More Button -->
   <div v-if="!!nextPageLink">
     <div class="flex justify-center py-10">
-      <BaseButton @click="loadNextPage(searchedCharacter, nextPageLink)">
+      <BaseButton @click="loadNextPage(nextPageLink)">
         <template #text> Load More </template>
       </BaseButton>
     </div>
@@ -63,7 +71,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 
@@ -74,30 +82,16 @@ import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue
 
 import { Search } from 'lucide-vue-next'
 
-const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
-const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
-
+const optionsFilterStatus = ref(['alive', 'dead', 'unknown'])
+const optionsFilterGender = ref(['female', 'male', 'genderless', 'unknown'])
 
 const characters = ref([])
 
-
-const selectedFilterStatus = ref('')
-const selectedFilterGender = ref('')
-const searchedCharacter = ref('')
-
-watch(searchedCharacter, () => {
-  console.log(searchedCharacter.value)
-})
-
-watch(selectedFilterGender, () => {
-  console.log(selectedFilterGender.value)
-})
-
-watch(selectedFilterStatus, () => {
-  console.log(selectedFilterStatus.value)
-})
-
 const nextPageLink = ref('')
+
+watch(nextPageLink, () => {
+  console.log(nextPageLink.value)
+})
 
 onMounted(() => {
   ramRouter.characters.getAll().then((response) => {
@@ -107,14 +101,39 @@ onMounted(() => {
   })
 })
 
-const loadNextPage = (searchedCharacter, nextPageLink) => {
+const searchObject = reactive({ value: '', status: '', gender: '' })
+
+const loadNextPage = (nextPageLink) => {
   if (nextPageLink) {
     const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]
 
-    ramRouter.characters.loadNextPage(searchedCharacter, numberPage).then((response) => {
+    ramRouter.characters.loadNextPage(searchObject.value, searchObject.status, searchObject.gender, numberPage)
+    .then((response) => {
       characters.value.push(...response.data.results)
       nextPageLink = response.data.info.next
+      console.log(nextPageLink)
     })
   }
 }
+
+const searchCharacters = () => {
+    ramRouter.characters.getAll(searchObject.value, searchObject.status, searchObject.gender)
+    .then((response) => {
+      characters.value = response.data.results
+
+      nextPageLink.value = response.data.info.next
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+}
+
+const clearSearchInputs = () => { 
+  searchObject.value = ''
+  searchObject.status = ''
+  searchObject.gender = ''
+
+  searchCharacters()
+}
+
 </script>
