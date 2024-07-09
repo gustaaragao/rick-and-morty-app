@@ -158,7 +158,7 @@
 </template>
 
 <script setup>
-import BaseInput from '@/components/inputs/text/BaseInput.vue'
+import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
 import { ref } from 'vue'

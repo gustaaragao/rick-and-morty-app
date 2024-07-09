@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col w-full">
     <!-- begin: Header -->
-    <label class="text-dark-blue-950 font-medium pb-1.5">
+    <label class="text-gray-800 font-medium pb-1.5">
       <slot name="header"></slot>
     </label>
     <!-- end: Header -->
     <!-- begin: Input -->
-    <div class="flex">
+    <div class="flex relative">
       <!-- begin: Icon -->
       <div 
           v-if="hasIcon()" 
@@ -19,26 +19,54 @@
       </div>
       <!-- end: Icon -->
       <input 
-        type="text"
-        :class="hasIcon() ? 'rounded-r-md' : 'rounded-md'"
-        :value="modelValue"
+        :type="typeInput"
         class="py-2 pl-2 focus:outline-none w-full disabled:cursor-not-allowed
                border border-gray-200 text-dark-blue-950"
+        :class="[
+          hasIcon() ? 'rounded-r-md' : 'rounded-md',
+          props.type === 'password' ? 'border-r-0 rounded-r-none' : ''
+        ]"
+        v-model="valueInput"
         :disabled="props.disabled"
         :placeholder="props.placeholder"
         @input="(event)=>{
           emit('update:model-value', event.target.value)
         }"
       >
+      <div
+        v-if="props.type === 'password'"
+        class="flex items-center px-2 text-gray-400 border border-l-0 rounded-r-md"
+      >
+        <i
+          v-if="openedEye"
+          @click="handleShowPasswordButton()"
+          class="cursor-pointer"
+        >
+          <Eye />
+        </i>
+        <i
+          v-else
+          @click="handleShowPasswordButton()"
+          class="cursor-pointer"
+        >
+          <EyeOff />
+        </i>
+      </div>
+
     </div>
     <!-- end: Input -->
   </div>
 </template>
 
 <script setup>
-import {useSlots } from 'vue';
+import { ref, useSlots } from 'vue';
+import { Eye, EyeOff } from 'lucide-vue-next';
 
 const props = defineProps({
+  type: {
+    type: String,
+    default: 'text',
+  },
   modelValue: {
     type: [String, Number],
     default: '',
@@ -52,11 +80,32 @@ const props = defineProps({
     default: false,
   },
 })
+
 const emit = defineEmits(['update:model-value'])
+
+const valueInput = ref(props.modelValue)
+const typeInput = ref(props.type)
 
 const hasIcon = () => {
   const slots = useSlots();
 
   return !!slots['icon'];
 }
+
+const openedEye = ref(true)
+
+const showPassword = () => {
+  if (typeInput.value === 'password') {
+    typeInput.value = 'text'
+  } else {
+    typeInput.value = 'password'
+  }
+}
+
+const handleShowPasswordButton = () => {
+  openedEye.value = !openedEye.value
+
+  showPassword()
+}
+
 </script>

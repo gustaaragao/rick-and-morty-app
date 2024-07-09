@@ -63,8 +63,8 @@ import { onMounted, ref } from 'vue'
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import BaseInput from '@/components/inputs/text/BaseInput.vue'
-import RadioInput from '@/components/inputs/radio/RadioInput.vue'
+import BaseInput from '@/components/inputs/BaseInput.vue'
+import RadioInput from '@/components/inputs/RadioInput.vue'
 import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue'
 
 import { Search } from 'lucide-vue-next'
