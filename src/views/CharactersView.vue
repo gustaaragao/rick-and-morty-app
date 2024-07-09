@@ -3,7 +3,10 @@
 
     <div class="flex items-center pt-8 gap-4">
       <!--begin: Search Input-->
-      <BaseInput placeholder="Search for a character...">
+      <BaseInput 
+        @update:model-value="(value) => { searchedCharacter = value }"
+        placeholder="Search for a character..."
+      >
         <template #icon>
           <Search />
         </template>
@@ -24,27 +27,29 @@
     </div>
     <!-- begin: Options Filters -->
     <div class="flex flex-col gap-4 pt-4 pb-6">
-      <RadioInput title="Status:" 
-                  :options="optionsFilterStatus" 
+      <RadioInput title="Status:"
+                  input-name="status-input" 
                   class="flex gap-6"
+                  :options="optionsFilterStatus" 
                   @update:model-value="(value) => { selectedFilterStatus = value }">
       </RadioInput>
-      <RadioInput title="Gender:" 
-                  :options="optionsFilterGender" 
+      <RadioInput title="Gender:"
+                  input-name="gender-input"
                   class="flex gap-6"
+                  :options="optionsFilterGender" 
                   @update:model-value="(value) => { selectedFilterGender = value }">
       </RadioInput>
     </div>
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-4 gap-6 px-32">
+  <!-- <section class="grid grid-cols-4 gap-6 px-32">
     <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character" 
       />
     </div>
-  </section>
+  </section> -->
   <!--end: Section Characters-->
   <!-- begin: Load More Button -->
   <div v-if="!!nextPageLink">
@@ -58,7 +63,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 
@@ -72,12 +77,25 @@ import { Search } from 'lucide-vue-next'
 const optionsFilterStatus = ref(['Alive', 'Dead', 'unknown'])
 const optionsFilterGender = ref(['Female', 'Male', 'Genderless', 'unknown'])
 
-const selectedFilterStatus = ref('')
-const selectedFilterGender = ref('')
 
 const characters = ref([])
 
+
+const selectedFilterStatus = ref('')
+const selectedFilterGender = ref('')
 const searchedCharacter = ref('')
+
+watch(searchedCharacter, () => {
+  console.log(searchedCharacter.value)
+})
+
+watch(selectedFilterGender, () => {
+  console.log(selectedFilterGender.value)
+})
+
+watch(selectedFilterStatus, () => {
+  console.log(selectedFilterStatus.value)
+})
 
 const nextPageLink = ref('')
 
