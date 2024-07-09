@@ -1,13 +1,15 @@
 <template>
-  <div class="mx-2">
+  <div class="px-4">
     <label
       v-for="(option, index) in options"
       class="flex items-center gap-x-1"
+      :id="index"
     >
       <input
         type="radio"
+        :id="index"
         :value="option"
-        name="radio-input"
+        :name="inputName"
         v-model="localValue"
         @change="updateValue()"
       />
@@ -32,7 +34,11 @@ const props = defineProps({
 	optionsName: {
 		type: Array,
 		default: [],
-	}
+	},
+  inputName: {
+    type: String,
+    default: 'radio-input'
+  }
 })
 
 const emit = defineEmits(['update:model-value'])
@@ -73,7 +79,7 @@ input[type="radio"] {
   /* Not removed via appearance */
   margin: 0;
 
-  @apply w-[1.15em] h-[1.15em] border-[0.15em] border-gray-400 rounded-full;
+  @apply w-[1.2em] h-[1.2em] border-[0.15em] border-gray-400 rounded-full;
   transform: translateY(-0.075em);
 
   @apply grid place-content-center;
@@ -81,12 +87,12 @@ input[type="radio"] {
 
 input[type="radio"]::before {
   content: "";
-  width: 0.65em;
-  height: 0.65em;
+  width: 0.7em;
+  height: 0.7em;
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 0.5em 0.5em rgb(147, 51, 234);
+  box-shadow: inset 0.5em 0.5em rgb(34, 197, 94);
 }
 
 input[type="radio"]:checked::before {
