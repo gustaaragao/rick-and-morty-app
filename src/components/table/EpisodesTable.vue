@@ -47,6 +47,7 @@ const search = (searchObject) => {
     episodesInfo.value = response.data.info
   })
   .catch((err) => {
+    episodesData.value = []
     console.error(err);
   })
 }
