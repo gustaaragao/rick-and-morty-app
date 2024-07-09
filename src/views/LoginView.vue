@@ -40,8 +40,13 @@
       <!-- end: Error Span -->
       <!-- begin: Submit Buttons -->
       <div class="flex justify-center gap-4">
-        <BaseButton @click="submitForm()" :disabled="!isFormValid">
+        <BaseButton 
+          design-button='SolidButton'
+          @click="submitForm()" 
+          :disabled="!isFormValid"
+        >
           <template #text> Login </template>
+          <template #icon> <User size="20" /> </template>
         </BaseButton>
       </div>
       <!-- end: Submit Buttons -->
@@ -59,7 +64,7 @@
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
-import { UserRound, KeyRound } from 'lucide-vue-next'
+import { UserRound, KeyRound, User } from 'lucide-vue-next'
 import { ref } from 'vue'
 
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
