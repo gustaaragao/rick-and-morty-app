@@ -1,4 +1,4 @@
-import { requester } from './requester'
+import { requester } from "@/plugins/axios"
 
 const BASE_URL = import.meta.env.VITE_RICK_AND_MORTY_API_URL
 
