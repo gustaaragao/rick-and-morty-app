@@ -2,68 +2,26 @@
   <div class="flex justify-center items-center min-h-[100vh]">
     <!--begin: Register -->
     <div
-      class="grid gap-4 w-96 h-min p-6 border-2 border-gray-400 rounded-3xl shadow-2xl bg-white"
+      class="grid gap-4 w-96 h-min p-6 border border-gray-400 rounded-3xl shadow-2xl bg-white"
       @keyup.enter="() => submitForm()"
     >
       <h1 class="text-center text-2xl text-gray-400">Register</h1>
       <!-- begin: First Name Input -->
       <BaseInput
-        label="First Name"
         placeholder="First Name"
-        focusColor="violet-400"
-        :validation-parameters="validationParametersFirstName"
-        :error="!!errorMessage"
-        @update:model-value="
-          (value) => {
-            form.firstname = value
-          }
-        "
-        @validate:input="
-          (value) => {
-            validateForm(value)
-          }
-        "
-      >
-      </BaseInput>
+        @update:model-value="(value) => { form.firstname = value }"
+      />
       <!-- end: First Name Input -->
       <!-- begin: Last Name Input -->
       <BaseInput
-        label="Last Name"
         placeholder="Last Name"
-        focusColor="violet-400"
-        :validation-parameters="validationParametersLastName"
-        :error="!!errorMessage"
-        @update:model-value="
-          (value) => {
-            form.lastname = value
-          }
-        "
-        @validate:input="
-          (value) => {
-            validateForm(value)
-          }
-        "
-      >
-      </BaseInput>
+        @update:model-value="(value) => { form.lastname = value }"
+      />
       <!-- end: Last Name Input -->
       <!-- begin: Username Input -->
       <BaseInput
-        label="Username"
         placeholder="Username"
-        focusColor="violet-400"
-        :validation-parameters="validationParametersUser"
-        :error="!!errorMessage"
-        @update:model-value="
-          (value) => {
-            form.username = value
-          }
-        "
-        @validate:input="
-          (value) => {
-            validateForm(value)
-          }
-        "
-      >
+        @update:model-value="(value) => { form.username = value }">
         <template #icon>
           <UserRound />
         </template>
@@ -71,21 +29,8 @@
       <!-- end: Username Input -->
       <!-- begin: E-mail Input -->
       <BaseInput
-        label="E-mail"
         placeholder="E-mail"
-        focusColor="violet-400"
-        :validation-parameters="validationParametersEmail"
-        :error="!!errorMessage"
-        @update:model-value="
-          (value) => {
-            form.email = value
-          }
-        "
-        @validate:input="
-          (value) => {
-            validateForm(value)
-          }
-        "
+        @update:model-value="(value) => { form.email = value }"
       >
         <template #icon>
           <Mail />
@@ -114,15 +59,8 @@
       <!-- begin: Confirm Password Input -->
       <BaseInput
         type="password"
-        label="Confirm Password"
         placeholder="Confirm Password"
-        :error="!!errorMessage"
-        focusColor="violet-400"
-        @update:model-value="
-          (value) => {
-            form.confirmPassword = value
-          }
-        "
+        @update:model-value="(value) => { form.confirmPassword = value }"
       >
         <template #icon>
           <KeyRound />
@@ -158,7 +96,7 @@
 </template>
 
 <script setup>
-import BaseInput from '@/components/inputs/text/BaseInput.vue'
+import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
 import { ref } from 'vue'
@@ -179,26 +117,6 @@ const form = ref({
   confirmPassword: ''
 })
 
-const validationParametersFirstName = {
-  minLength: 2,
-  maxLength: 30
-}
-
-const validationParametersLastName = {
-  minLength: 2,
-  maxLength: 30
-}
-
-const validationParametersUser = {
-  minLength: 2,
-  maxLength: 30
-}
-
-const validationParametersEmail = {
-  pattern: '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
-  maxLength: 100
-}
-
 const validationParametersPassword = {
   pattern: '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$',
   patternErrorMessage:
@@ -210,10 +128,6 @@ const isFormValid = ref(true)
 const isFormFilled = ref(false)
 
 const isConfirmPasswordValid = ref(false)
-
-const validateForm = (isValid) => {
-  isFormValid.value = isValid
-}
 
 const checkFilledForm = () => {
   const valuesForm = Object.values(form.value)

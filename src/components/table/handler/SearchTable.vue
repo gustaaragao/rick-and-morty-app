@@ -55,8 +55,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import BaseInput from '@/components/inputs/text/BaseInput.vue';
-import RadioInput from '@/components/inputs/radio/RadioInput.vue';
+import BaseInput from '@/components/inputs/BaseInput.vue';
+import RadioInput from '@/components/inputs/RadioInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
 import { Eraser, Search } from 'lucide-vue-next';
 
