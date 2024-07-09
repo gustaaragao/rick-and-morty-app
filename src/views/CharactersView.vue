@@ -51,7 +51,7 @@
     <!-- end: Options Filters -->
   </div>
   <!--begin: Section Characters-->
-  <section class="grid grid-cols-4 gap-6 px-32">
+  <section class="grid grid-cols-4 gap-6 px-32 pt-10">
     <div v-for="character in characters">
       <VisualizerCharacter 
         :character="character" 
@@ -60,18 +60,18 @@
   </section>
   <!--end: Section Characters-->
   <!-- begin: Load More Button -->
-  <div v-if="!!nextPageLink">
+  <!-- <div v-if="!!nextPageLink">
     <div class="flex justify-center py-10">
       <BaseButton @click="loadNextPage(nextPageLink)">
         <template #text> Load More </template>
       </BaseButton>
     </div>
-  </div>
+  </div> -->
   <!-- end:  Load More Button -->
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 
 import { ramRouter } from '@/services/api/routing/routers/ramRouter'
 
@@ -87,34 +87,13 @@ const optionsFilterGender = ref(['female', 'male', 'genderless', 'unknown'])
 
 const characters = ref([])
 
-const nextPageLink = ref('')
-
-watch(nextPageLink, () => {
-  console.log(nextPageLink.value)
-})
-
 onMounted(() => {
   ramRouter.characters.getAll().then((response) => {
     characters.value = response.data.results
-
-    nextPageLink.value = response.data.info.next
   })
 })
 
 const searchObject = reactive({ value: '', status: '', gender: '' })
-
-const loadNextPage = (nextPageLink) => {
-  if (nextPageLink) {
-    const numberPage = nextPageLink.match(/\?page=(\d+)/)[1]
-
-    ramRouter.characters.loadNextPage(searchObject.value, searchObject.status, searchObject.gender, numberPage)
-    .then((response) => {
-      characters.value.push(...response.data.results)
-      nextPageLink = response.data.info.next
-      console.log(nextPageLink)
-    })
-  }
-}
 
 const searchCharacters = () => {
     ramRouter.characters.getAll(searchObject.value, searchObject.status, searchObject.gender)
