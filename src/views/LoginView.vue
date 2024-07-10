@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center min-h-[100vh]">
     <!--begin: Login -->
-    <div class="grid gap-4 w-96 h-min p-6 border border-gray-400 rounded-3xl shadow-2xl bg-white" @keyup.enter="() => submitForm()">
+    <div class="grid gap-4 w-96 h-min p-6 border border-gray-300 rounded-xl shadow-2xl bg-white" @keyup.enter="() => submitForm()">
       <!-- begin: Title -->
       <h1 class="text-center text-2xl text-gray-400">
         Login
@@ -40,8 +40,9 @@
       <!-- end: Error Span -->
       <!-- begin: Submit Buttons -->
       <div class="flex justify-center gap-4">
-        <BaseButton 
-          design-button='SolidButton'
+        <BaseButton
+          class="rounded-md"
+          design-button='LightButton'
           @click="submitForm()" 
           :disabled="!isFormValid"
         >
