@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center min-h-[100vh]">
     <!--begin: Register -->
     <div
-      class="grid gap-4 w-96 h-min p-6 border border-gray-400 rounded-3xl shadow-2xl bg-white"
+      class="grid gap-4 w-96 h-min p-6 border border-gray-300 rounded-3xl shadow-2xl bg-white"
       @keyup.enter="() => submitForm()"
     >
       <h1 class="text-center text-2xl text-gray-400">Register</h1>
@@ -78,7 +78,11 @@
       <!-- end: Error Span -->
       <!-- begin: Register Button -->
       <div class="flex justify-center gap-4">
-        <BaseButton @click="submitForm()" :disabled="!isFormValid">
+        <BaseButton 
+          @click="submitForm()" 
+          :disabled="!isFormValid"
+          class="rounded-md"
+        >
           <template #text> Register </template>
         </BaseButton>
       </div>
@@ -91,7 +95,6 @@
       <!-- end: Login Button -->
     </div>
     <!--end: Register -->
-    <ToastBox></ToastBox>
   </div>
 </template>
 
@@ -104,8 +107,6 @@ import { ref } from 'vue'
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
 import router from '@/router'
 
-import ToastBox from '@/components/alerts/ToastNotification/ToastBox.vue'
-import { toastNotificationSucess } from '@/components/alerts/ToastNotification/toastNotification'
 const errorMessage = ref('')
 
 const form = ref({
@@ -183,7 +184,6 @@ async function tryRegister() {
     .then(async (response) => {
       const newUserID = response.data.id
       dbRouter.favorites.create(newUserID)
-      toastNotificationSucess('User created successfully.')
     })
     .catch((err) => {
       errorMessage.value = err

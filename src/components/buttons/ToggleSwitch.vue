@@ -4,7 +4,7 @@
     :class="modelValue ? props.onColorBackground : props.offColorBackground" @click="updateModelValue()">
     <!--begin: Circle-->
     <div
-      class="w-6 h-6 bg-white rounded-full shadow-lg flex justify-center items-center transition-all duration-500 transform "
+      class="w-6 h-6 rounded-full shadow-lg flex justify-center items-center transition-all duration-500 transform "
       :class="modelValue ? `translate-x-6 ${props.onColorCircle}` : props.offColorCircle">
       <!-- begin: Icons -->
       <div class="text-white">
@@ -32,15 +32,15 @@ const props = defineProps({
   },
   offColorBackground: {
     type: String,
-    default: 'bg-yellow-100',
+    default: 'bg-yellow-200',
   },
   onColorCircle: {
     type: String,
-    default: 'bg-blue-800',
+    default: 'bg-blue-600',
   },
   onColorBackground: {
     type: String,
-    default: 'bg-blue-200',
+    default: 'bg-blue-300',
   },
 })
 

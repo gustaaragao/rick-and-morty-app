@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <!-- begin: Header -->
-    <label class="text-gray-800 font-medium pb-1.5">
+    <label class="text-gray-800 font-medium">
       <slot name="header"></slot>
     </label>
     <!-- end: Header -->
@@ -68,8 +68,6 @@
     <!-- end: Error Message -->
   </div>
   <!-- end: Input -->
-  {{ 'local' + localValue }}
-  {{ 'props' + props.modelValue }}
 </template>
 
 <script setup>

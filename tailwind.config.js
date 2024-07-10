@@ -82,6 +82,8 @@ export default {
       red: colors.red,
       green: colors.green,
       yellow: colors.yellow,
+      blue: colors.blue,
+      amber: colors.amber,
       white: "#ffffff",
     },
   },
