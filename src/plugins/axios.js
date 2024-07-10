@@ -1,4 +1,14 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = import.meta.env.VITE_RICK_AND_MORTY_API_URL
-// axios.defaults.baseURL = import.meta.env.VITE_API_URL
+export async function requester(url, method, data, headersOption) {
+  try {
+    return await axios({
+      method: method,
+      url: url,
+      data: data,
+      headers: headersOption
+    })
+  } catch (error) {
+    throw error.response ?? error
+  }
+}
