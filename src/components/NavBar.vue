@@ -14,7 +14,10 @@
       <!-- end: Profile Button -->
     </div>
     <!-- begin: Navbar -->
-    <nav class="flex gap-8 text-white text-xl font-bold underline select-none">
+    <nav 
+      v-show="router.currentRoute.value.href !== '/'"
+      class="flex gap-8 text-white text-xl font-bold underline select-none"
+    >
       <RouterLink to="/characters" class="cursor-pointer">Characters</RouterLink>
       <RouterLink to="/locations" class="cursor-pointer">Locations</RouterLink>
       <RouterLink to="/episodes" class="cursor-pointer">Episodes</RouterLink>
