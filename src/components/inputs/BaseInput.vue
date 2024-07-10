@@ -68,8 +68,6 @@
     <!-- end: Error Message -->
   </div>
   <!-- end: Input -->
-  {{ 'local' + localValue }}
-  {{ 'props' + props.modelValue }}
 </template>
 
 <script setup>

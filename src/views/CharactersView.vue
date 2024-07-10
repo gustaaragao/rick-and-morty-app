@@ -38,7 +38,6 @@
         <!-- end: Clear Button -->
       </div>
     </div>
-    {{ searchObject }}
     <!-- begin: Options Filters -->
     <div class="flex flex-col gap-4 pt-4 pb-6">
       <RadioInput
