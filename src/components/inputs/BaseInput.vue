@@ -36,7 +36,7 @@
       <!-- begin: Show Password -->
       <div
         v-if="props.type === 'password'"
-        class="flex items-center px-2 text-gray-400 border border-l-0 rounded-r-md"
+        class="flex items-center px-2 bg-gray-100 text-gray-400 border border-l-0 rounded-r-md"
       >
         <i
           v-if="openedEye"
