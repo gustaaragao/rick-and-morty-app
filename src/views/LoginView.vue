@@ -42,7 +42,6 @@
       <div class="flex justify-center gap-4">
         <BaseButton
           class="rounded-md"
-          design-button='LightButton'
           @click="submitForm()" 
           :disabled="!isFormValid"
         >

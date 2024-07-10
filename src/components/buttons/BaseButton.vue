@@ -58,7 +58,7 @@ const colorHoverEffectHex = ref('')
 const buttonElement = ref(null)
 
 const addEffectHover = () => {
-  if (props.design === 'LightButton') {
+  if (props.designButton === 'LightButton') {
     buttonElement.value.addEventListener('mouseover', () => {
       buttonElement.value.style.borderColor = colorHoverEffectHex.value
       buttonElement.value.style.color = colorHoverEffectHex.value
@@ -67,7 +67,7 @@ const addEffectHover = () => {
       buttonElement.value.style.borderColor = colorButtonHex.value
       buttonElement.value.style.color = colorButtonHex.value
     })
-  } else {
+  } else if (props.designButton == 'SolidButton') {
     buttonElement.value.addEventListener('mouseover', () => {
       buttonElement.value.style.borderColor = colorHoverEffectHex.value
       buttonElement.value.style.backgroundColor = colorHoverEffectHex.value
@@ -85,10 +85,10 @@ onMounted(() => {
   colorHoverEffectHex.value = transformTailwindColorToHex(props.colorHoverEffect)
 
   buttonElement.value.style.borderColor = colorButtonHex.value
-  if (props.design === 'LightButton') {
+  if (props.designButton === 'LightButton') {
     console.log('ligh')
     buttonElement.value.style.color = colorButtonHex.value
-  } else {
+  } else if (props.designButton == 'SolidButton') {
     buttonElement.value.style.backgroundColor = colorButtonHex.value
     buttonElement.value.style.color = colorTextHex.value
   }
