@@ -26,7 +26,7 @@
           hasIcon() ? 'rounded-r-md' : 'rounded-md',
           props.type === 'password' ? 'border-r-0 rounded-r-none' : ''
         ]"
-        v-model="valueInput"
+        v-model="localValue"
         :disabled="props.disabled"
         :placeholder="props.placeholder"
         @input="(event)=>{
@@ -66,12 +66,14 @@
         <span> {{ errorMessage }} </span>
     </div>
     <!-- end: Error Message -->
-    <!-- end: Input -->
   </div>
+  <!-- end: Input -->
+  {{ 'local' + localValue }}
+  {{ 'props' + props.modelValue }}
 </template>
 
 <script setup>
-import { ref, useSlots } from 'vue';
+import { ref, useSlots, watch } from 'vue';
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -99,7 +101,12 @@ const props = defineProps({
 
 const emit = defineEmits(['update:model-value'])
 
-const valueInput = ref(props.modelValue)
+const localValue = ref(props.modelValue)
+
+watch(() => props.modelValue, () => {
+	localValue.value = props.modelValue
+})
+
 const typeInput = ref(props.type)
 
 const hasIcon = () => {
