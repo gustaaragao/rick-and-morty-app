@@ -69,6 +69,7 @@
           color-button="red-600"
           color-hover-effect="red-700"
           :disabled="disableDiscardButton"
+          @click="discardChanges()"
         >
           <template #icon>
             <Trash2 />
@@ -144,13 +145,25 @@ const disableEditButton = ref(false);
 
 const disableInputs = ref(true);
 
+const enableEditMode = () => {
+  disableSaveButton.value = false;
+  disableDiscardButton.value = false;
+  disableEditButton.value = true;
+
+  disableInputs.value = false;
+}
+
+const disableEditMode = () => {
+  disableSaveButton.value = true;
+  disableDiscardButton.value = true;
+  disableEditButton.value = false;
+
+  disableInputs.value = true;
+}
+
 const editUser = () => {
   if (!disableEditButton.value) {
-    disableSaveButton.value = false;
-    disableDiscardButton.value = false;
-    disableEditButton.value = true;
-
-    disableInputs.value = false;
+    enableEditMode()
   }
   return
 }
@@ -176,18 +189,23 @@ const saveChanges = () => {
     )
     .then((response) => {
       // TODO: TOAST NOTIFICATION PARA SUCESSO
-      console.log(response);
+      console.error(response);
+
+      disableEditMode()
     })
     .catch((err) => {
       console.error(err);
     })
   } else {
+    // TODO: Melhorar as mensagens de erro
     console.error('USER DATA INCOMPLETE')
   }
 }
 
 const discardChanges = () => {
+  fetchUserData()
 
+  disableEditMode()
 }
 
 </script>
