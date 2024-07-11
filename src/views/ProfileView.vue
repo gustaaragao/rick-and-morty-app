@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <!-- begin: User Data -->
-    <div class="w-1/2 h-full pt-20 flex flex-col items-center justify-center">
+    <div class="w-1/2 h-full pt-4 flex flex-col items-center justify-center">
       <!-- begin: Inputs -->
       <div class="w-2/3">
         <div>
@@ -9,6 +9,8 @@
           <BaseInput
             placeholder="First Name"
             :model-value="user.firstname"
+            @update:model-value="(value) => user.firstname = value"
+            :disabled="disableInputs"
           />
         </div>
         <div>
@@ -16,6 +18,8 @@
           <BaseInput
             placeholder="Last Name"
             :model-value="user.lastname"
+            @update:model-value="(value) => user.lastname = value"
+            :disabled="disableInputs"
           />
         </div>
         <div>
@@ -23,6 +27,8 @@
           <BaseInput
             placeholder="Username"
             :model-value="user.username"
+            @update:model-value="(value) => user.username = value"
+            :disabled="disableInputs"
           />
         </div>
         <div>
@@ -30,6 +36,8 @@
           <BaseInput
             placeholder="E-mail"
             :model-value="user.email"
+            @update:model-value="(value) => user.email = value"
+            :disabled="disableInputs"
           />
         </div>
         <div>
@@ -38,13 +46,18 @@
             type="password"
             placeholder="Password"
             :model-value="user.password"
+            @update:model-value="(value) => user.password = value"
+            :disabled="disableInputs"
           />
         </div>
       </div>
       <!-- end: Inputs -->
       <!-- begin: Buttons -->
-      <div class="flex gap-4 pt-10">
-        <BaseButton>
+      <div class="flex gap-4 py-10">
+        <BaseButton
+          :disabled="disableSaveButton"
+          @click="saveChanges()"
+        >
           <template #icon>
             <Save />
           </template>
@@ -52,20 +65,29 @@
             Save
           </template>
         </BaseButton>
-        <BaseButton>
-          <template #icon>
-            <PenLine />
-          </template>
-          <template #text>
-            Edit
-          </template>
-        </BaseButton>
-        <BaseButton>
+        <BaseButton
+          color-button="red-600"
+          color-hover-effect="red-700"
+          :disabled="disableDiscardButton"
+        >
           <template #icon>
             <Trash2 />
           </template>
           <template #text>
             Discard
+          </template>
+        </BaseButton>
+        <BaseButton
+          color-button="gray-700"
+          color-hover-effect="gray-800"
+          :disabled="disableEditButton"
+          @click="editUser()"
+        >
+          <template #icon>
+            <PenLine />
+          </template>
+          <template #text>
+            Edit
           </template>
         </BaseButton>
       </div>
@@ -81,7 +103,7 @@
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { dbRouter } from '@/services/api/routing/routers/dbRouter';
 import { PenLine, Save, Trash2  } from 'lucide-vue-next';
 
@@ -116,12 +138,33 @@ onMounted(() => {
   fetchUserData()
 })
 
-const editUser = () => {
+const disableSaveButton = ref(true);
+const disableDiscardButton = ref(true);
+const disableEditButton = ref(false);
 
+const disableInputs = ref(true);
+
+const editUser = () => {
+  if (!disableEditButton.value) {
+    disableSaveButton.value = false;
+    disableDiscardButton.value = false;
+    disableEditButton.value = true;
+
+    disableInputs.value = false;
+  }
+  return
 }
 
 const saveChanges = () => {
-
+  dbRouter.users.updateUser(
+    userID, user.firstname, user.lastname, user.username, user.email, user.password
+  )
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 }
 
 const discardChanges = () => {

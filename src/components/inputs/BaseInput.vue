@@ -20,7 +20,7 @@
       <!-- end: Icon -->
       <input 
         :type="typeInput"
-        class="py-2 pl-2 focus:outline-none w-full disabled:cursor-not-allowed
+        class="py-2 pl-2 focus:outline-none w-full disabled:cursor-not-allowed disabled:bg-gray-200
                border border-gray-200 text-dark-blue-950"
         :class="[
           hasIcon() ? 'rounded-r-md' : 'rounded-md',

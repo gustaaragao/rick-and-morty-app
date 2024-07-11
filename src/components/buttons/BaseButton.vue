@@ -2,7 +2,7 @@
   <button
     ref="buttonElement"
     :disabled="props.disabled"
-    class="flex items-center gap-2 p-2 disabled:cursor-not-allowed"
+    class="flex items-center gap-2 p-2 disabled:cursor-not-allowed disabled:opacity-65"
   >
     <i v-if="slots.icon">
       <slot name="icon"></slot>
