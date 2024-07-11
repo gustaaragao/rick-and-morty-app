@@ -155,16 +155,35 @@ const editUser = () => {
   return
 }
 
+const checkChangesUser = (user) => {
+  let fieldsFilled = Object.values(user).every((value) => value !== '');
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let emailIsValid = emailRegex.test(user.email);
+  
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$/;
+  let passwordIsValid = passwordRegex.test(user.password); 
+
+  return fieldsFilled && emailIsValid && passwordIsValid;
+}
+
 const saveChanges = () => {
-  dbRouter.users.updateUser(
-    userID, user.firstname, user.lastname, user.username, user.email, user.password
-  )
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.error(err);
-  })
+  const changesAreValid = ref(checkChangesUser(user));
+
+  if (changesAreValid.value) {
+    dbRouter.users.updateUser(
+      userID, user.firstname, user.lastname, user.username, user.email, user.password
+    )
+    .then((response) => {
+      // TODO: TOAST NOTIFICATION PARA SUCESSO
+      console.log(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  } else {
+    console.error('USER DATA INCOMPLETE')
+  }
 }
 
 const discardChanges = () => {

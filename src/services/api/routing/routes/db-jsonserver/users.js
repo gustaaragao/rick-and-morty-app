@@ -5,8 +5,6 @@ export const users = {
     return await dbRequester('get', `users/${id}`, '')
   },
   updateUser: async function (id='', firstname='', lastname='', username='', email='', password='') {
-    // TODO: Fazer os testes.
-    
     const dataNewUser = {
       firstname: firstname,
       lastname: lastname,
@@ -14,6 +12,9 @@ export const users = {
       email: email,
       password: password
     }
+
+    localStorage.removeItem('user-info')
+    localStorage.setItem('user-info', JSON.stringify({id: id, ...dataNewUser}))
 
     return await dbRequester('patch', `users/${id}`, '', dataNewUser)
   }
