@@ -53,3 +53,10 @@ export const filterArrayOfObjects = (arrayOfObjects, keysOfInterest) => {
 export const removeObjectOfArray = (array, targetObj) => {
   return array.filter(obj => JSON.stringify(obj) !== JSON.stringify(targetObj));
 }
+
+// This function is used to check if a object has the specified keys.
+export const checkKeysOfObject = (obj, keys) => {
+  const keysOfObject = Object.keys(obj)
+
+  return keys.every((key) => keysOfObject.includes(key)) && keysOfObject.every((key) => keys.includes(key))
+}

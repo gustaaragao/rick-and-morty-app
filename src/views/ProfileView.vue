@@ -10,6 +10,8 @@
             placeholder="First Name"
             :model-value="user.firstname"
             @update:model-value="(value) => user.firstname = value"
+            :validation-parameters="validationParametersName"
+            @validate:input="(value) => isFormValid = value"
             :disabled="disableInputs"
           />
         </div>
@@ -19,6 +21,8 @@
             placeholder="Last Name"
             :model-value="user.lastname"
             @update:model-value="(value) => user.lastname = value"
+            :validation-parameters="validationParametersName"
+            @validate:input="(value) => isFormValid = value"
             :disabled="disableInputs"
           />
         </div>
@@ -37,6 +41,8 @@
             placeholder="E-mail"
             :model-value="user.email"
             @update:model-value="(value) => user.email = value"
+            :validation-parameters="validationParametersEmail"
+            @validate:input="(value) => isFormValid = value"
             :disabled="disableInputs"
           />
         </div>
@@ -47,13 +53,22 @@
             placeholder="Password"
             :model-value="user.password"
             @update:model-value="(value) => user.password = value"
+            :validation-parameters="validationParametersPassword"
+            @validate:input="(value) => isFormValid = value"
             :disabled="disableInputs"
           />
         </div>
       </div>
       <!-- end: Inputs -->
+      <div
+        v-show="errorMessage"
+        class="flex justify-center pt-4 text-red-600 text-xs font-semibold"
+        :class="errorMessage ? 'animate-shake-l' : ''"
+      >
+        {{ errorMessage }}
+      </div>
       <!-- begin: Buttons -->
-      <div class="flex gap-4 py-10">
+      <div class="flex gap-4 pt-8 pb-10">
         <BaseButton
           :disabled="disableSaveButton"
           @click="saveChanges()"
@@ -168,17 +183,31 @@ const editUser = () => {
   return
 }
 
-const checkChangesUser = (user) => {
-  let fieldsFilled = Object.values(user).every((value) => value !== '');
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let emailIsValid = emailRegex.test(user.email);
-  
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$/;
-  let passwordIsValid = passwordRegex.test(user.password); 
-
-  return fieldsFilled && emailIsValid && passwordIsValid;
+const validationParametersName = {
+  pattern: /^[a-zA-Z]+$/,
+  patternErrorMessage: 'Invalid input. Please enter a text containing only letters (A-Z, a-z).'
 }
+
+const validationParametersEmail = {
+  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  patternErrorMessage: 'Invalid email address. Please enter a valid email address in the format: "example@domain.com".'
+}
+
+const validationParametersPassword = {
+  pattern: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-+])(?=.{8,})[a-zA-Z0-9!@#$%^&*()-+]+$/,
+  patternErrorMessage:
+    'The password must contain at least 8 upper and lower characters with at least one number from 0-9 and one special character.'
+}
+
+const isFormValid = ref(true);
+
+const checkChangesUser = (user) => {
+  const fieldsFilled = Object.values(user).every((value) => value !== '');
+
+  return fieldsFilled && isFormValid.value;
+}
+
+const errorMessage = ref('')
 
 const saveChanges = () => {
   const changesAreValid = ref(checkChangesUser(user));
@@ -189,7 +218,7 @@ const saveChanges = () => {
     )
     .then((response) => {
       // TODO: TOAST NOTIFICATION PARA SUCESSO
-      console.error(response);
+      console.log(response);
 
       disableEditMode()
     })
@@ -197,8 +226,7 @@ const saveChanges = () => {
       console.error(err);
     })
   } else {
-    // TODO: Melhorar as mensagens de erro
-    console.error('USER DATA INCOMPLETE')
+    errorMessage.value = 'Changes are not valid'
   }
 }
 

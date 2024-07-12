@@ -32,6 +32,7 @@
         @input="(event)=>{
           emit('update:model-value', event.target.value)
         }"
+        @blur="checkInput()"
       >
       <!-- begin: Show Password -->
       <div
@@ -57,13 +58,15 @@
     </div>
     <!-- begin: Error Message -->
     <div
-      v-show="!!errorMessage" 
+      v-show="!!errorMessage || !!localError" 
       class="flex flex-row items-center text-sm text-red-500 pt-1 gap-0.5 w-fit"
     >
       <i class="scale-[0.60]">
-          <CircleAlert />
-        </i>
-        <span> {{ errorMessage }} </span>
+        <CircleAlert />
+      </i>
+      <span> 
+        {{ errorMessage || localError }}
+      </span>
     </div>
     <!-- end: Error Message -->
   </div>
@@ -73,6 +76,7 @@
 <script setup>
 import { ref, useSlots, watch } from 'vue';
 import { Eye, EyeOff, CircleAlert } from 'lucide-vue-next';
+import { checkKeysOfObject } from '@/utils/utilsObject';
 
 const props = defineProps({
   type: {
@@ -94,10 +98,20 @@ const props = defineProps({
   errorMessage: {
     type: [String, Boolean],
     default: false
+  },
+  validationParameters: {
+    type: Object,
+    validator: (obj) => {
+      const patternIsValid = obj['pattern'] instanceof RegExp
+
+      const patternErrorMessageIsValid= typeof obj['patternErrorMessage'] === 'string' && obj['patternErrorMessage'].length != 0
+
+      return patternIsValid && patternErrorMessageIsValid
+    }
   }
 })
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value', 'validate:input'])
 
 const localValue = ref(props.modelValue)
 
@@ -127,6 +141,21 @@ const handleShowPasswordButton = () => {
   openedEye.value = !openedEye.value
 
   showPassword()
+}
+
+const localError = ref('');
+
+const checkInput = () => {
+  if (props.validationParameters) {
+    if (props.validationParameters['pattern'].test(localValue.value)) {
+      localError.value = ''
+      emit('validate:input', true)
+    }
+    else {
+      localError.value = props.validationParameters['patternErrorMessage'] 
+      emit('validate:input', false)
+    }
+  }
 }
 
 </script>

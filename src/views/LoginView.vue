@@ -122,7 +122,7 @@ async function tryLogin() {
 
     localStorage.setItem('user-info', JSON.stringify(userInfo))
 
-    router.push('/characters')
+    router.push('/')
 
     return
   }
