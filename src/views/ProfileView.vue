@@ -189,7 +189,7 @@ const saveChanges = () => {
     )
     .then((response) => {
       // TODO: TOAST NOTIFICATION PARA SUCESSO
-      console.error(response);
+      console.log(response);
 
       disableEditMode()
     })

@@ -11,6 +11,7 @@
       <div class="cursor-pointer pl-3 text-white" @click="router.push('/profile')">
         <CircleUserRound />
       </div>
+      <!-- end: Profile Button -->
       <!-- begin: Home Button -->
       <div
         v-if="router.currentRoute.value.href !== '/'" 
@@ -19,7 +20,6 @@
         <Home />
       </div>
       <!-- end: Home Button -->
-      <!-- end: Profile Button -->
     </div>
     <!-- begin: Navbar -->
     <nav 
