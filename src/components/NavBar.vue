@@ -3,14 +3,22 @@
   <div class="w-full h-20 py-1 px-4 rounded-b-2xl bg-green-600 shadow-md flex justify-between items-center z-40">
     <div class="flex gap-1">
       <!-- begin: LogOut Button -->
-      <div class="cursor-pointer pl-2 text-white" @click="logoutUser">
+      <div class="cursor-pointer pl-3 text-white" @click="logoutUser">
         <LogOut />
       </div>
       <!-- end: LogOut Button -->
       <!-- begin: Profile Button -->
-      <div class="cursor-pointer pl-2 text-white" @click="router.push('/profile')">
+      <div class="cursor-pointer pl-3 text-white" @click="router.push('/profile')">
         <CircleUserRound />
       </div>
+      <!-- begin: Home Button -->
+      <div
+        v-if="router.currentRoute.value.href !== '/'" 
+        class="cursor-pointer pl-3 text-white" 
+        @click="router.push('/')">
+        <Home />
+      </div>
+      <!-- end: Home Button -->
       <!-- end: Profile Button -->
     </div>
     <!-- begin: Navbar -->
@@ -43,7 +51,7 @@
 import ToggleSwitch from '@/components/buttons/ToggleSwitch.vue'
 import { RouterLink } from 'vue-router';
 import router from '@/router';
-import { Moon, Sun, LogOut, CircleUserRound } from 'lucide-vue-next'
+import { Moon, Sun, LogOut, CircleUserRound, Home } from 'lucide-vue-next'
 
 const logoutUser = () => {
   localStorage.clear()
