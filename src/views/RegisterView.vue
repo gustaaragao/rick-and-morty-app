@@ -11,6 +11,7 @@
         placeholder="First Name"
         @update:model-value="(value) => { form.firstname = value }"
         :validation-parameters="validationParametersName"
+        @validate:input="(value) => isFormValid = value"
       />
       <!-- end: First Name Input -->
       <!-- begin: Last Name Input -->
@@ -18,6 +19,7 @@
         placeholder="Last Name"
         @update:model-value="(value) => { form.lastname = value }"
         :validation-parameters="validationParametersName"
+        @validate:input="(value) => isFormValid = value"
       />
       <!-- end: Last Name Input -->
       <!-- begin: Username Input -->
@@ -35,6 +37,7 @@
         placeholder="E-mail"
         @update:model-value="(value) => { form.email = value }"
         :validation-parameters="validationParametersEmail"
+        @validate:input="(value) => isFormValid = value"
       >
         <template #icon>
           <Mail />
@@ -47,6 +50,7 @@
         placeholder="Password"
         @update:model-value="(value) => { form.password = value }"
         :validation-parameters="validationParametersPassword"
+        @validate:input="(value) => isFormValid = value"
       >
         <template #icon>
           <KeyRound />
@@ -99,7 +103,7 @@
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseButton from '@/components/buttons/BaseButton.vue'
 import { UserRound, KeyRound, Mail } from 'lucide-vue-next'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { dbRouter } from '@/services/api/routing/routers/dbRouter.js'
 import router from '@/router'
@@ -131,7 +135,7 @@ const validationParametersPassword = {
     'The password must contain at least 8 upper and lower characters with at least one number from 0-9 and one special character.'
 }
 
-const isFormValid = ref(true)
+const isFormValid = ref(true);
 
 const isFormFilled = ref(false)
 
