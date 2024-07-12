@@ -32,6 +32,7 @@
         @input="(event)=>{
           emit('update:model-value', event.target.value)
         }"
+        @blur="checkInput()"
       >
       <!-- begin: Show Password -->
       <div
@@ -110,7 +111,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value', 'validate:input'])
 
 const localValue = ref(props.modelValue)
 
@@ -145,8 +146,15 @@ const handleShowPasswordButton = () => {
 const localError = ref('');
 
 const checkInput = () => {
-  if (props.regexInput) {
-    const inputIsValid = ref(localValue.value)
+  if (props.validationParameters) {
+    if (props.validationParameters['pattern'].test(localValue.value)) {
+      localError.value = ''
+      emit('validate:input', true)
+    }
+    else {
+      localError.value = props.validationParameters['patternErrorMessage'] 
+      emit('validate:input', false)
+    }
   }
 }
 
