@@ -3,17 +3,15 @@
     <div class="flex items-center gap-3">
       <!-- TODO: FAZER UM SELECT E MUDAR OS BOTÕES PARA COMPONENTES -->
       <!-- begin: Select Page -->
-      <select
-        v-model="currentPage"
-        @input="(event) => {
-          currentPage = event.target.value
+      <SelectInput 
+        :options="props.info.pages"
+        :model-value="currentPage"
+        input-name="select-page"
+        @update:model-value="(value) => {
+          currentPage = value;
           selectPage()
         }"
-      >
-        <option v-for="page in props.info.pages" :value="page">
-          {{ page }}
-        </option>
-      </select>
+      />
       <!-- end: Select Page -->
       <p>of {{ props.info.pages }} pages</p>
       <div class="flex items-center gap-2">
@@ -42,7 +40,8 @@
 
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
+import SelectInput from '@/components/inputs/SelectInput.vue';
 
 const props = defineProps({
   info: {

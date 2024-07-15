@@ -1,60 +1,55 @@
 <template>
-  <div class="relative w-fit text-gray-800 bg-white border border-gray-200 rounded-md">
-    <!-- begin: Select Input -->
+  <div 
+    class="w-fit" 
+    ref="select"
+  >
     <div 
-      class="flex w-fit"
-      @click="handleChevronButton()"
+      class="relative w-fit text-gray-800 bg-white outline outline-gray-200 rounded-md"
+      :class="visibleOptions ? 'outline-b-0 rounded-b-none' : ''"
     >
-      <input
-        disabled 
-        v-model="localValue"
-        class="text-center bg-white rounded-md"
+      <!-- begin: Select Input -->
+      <div 
+        class="flex w-fit"
+        @click="toggleOptions()"
       >
-      <div class="absolute right-1 rounded-md">
-        <i
-          v-if="visibleOptions"
-          class="cursor-pointer"
+        <input
+          disabled 
+          v-model="localValue"
+          class="text-center bg-white rounded-md"
         >
-          <ChevronUp />
-        </i>
-        <i
-          v-else
-          class="cursor-pointer"
-        >
-          <ChevronDown />
-        </i>
+        <div class="absolute right-1 rounded-md">
+          <i
+            v-if="visibleOptions"
+            class="cursor-pointer"
+          >
+            <ChevronUp />
+          </i>
+          <i
+            v-else
+            class="cursor-pointer"
+          >
+            <ChevronDown />
+          </i>
+        </div>
       </div>
+      <!-- end: Select Input -->
+      <!-- begin: Options -->
+      <OptionsWrapper
+        :visible-options="visibleOptions"
+        :input-name="props.inputName"
+        :options="props.options"
+        @send:event="(event) => { handleInputEvent(event) }"
+      />
+      <!-- end: Options -->
     </div>
-    <!-- end: Select Input -->
-    <!-- begin: Options -->
-    <div
-      class="flex flex-col text-center"
-      v-show="visibleOptions"
-    >
-      <label
-        v-for="(option, index) in props.options"
-        :id="index"
-        class="cursor-pointer odd:bg-gray-100 even:bg-white last:rounded-b-md"
-      >
-        <input 
-          type="radio" 
-          :id="index" 
-          :name="props.inputName" 
-          :value="option" 
-          class="hidden"
-          @input="(event) => handleInput(event)"
-        >
-        {{ option }}
-      </label>
-    </div>
-    <!-- end: Options -->
   </div>
 </template>
 
 <script setup>
 import { ChevronDown, ChevronUp } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/strings';
+import OptionsWrapper from './handler/OptionsWrapper.vue';
 
 const props = defineProps({
   modelValue: {
@@ -85,7 +80,7 @@ const hideOptions = () => {
   visibleOptions.value = false;
 }
 
-const handleChevronButton = () => {
+const toggleOptions = () => {
   if (visibleOptions.value === true) {
     hideOptions();
   } else {
@@ -93,7 +88,7 @@ const handleChevronButton = () => {
   }
 }
 
-const handleInput = (event) => {
+const handleInputEvent = (event) => {
   const value = event.target.value;
 
   localValue.value = capitalizeFirstLetter(value);
@@ -102,5 +97,27 @@ const handleInput = (event) => {
 
   hideOptions();
 }
+
+const optionsPosition = ref('below');
+
+const select = ref(null);
+
+const setOptionsPosition = (select) => {
+  const selectRect = computed(() => select.value.getBoundingClientRect());
+
+  const selectHeight = selectRect.value.height;
+
+  const optionsHeight = selectHeight * props.options?.length;
+
+  const windowHeight = window.innerHeight;
+
+  const optionsFit = ref(selectRect.value.bottom + optionsHeight < windowHeight);
+
+  optionsPosition.value = optionsFit.value ? 'below' : 'above'
+}
+
+onMounted(() => {
+  setOptionsPosition(select);
+})
 
 </script>
