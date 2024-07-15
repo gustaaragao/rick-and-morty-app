@@ -1,9 +1,11 @@
 <template>
-  <SelectInput
-    :options="options"
-  >
+  <div class="p-10">
+    <SelectInput
+      :options="options"
+    >
+    </SelectInput>
+  </div>
 
-  </SelectInput>
 </template>
 
 
@@ -11,6 +13,6 @@
 import SelectInput from '@/components/inputs/SelectInput.vue';
 import { ref } from 'vue';
 
-const options = ref(['gustavo', 'henrique'])
+const options = ref(['1', '2'])
 
 </script>

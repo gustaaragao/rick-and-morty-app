@@ -1,35 +1,49 @@
 <template>
-  <div class="w-fit">
+  <div class="relative w-fit text-gray-800 bg-white border border-gray-200 rounded-md">
     <!-- begin: Select Input -->
-    <div class="flex w-fit bg-purple-300">
+    <div 
+      class="flex w-fit"
+      @click="handleChevronButton()"
+    >
       <input
         disabled 
-        v-model="props.modelValue"
-        class="text-center bg-green-400"
+        v-model="localValue"
+        class="text-center bg-white rounded-md"
       >
-      <i
-        v-if="visibleOptions"
-        class="cursor-pointer"
-        @click="showOptions()"
-      >
-        <ChevronUp />
-      </i>
-      <i
-        v-else
-        class="cursor-pointer"
-        @click="showOptions()"
-      >
-        <ChevronDown />
-      </i>
+      <div class="absolute right-1 rounded-md">
+        <i
+          v-if="visibleOptions"
+          class="cursor-pointer"
+        >
+          <ChevronUp />
+        </i>
+        <i
+          v-else
+          class="cursor-pointer"
+        >
+          <ChevronDown />
+        </i>
+      </div>
     </div>
     <!-- end: Select Input -->
     <!-- begin: Options -->
     <div
-      class="flex flex-col text-center bg-red-400"
+      class="flex flex-col text-center"
       v-show="visibleOptions"
     >
-      <label v-for="(option) in props.options">
-        <input type="radio" name="aa" id="aaa" :value="option" class="hidden">
+      <label
+        v-for="(option, index) in props.options"
+        :id="index"
+        class="cursor-pointer odd:bg-gray-100 even:bg-white last:rounded-b-md"
+      >
+        <input 
+          type="radio" 
+          :id="index" 
+          :name="props.inputName" 
+          :value="option" 
+          class="hidden"
+          @input="(event) => handleInput(event)"
+        >
         {{ option }}
       </label>
     </div>
@@ -40,6 +54,7 @@
 <script setup>
 import { ChevronDown, ChevronUp } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { capitalizeFirstLetter } from '@/utils/strings';
 
 const props = defineProps({
   modelValue: {
@@ -50,18 +65,42 @@ const props = defineProps({
     type: Array,
     required: true
   },
-  optionName: {
-    type: Array,
-    default: []
+  inputName: {
+    type: String,
+    default: 'select-input'
   }
 })
+
+const emit = defineEmits(['update:model-value']);
 
 const localValue = ref(props.modelValue);
 
 const visibleOptions = ref(false);
 
 const showOptions = () => {
-  visibleOptions.value = !visibleOptions.value
+  visibleOptions.value = true;
+}
+
+const hideOptions = () => {
+  visibleOptions.value = false;
+}
+
+const handleChevronButton = () => {
+  if (visibleOptions.value === true) {
+    hideOptions();
+  } else {
+    showOptions();
+  }
+}
+
+const handleInput = (event) => {
+  const value = event.target.value;
+
+  localValue.value = capitalizeFirstLetter(value);
+  
+  emit('update:model-value', value);
+
+  hideOptions();
 }
 
 </script>
