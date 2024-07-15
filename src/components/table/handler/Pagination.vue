@@ -4,7 +4,7 @@
       <!-- TODO: FAZER UM SELECT E MUDAR OS BOTÕES PARA COMPONENTES -->
       <!-- begin: Select Page -->
       <SelectInput 
-        :options="props.info.pages"
+        :options="range(1, props.info.pages+1)"
         :model-value="currentPage"
         input-name="select-page"
         @update:model-value="(value) => {
@@ -41,6 +41,7 @@
 <script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
+import { range } from '@/utils/range';
 import SelectInput from '@/components/inputs/SelectInput.vue';
 
 const props = defineProps({
