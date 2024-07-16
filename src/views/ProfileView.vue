@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
     <!-- begin: User Data -->
-    <div class="w-1/2 h-full pt-4 flex flex-col items-center justify-center">
+    <div class="w-full h-full pt-4 flex flex-col items-center justify-center">
       <!-- begin: Inputs -->
-      <div class="w-2/3">
+      <div class="w-1/5">
         <div>
           <h2 class="py-2"> First Name </h2>
           <BaseInput
@@ -110,15 +110,13 @@
       <!-- end: Buttons -->
     </div>
     <!-- end: User Data -->
-    <div class="w-1/2 bg-amber-300">
-      TODO: FAVORITES CHARACTERS
-    </div>
   </div>
 </template>
 
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
+import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { dbRouter } from '@/services/api/routing/routers/dbRouter';
 import { PenLine, Save, Trash2  } from 'lucide-vue-next';
@@ -131,6 +129,16 @@ const user = reactive({
   'username': '',
   'email': '',
   'password': '',
+})
+
+const favoriteCharacters = ref([])
+
+onMounted(() => {
+  fetchUserData();
+
+  const userID = JSON.parse(localStorage.getItem('user-info')).id
+
+  fetchFavoritesCharactersUser(userID);
 })
 
 async function fetchUserData() {
@@ -149,10 +157,6 @@ async function fetchUserData() {
     console.error('Error fetching user data:', error);
   }
 }
-
-onMounted(() => {
-  fetchUserData()
-})
 
 const disableSaveButton = ref(true);
 const disableDiscardButton = ref(true);
@@ -234,6 +238,16 @@ const discardChanges = () => {
   fetchUserData()
 
   disableEditMode()
+}
+
+const fetchFavoritesCharactersUser = (userID) => {
+  dbRouter.favorites.get(userID)
+  .then((response) => {
+    favoriteCharacters.value.push(...response.data.favCharacters)
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 }
 
 </script>
