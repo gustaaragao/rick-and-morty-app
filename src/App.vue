@@ -21,6 +21,17 @@ onMounted(() => {
   if (!user.value) {
     router.push('/login')
   }
+
+  const clientPrefersDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  if (clientPrefersDarkMode.value) {
+    localStorage.setItem('color-theme', 'dark');
+    document.documentElement.classList.add('dark');
+  } else {
+    localStorage.setItem('color-theme', 'light');
+    document.documentElement.classList.add('light');
+  }
+  
 })
 
 </script>

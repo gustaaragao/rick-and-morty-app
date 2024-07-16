@@ -41,8 +41,8 @@
       <!-- begin: Clear Button -->
       <BaseButton 
           @click="clearSearch()" 
-          color-button="gray-500" 
-          color-hover-effect="gray-600"
+          color-button="gray-400"
+          color-hover-effect="gray-500"
           class="rounded-lg"
       >
         <template #icon>

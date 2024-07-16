@@ -1,14 +1,17 @@
 <template>
   <!--begin: Background-->
-  <div class="w-14 h-8 p-1 flex items-center rounded-full cursor-pointer transition-all duration-500"
-    :class="modelValue ? props.onColorBackground : props.offColorBackground" @click="updateModelValue()">
+  <div 
+    class="w-14 h-8 p-1 flex items-center rounded-full cursor-pointer transition-all duration-500"
+    :class="switchValue ? props.onColorBackground : props.offColorBackground" 
+    @click="() => updateSwitchValue()"
+  >
     <!--begin: Circle-->
     <div
       class="w-6 h-6 rounded-full shadow-lg flex justify-center items-center transition-all duration-500 transform "
-      :class="modelValue ? `translate-x-6 ${props.onColorCircle}` : props.offColorCircle">
+      :class="switchValue ? `translate-x-6 ${props.onColorCircle}` : props.offColorCircle">
       <!-- begin: Icons -->
       <div class="text-white">
-        <i v-if="!modelValue">
+        <i v-if="!switchValue">
           <slot name="iconOn"></slot>
         </i>
         <i v-else>
@@ -23,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps({
   offColorCircle: {
@@ -42,11 +45,23 @@ const props = defineProps({
     type: String,
     default: 'bg-blue-300',
   },
+  modelValue: {
+    type: Boolean,
+    default: false,
+  }
 })
 
-const modelValue = ref(false)
+const emit = defineEmits(['update:model-value']);
 
-const updateModelValue = () => {
-  modelValue.value = !modelValue.value
+const switchValue = ref(props.modelValue);
+
+watch(() => props.modelValue, () => {
+  switchValue.value = props.modelValue
+})
+
+const updateSwitchValue = () => {
+  switchValue.value = !switchValue.value
+
+  emit('update:model-value', switchValue.value)
 }
 </script>
