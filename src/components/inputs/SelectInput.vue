@@ -81,6 +81,10 @@ const props = defineProps({
     type: String,
     default: 'select-input',
   },
+  alwaysDirectionUp: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const emit = defineEmits(['update:model-value']);
@@ -124,7 +128,9 @@ const setOptionsPosition = () => {
   const optionsHeight = selectRect.height * props.options.length;
   const windowHeight = window.innerHeight;
 
-  if (windowHeight - selectRect.bottom < optionsHeight && selectRect.top > optionsHeight) {
+  const fitSize = windowHeight - selectRect.bottom < optionsHeight && selectRect.top > optionsHeight; 
+
+  if (fitSize || props.alwaysDirectionUp) {
     optionsPosition.value = 'above';
   } else {
     optionsPosition.value = 'below';

@@ -3,7 +3,8 @@
     <div class="flex items-center gap-3">
       <!-- begin: Select Page -->
       <SelectInput
-        class="w-12"
+        class="max-w-12"
+        :always-direction-up="true"
         :options="range(1, props.info.pages+1)"
         :model-value="currentPage"
         input-name="select-page"
