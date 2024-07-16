@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
     <!-- begin: User Data -->
-    <div class="w-1/2 h-full pt-4 flex flex-col items-center justify-center">
+    <div class="w-full h-full pt-4 flex flex-col items-center justify-center">
       <!-- begin: Inputs -->
-      <div class="w-2/3">
+      <div class="w-1/5">
         <div>
           <h2 class="py-2"> First Name </h2>
           <BaseInput
@@ -110,9 +110,6 @@
       <!-- end: Buttons -->
     </div>
     <!-- end: User Data -->
-    <div class="w-1/2 h-full bg-amber-400">
-      TODO: FAVORITES CHARACTERS
-    </div>
   </div>
 </template>
 
