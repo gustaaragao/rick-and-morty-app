@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full flex justify-end px-8 py-4 text-sm bg-gray-50">
+  <div class="w-full flex justify-end px-8 py-4 text-sm">
     <div class="flex items-center gap-3">
-      <!-- TODO: FAZER UM SELECT E MUDAR OS BOTÕES PARA COMPONENTES -->
       <!-- begin: Select Page -->
-      <SelectInput 
+      <SelectInput
+        class="w-16"
         :options="range(1, props.info.pages+1)"
         :model-value="currentPage"
         input-name="select-page"

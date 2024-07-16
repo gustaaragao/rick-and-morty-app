@@ -15,9 +15,9 @@
       <input
         disabled 
         v-model="localValue"
-        class="w-full text-center bg-white rounded-md"
+        class="w-full text-center pr-4 py-1 bg-white rounded-md"
       >
-      <div class="absolute right-1 rounded-md">
+      <div class="absolute flex pt-0.5 right-1 rounded-md">
         <i
           v-if="visibleOptions"
           class="cursor-pointer"
@@ -26,7 +26,7 @@
         </i>
         <i
           v-else
-          class="cursor-pointer"
+          class="cursor-pointer "
         >
           <ChevronDown />
         </i>
@@ -36,7 +36,7 @@
     <!-- begin: Options -->
     <div 
     v-if="visibleOptions" 
-    class="w-full flex flex-col text-center outline outline-gray-200 "
+    class="w-full flex flex-col text-center outline outline-gray-200 divide-y divide-gray-200"
     :class="[
       'options-wrapper', optionsPosition,
       optionsPosition === 'below' ? 'rounded-b-md' : 'rounded-t-md' 
@@ -45,7 +45,7 @@
     <label
       v-for="(option, index) in props.options"
       :id="index"
-      class="cursor-pointer select-none odd:bg-gray-100 even:bg-white "
+      class="py-0.5 cursor-pointer select-none odd:bg-gray-100 even:bg-white"
       :class="optionsPosition === 'below' ? 'last:rounded-b-md' : 'first:rounded-t-md'"
     >
       <input
@@ -89,6 +89,10 @@ const localValue = ref(props.modelValue);
 const visibleOptions = ref(false);
 const optionsPosition = ref('below');
 const select = ref(null);
+
+watch(() => props.modelValue, () => {
+  localValue.value = props.modelValue;
+})
 
 const showOptions = () => {
   visibleOptions.value = true;
