@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
       <!-- begin: Select Page -->
       <SelectInput
-        class="w-16"
+        class="w-12"
         :options="range(1, props.info.pages+1)"
         :model-value="currentPage"
         input-name="select-page"

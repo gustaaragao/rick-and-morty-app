@@ -45,7 +45,7 @@
     <label
       v-for="(option, index) in props.options"
       :id="index"
-      class="py-0.5 cursor-pointer select-none odd:bg-gray-100 even:bg-white"
+      class="py-1 cursor-pointer select-none odd:bg-gray-100 even:bg-white"
       :class="optionsPosition === 'below' ? 'last:rounded-b-md' : 'first:rounded-t-md'"
     >
       <input
