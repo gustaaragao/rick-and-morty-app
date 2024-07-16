@@ -110,7 +110,7 @@
       <!-- end: Buttons -->
     </div>
     <!-- end: User Data -->
-    <div class="w-1/2 bg-amber-300">
+    <div class="w-1/2 h-full bg-amber-400">
       TODO: FAVORITES CHARACTERS
     </div>
   </div>
@@ -119,6 +119,7 @@
 <script setup>
 import BaseInput from '@/components/inputs/BaseInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
+import VisualizerCharacter from '@/components/visualizer/VisualizerCharacter.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { dbRouter } from '@/services/api/routing/routers/dbRouter';
 import { PenLine, Save, Trash2  } from 'lucide-vue-next';
@@ -131,6 +132,16 @@ const user = reactive({
   'username': '',
   'email': '',
   'password': '',
+})
+
+const favoriteCharacters = ref([])
+
+onMounted(() => {
+  fetchUserData();
+
+  const userID = JSON.parse(localStorage.getItem('user-info')).id
+
+  fetchFavoritesCharactersUser(userID);
 })
 
 async function fetchUserData() {
@@ -149,10 +160,6 @@ async function fetchUserData() {
     console.error('Error fetching user data:', error);
   }
 }
-
-onMounted(() => {
-  fetchUserData()
-})
 
 const disableSaveButton = ref(true);
 const disableDiscardButton = ref(true);
@@ -234,6 +241,16 @@ const discardChanges = () => {
   fetchUserData()
 
   disableEditMode()
+}
+
+const fetchFavoritesCharactersUser = (userID) => {
+  dbRouter.favorites.get(userID)
+  .then((response) => {
+    favoriteCharacters.value.push(...response.data.favCharacters)
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 }
 
 </script>
