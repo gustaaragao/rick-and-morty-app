@@ -66,9 +66,9 @@
   <!--begin: Section Characters-->
   <section class="grid grid-cols-4 gap-6 px-32 pt-10">
     <div v-for="character in characters">
-      <!-- <VisualizerCharacter 
+      <VisualizerCharacter 
         :character="character" 
-      /> -->
+      />
     </div>
   </section>
   <!--end: Section Characters-->
