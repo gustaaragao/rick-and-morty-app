@@ -26,8 +26,9 @@
       <BaseButton
         @click="sendSearchValue()"
         :disabled="selectedSearchOption === '' || searchValue === ''"
-        color-button="purple-600"
-        color-hover-effect="purple-700"
+        color-button="green-600"
+        color-hover-effect="green-700"
+        class="rounded-md"
       >
         <template #icon>
           <Search />
@@ -40,9 +41,9 @@
       <!-- begin: Clear Button -->
       <BaseButton 
           @click="clearSearch()" 
-          design="LightButton" 
-          color-button="gray-400" 
-          color-hover-effect="gray-500"
+          color-button="gray-500" 
+          color-hover-effect="gray-600"
+          class="rounded-lg"
       >
         <template #icon>
           <Eraser />
@@ -55,8 +56,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import BaseInput from '@/components/inputs/text/BaseInput.vue';
-import RadioInput from '@/components/inputs/radio/RadioInput.vue';
+import BaseInput from '@/components/inputs/BaseInput.vue';
+import RadioInput from '@/components/inputs/RadioInput.vue';
 import BaseButton from '@/components/buttons/BaseButton.vue';
 import { Eraser, Search } from 'lucide-vue-next';
 

@@ -1,4 +1,4 @@
-import { requester } from './requester'
+import { requester } from "@/plugins/axios"
 
 const BASE_URL = import.meta.env.VITE_API_DB_JSONSERVER_URL
 

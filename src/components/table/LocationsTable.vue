@@ -47,6 +47,7 @@ const search = (searchObject) => {
     locationsInfo.value = response.data.info
   })
   .catch((err) => {
+    locationsData.value = []
     console.error(err);
   })
 }

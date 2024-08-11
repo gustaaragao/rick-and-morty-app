@@ -1,22 +1,18 @@
 <template>
-  <div class="px-96 pt-32">
-    <Table 
-      :columns="['a', 'b']"
-      :data="[{'a': 'gustavo', 'b': 'henrique'}, {'a': 'aragao', 'b': 'silva'}]"
-    >
-      <template #search>
-        <SearchTable 
-          :search-options="['a', 'b']"
-          @send:search-object="(obj) => console.log(obj)"
-        />
-      </template>
-    </Table>
+  <div class="pt-10 pl-10 mx-20">
+    <SelectInput 
+      class="w-20"
+      :options="options" 
+    />
+  </div>
+  <div class="px-10 py-80">
+    <SelectInput :options="options" />
   </div>
 </template>
 
 <script setup>
-import Table from '@/components/table/Table.vue';
-import SearchTable from '@/components/table/handler/SearchTable.vue';
+import SelectInput from "@/components/inputs/SelectInput.vue";
+import { ref } from "vue";
 
-
+const options = ref(["1", "2"]);
 </script>
