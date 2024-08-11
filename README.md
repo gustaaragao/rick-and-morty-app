@@ -1,35 +1,49 @@
-# rick_and_morty_app
+# Rick and Morty Vue App
 
-This template should help get you started developing with Vue 3 in Vite.
+Uma aplicação desenvolvida com **Vue.js**, **Json-Server**, **TailwindCSS** e **Axios** que consome a API [Rick and Morty API](https://rickandmortyapi.com/). A aplicação permite pesquisar personagens, episódios e locais do desenho, além de ter um sistema de registro para criar usuários e favoritar personagens.
 
-## Recommended IDE Setup
+## Funcionalidades
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Pesquisa de Personagens, Episódios e Locais:** Encontre informações detalhadas sobre personagens, episódios e locais do universo de Rick and Morty.
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- **Sistema de Registro de Usuários:** Crie uma conta para gerenciar seus favoritos.
+- **Favoritos:** Adicione personagens aos seus favoritos e visualize-os em uma lista personalizada.
 
-## Project Setup
+## Tecnologias Utilizadas
 
-```sh
+- **Vue.js:** Framework para construção da interface do usuário.
+
+- **Json-Server:** Simula uma API RESTful para armazenar dados de usuários e favoritos.
+
+- **TailwindCSS:** Framework CSS para estilização rápida e responsiva.
+
+- **Axios:** Biblioteca para fazer requisições HTTP para a API do Rick and Morty e para o Json-Server.
+
+## Instalação
+
+Siga os passos abaixo para rodar o projeto localmente:
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/gustaaragao/rick-and-morty-app.git
+
+cd rick-and-morty-app
+```
+
+2. **Instale as dependências do projeto:**
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+3. **Inicialize a aplicação:**
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Licença
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Este projeto está licenciado sob a [MIT License](LICENSE).
