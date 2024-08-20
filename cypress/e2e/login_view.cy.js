@@ -25,39 +25,16 @@ describe('Testar Autenticação do Login', () => {
   // TODO: Criar um usuario para testar o Login
 
   it("Deve permitir login com credenciais válidas", () => {
-    cy.visit('/login');
+    cy.login('gustavo', 'Senha@123')
 
-    // Inserindo as credenciais de Login
-    cy.get('input[placeholder="Username"]')
-      .type('gustavo')
-      .should('have.value', 'gustavo');
-      
-    cy.get('input[placeholder="Password"]')
-      .type('Senha@123')
-      .should('have.value', 'Senha@123');
-
-    // Clicando no Botao de Login
-    cy.contains('button', 'Login').click();
-    
     cy.url().should('include', ''); // Assert: Foi redirecionado para '/'?
 
     // TODO: Testar se o usuário foi criado no localStorage
   })
 
   it("Deve exibir mensagem de erro com credenciais inválidas", () => {
-    cy.visit('/login');
+    cy.login('usuarioIncorreto', 'SenhaIncorreta@123');
 
-    cy.get('input[placeholder="Username"]')
-      .type('testeErro')
-      .should('have.value', 'testeErro');
-    
-    cy.get('input[placeholder="Password"]')
-      .type('SenhaIncorreta@123')
-      .should('have.value', 'SenhaIncorreta@123');
-
-      cy.contains('button', 'Login').click();
-
-
-      cy.contains("Incorrect Username or Password").should('be.visible');
+    cy.contains("Incorrect Username or Password").should('be.visible');
   })
 })
