@@ -1,4 +1,4 @@
-describe('Redirecionamento para /login', () => {
+describe('Redirecionamento para /login ao tentar acessar outros endpoints sem login no Local Storage', () => {
   const endpoints = ['/characters', '/episodes', '/locations', '/profile', '/'];
 
   endpoints.forEach((endpoint) => {
@@ -9,7 +9,7 @@ describe('Redirecionamento para /login', () => {
   });
 });
 
-describe("Redirecionamento para /register a partir de /login", () => {
+describe('Redirecionamento para /register a partir de /login', () => {
   it('Deve redirecionar para /register ao clicar em Sign up', () => {
     cy.visit('/login');
 
@@ -19,12 +19,14 @@ describe("Redirecionamento para /register a partir de /login", () => {
   })
 })
 
+// Testar o acesso direto aos endpoints quando você houver um login no Local Storage
+
 // TODO: Será que precisamos criar um teste para a visualização da Senha no Password? Ou isso é responsabilidade de um teste no componente?
 
 describe('Testar Autenticação do Login', () => {
   // TODO: Criar um usuario para testar o Login
 
-  it("Deve permitir login com credenciais válidas", () => {
+  it('Deve permitir login com credenciais válidas', () => {
     cy.login('gustavo', 'Senha@123')
 
     cy.url().should('include', ''); // Assert: Foi redirecionado para '/'?
@@ -32,9 +34,9 @@ describe('Testar Autenticação do Login', () => {
     // TODO: Testar se o usuário foi criado no localStorage
   })
 
-  it("Deve exibir mensagem de erro com credenciais inválidas", () => {
+  it('Deve exibir mensagem de erro com credenciais inválidas', () => {
     cy.login('usuarioIncorreto', 'SenhaIncorreta@123');
 
-    cy.contains("Incorrect Username or Password").should('be.visible');
+    cy.contains('Incorrect Username or Password').should('be.visible');
   })
 })

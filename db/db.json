@@ -15,6 +15,22 @@
       "username": "henrique",
       "email": "henrique@gmail.com",
       "password": "Senha@123"
+    },
+    {
+      "id": "7fe2",
+      "firstname": "gustavo",
+      "lastname": "henrique",
+      "username": "henrique2",
+      "email": "henrique2@gmail.com",
+      "password": "@Senha123"
+    },
+    {
+      "id": "8313",
+      "firstname": "Teste2",
+      "lastname": "Teste2",
+      "username": "test",
+      "email": "test@mail.com",
+      "password": "Senha@123"
     }
   ],
   "favorites": [
@@ -232,6 +248,14 @@
     },
     {
       "id": "63f5",
+      "favCharacters": []
+    },
+    {
+      "id": "7fe2",
+      "favCharacters": []
+    },
+    {
+      "id": "8313",
       "favCharacters": []
     }
   ]
